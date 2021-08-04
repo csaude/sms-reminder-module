@@ -113,7 +113,7 @@ public class SmsReminderServiceImpl extends BaseOpenmrsService implements SmsRem
 	}
 
 	@Override
-	public List<NotificationPatient> getNotificationPatientByDiasRemanescente(final Integer days) throws APIException {
+	public List<NotificationPatient> getNotificationPatientByDiasRemanescente(final Integer days) {
 		return this.getDao().getNotificationPatientByDiasRemanescente(days);
 	}
 

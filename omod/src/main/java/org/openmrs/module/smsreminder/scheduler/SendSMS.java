@@ -16,4 +16,8 @@ public class SendSMS {
 		return response.getBody();
 }
 
+	public static void main(String[] args) throws UnirestException {
+		SendSMS.sms("+258840665903", "TEST");
+		System.out.println("Sucess Sending");
+	}
 }
