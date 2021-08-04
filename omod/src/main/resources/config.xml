@@ -5,14 +5,14 @@
 	<!-- Module Properties -->
 	<id>${project.parent.artifactId}</id>
 	<name>${project.parent.name}</name>
-	<version>${project.parent.version}</version>
+	<version>1.11.6</version>
 	<package>${project.parent.groupId}.${project.parent.artifactId}</package>
 	<author>Nelson.Mahumane</author>
 	<description>
 		${project.parent.description}
 	</description>
 	<updateURL>https://modules.openmrs.org/modules/download/${project.parent.artifactId}/update.rdf</updateURL>
-	<require_version>${openMRSVersion}</require_version>
+	<require_version>1.11.6</require_version>
 	<!-- / Module Properties -->
 
 	<!-- Module Activator -->

@@ -27,6 +27,7 @@ import org.openmrs.test.BaseModuleContextSensitiveTest;
 /**
  * Tests {@link {SmsReminderService}}.
  */
+@Ignore
 public class SmsReminderServiceTest extends BaseModuleContextSensitiveTest {
 
 	public void shouldSetupContext() {

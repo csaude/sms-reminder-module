@@ -15,25 +15,14 @@
 
 	<dependencies>
 
-		<!-- 
-		Add other dependencies from parent's pom: 
-		<dependency> 
-			<groupId>org.other.library</groupId> 
-			<artifactId>library-name</artifactId> 
-		</dependency> 
-		-->
-		
 		<!-- Begin OpenMRS modules -->
-		
+
 		<dependency>
 			<groupId>${project.parent.groupId}</groupId>
 			<artifactId>${project.parent.artifactId}-api</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency>
-		
-				
-		<!-- End OpenMRS modules -->
-		
+
 
 		<!-- Begin OpenMRS core -->
 
@@ -48,7 +37,7 @@
 			<artifactId>openmrs-web</artifactId>
 			<type>jar</type>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.openmrs.api</groupId>
 			<artifactId>openmrs-api</artifactId>
@@ -69,27 +58,19 @@
 			<type>pom</type>
 			<scope>test</scope>
 		</dependency>
-		
-		<!-- End OpenMRS core -->
-		<!-- https://mvnrepository.com/artifact/org.smslib/smslib -->
+
 		<dependency>
-			<groupId>org.smslib</groupId>
-			<artifactId>smslib</artifactId>
-			<version>3.5.3</version>
+			<groupId>org.openmrs.module</groupId>
+			<artifactId>legacyui-omod</artifactId>
+			<version>1.5.0</version>
+			<scope>provided</scope>
 		</dependency>
-		
-		<dependency>
-		    <groupId>org.openmrs.module</groupId>
-		    <artifactId>legacyui-omod</artifactId>
-		    <version>1.5.0</version>
-		    <scope>provided</scope>
-		</dependency>
-		
+
 		<!-- https://mvnrepository.com/artifact/org.rxtx/rxtx -->
 		<dependency>
-		    <groupId>org.rxtx</groupId>
-		    <artifactId>rxtx</artifactId>
-		    <version>2.1.7</version>
+			<groupId>org.rxtx</groupId>
+			<artifactId>rxtx</artifactId>
+			<version>2.1.7</version>
 		</dependency>
 
 	</dependencies>
@@ -172,6 +153,17 @@
 						</lifecycleMappingMetadata>
 					</configuration>
 				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<configuration>
+						<forkCount>3</forkCount>
+						<reuseForks>true</reuseForks>
+						<argLine>-Xmx1024m -XX:MaxPermSize=256m</argLine>
+					</configuration>
+				</plugin>
+
 			</plugins>
 		</pluginManagement>
 
