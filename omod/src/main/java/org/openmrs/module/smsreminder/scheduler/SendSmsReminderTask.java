@@ -19,6 +19,7 @@ import org.openmrs.module.smsreminder.utils.DatasUtil;
 import org.openmrs.module.smsreminder.utils.SentType;
 import org.openmrs.module.smsreminder.utils.SmsReminderResource;
 import org.openmrs.scheduler.tasks.AbstractTask;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Created by nelson.mahumane on 20-10-2015.
@@ -26,6 +27,8 @@ import org.openmrs.scheduler.tasks.AbstractTask;
 public class SendSmsReminderTask extends AbstractTask {
 	// private static Log log = LogFactory.getLog(SendSmsReminderTask.class);
 	private final Log log = LogFactory.getLog(this.getClass());
+	
+	@Autowired private SendSMS sms;
 
 	@Override
 	public void execute() {
@@ -55,7 +58,7 @@ public class SendSmsReminderTask extends AbstractTask {
 								+ " o dia " + notificationFollowUpPatient.getNextFila()
 								+ " Vem ao teu hospital,estamos a tua espera!";
 
-						SendSMS.sms(notificationFollowUpPatient.getPhoneNumber(), message);
+						sms.sms(notificationFollowUpPatient.getPhoneNumber(), message);
 						
 						notificationFollowUpPatient.setNotificationMassage(message);
 
@@ -65,7 +68,7 @@ public class SendSmsReminderTask extends AbstractTask {
 					if (notificationFollowUpPatient.getTotalFollowUpDays().intValue() == 7) {
 						final String message = "A tua saude e muito importante. Lembra-te que tinhas visita marcada para o dia "
 								+ notificationFollowUpPatient.getNextFila() + " Nao deixes de vir ao teu hospital!";
-						SendSMS.sms(notificationFollowUpPatient.getPhoneNumber(), message);
+						sms.sms(notificationFollowUpPatient.getPhoneNumber(), message);
 						
 						notificationFollowUpPatient.setNotificationMassage(message);
 
@@ -77,7 +80,7 @@ public class SendSmsReminderTask extends AbstractTask {
 					if (notificationFollowUpPatient.getTotalFollowUpDays().intValue() == 15) {
 						final String message = "A sua saude e' muito importante para si e para a sua familia."
 								+ " Lembra-se que esta sem " + "vir a consulta ha 15 dias.";
-						SendSMS.sms(notificationFollowUpPatient.getPhoneNumber(), message);
+						sms.sms(notificationFollowUpPatient.getPhoneNumber(), message);
 						
 						notificationFollowUpPatient.setNotificationMassage(message);
 
@@ -88,7 +91,7 @@ public class SendSmsReminderTask extends AbstractTask {
 					if (notificationFollowUpPatient.getTotalFollowUpDays().intValue() == 30) {
 						final String message = "A sua saude e' muito importante para si e para a sua familia. "
 								+ "Continuamos a sua espera. Nao deixe de vir ao seu hospital.";
-						SendSMS.sms(notificationFollowUpPatient.getPhoneNumber(), message);
+						sms.sms(notificationFollowUpPatient.getPhoneNumber(), message);
 						
 						notificationFollowUpPatient.setNotificationMassage(message);
 
@@ -100,7 +103,7 @@ public class SendSmsReminderTask extends AbstractTask {
 						final String message = "Com saude construimos o futuro, "
 								+ "continue a controlar a sua saude no hospital. " + "Estamos a sua espera!";
 						
-						SendSMS.sms(notificationFollowUpPatient.getPhoneNumber(), message);
+						sms.sms(notificationFollowUpPatient.getPhoneNumber(), message);
 						
 						notificationFollowUpPatient.setNotificationMassage(message);
 
@@ -160,7 +163,7 @@ public class SendSmsReminderTask extends AbstractTask {
 									+ locationService.getLocation(Integer.valueOf(us)).getName() + " " + "no dia  "
 									+ DatasUtil.formatarDataPt(notificationPatient.getProximaVisita());
 
-					SendSMS.sms(notificationPatient.getTelemovel(), messagem);
+					sms.sms(notificationPatient.getTelemovel(), messagem);
 
 					final Sent sent = new Sent();
 					sent.setCellNumber(notificationPatient.getTelemovel());
