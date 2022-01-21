@@ -57,7 +57,6 @@ public class HibernateSmsReminderDAO implements SmsReminderDAO {
 		this.sessionFactory = sessionFactory;
 	}
 
-	@SuppressWarnings("unused")
 	private org.hibernate.Session getCurrentSession() {
 		try {
 			return this.sessionFactory.getCurrentSession();
@@ -73,7 +72,7 @@ public class HibernateSmsReminderDAO implements SmsReminderDAO {
 
 	@Override
 	public Sent saveSent(final Sent sent) {
-		this.sessionFactory.getCurrentSession().saveOrUpdate(sent);
+	getCurrentSession().saveOrUpdate(sent);
 		return sent;
 	}
 
@@ -82,7 +81,6 @@ public class HibernateSmsReminderDAO implements SmsReminderDAO {
 		this.sessionFactory.getCurrentSession().delete(sent);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<Sent> getAllSent() throws DAOException {
 		final Criteria c = this.sessionFactory.getCurrentSession().createCriteria(Sent.class);
@@ -159,13 +157,131 @@ public class HibernateSmsReminderDAO implements SmsReminderDAO {
 		return c.list();
 	}
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<NotificationPatient> getNotificationPatientByDiasRemanescente(final Integer diasRemanescente)
+	public List<NotificationPatient> getNotificationPatientByDiasRemanescente()
 			throws DAOException {
-		final Criteria c = this.sessionFactory.getCurrentSession().createCriteria(NotificationPatient.class);
-		c.add(Restrictions.eq("diasRemanescente", diasRemanescente));
-		return c.list();
+		final String sql ="select  "
+				+ "inicioTARV.data_inicio, "
+				+ "pid.identifier AS nid, "
+				+ "CONCAT(ifnull(pn.given_name,''),' ',ifnull(pn.middle_name,''),' ',ifnull(pn.family_name,''))  AS nome_completo, "
+				+ "pa.value AS telemovel,"
+				+ "p.gender AS sexo, "
+				+ "maxFila.encounter_type as visita, "
+				+ "maxFila.encounter_datetime as ultima_visita, "
+				+ "obsProximo.value_datetime as proximo_visita, "
+				+ "(to_days(obsProximo.value_datetime) - to_days(curdate())) AS dias_remanescente, maxFila.patient_id "
+				+ "from ( "
+				+ "select p.patient_id AS patient_id,min(e.encounter_datetime) AS data_inicio "
+				+ "from ((patient p "
+				+ "join encounter e on((p.patient_id = e.patient_id))) "
+				+ "join obs o on((o.encounter_id = e.encounter_id))) "
+				+ "where ((e.voided = 0) "
+				+ "and (o.voided = 0) "
+				+ "and (p.voided = 0) "
+				+ "and (e.encounter_type in (18,6,9)) "
+				+ "and (o.concept_id = 1255) "
+				+ "and (o.value_coded = 1256) "
+				+ "and (e.encounter_datetime >= (select global_property.property_value "
+				+ "from global_property where (global_property.property = 'smsreminder.reference_date'))) "
+				+ "and (e.location_id = (select cast(global_property.property_value as unsigned) "
+				+ "from global_property where (global_property.property = 'smsreminder.us')))) "
+				+ "group by p.patient_id "
+				+ "union "
+				+ "select p.patient_id AS patient_id,min(o.value_datetime) AS data_inicio "
+				+ "from ((patient p "
+				+ "join encounter e on((p.patient_id = e.patient_id))) "
+				+ "join obs o on((e.encounter_id = o.encounter_id))) "
+				+ "where ((p.voided = 0) "
+				+ "and (e.voided = 0) "
+				+ "and (o.voided = 0) "
+				+ "and (e.encounter_type in (18,6,9)) "
+				+ "and (o.concept_id = 1190) "
+				+ "and (o.value_datetime is not null) "
+				+ "and (o.value_datetime >= (select global_property.property_value "
+				+ "from global_property where (global_property.property = 'smsreminder.reference_date'))) "
+				+ "and (e.location_id = (select cast(global_property.property_value as unsigned) "
+				+ "from global_property where (global_property.property = 'smsreminder.us')))) "
+				+ "group by p.patient_id "
+				+ "union "
+				+ "select pg.patient_id AS patient_id,pg.date_enrolled AS data_inicio from (patient p "
+				+ "join patient_program pg on((p.patient_id = pg.patient_id))) "
+				+ "where ((pg.voided = 0) "
+				+ "and (p.voided = 0) "
+				+ "and (pg.program_id = 2) "
+				+ "and (pg.date_enrolled >= (select global_property.property_value "
+				+ "from global_property where (global_property.property = 'smsreminder.reference_date'))) "
+				+ "and (pg.location_id = (select cast(global_property.property_value as unsigned) "
+				+ "from global_property where (global_property.property = 'smsreminder.us')))) "
+				+ ")inicioTARV "
+				+ "inner join ( "
+				+ "select patient.patient_id AS patient_id, "
+				+ "encounter.encounter_datetime AS encounter_datetime "
+				+ "from obs "
+				+ "join encounter on obs.encounter_id = encounter.encounter_id "
+				+ "join patient on encounter.patient_id = patient.patient_id "
+				+ "where obs.concept_id = 6309 "
+				+ "and encounter.encounter_type = 34 "
+				+ "and encounter.voided=0 "
+				+ "and patient.voided=0 "
+				+ "and obs.value_coded = 6307 "
+				+ "group by patient.patient_id "
+				+ "UNION "
+				+ "select patient.patient_id AS patient_id, "
+				+ "max(encounter.encounter_datetime) AS encounter_datetime from obs "
+				+ "join encounter on obs.encounter_id = encounter.encounter_id "
+				+ "join patient on encounter.patient_id = patient.patient_id "
+				+ "where  encounter.encounter_type = 35 "
+				+ "and encounter.voided=0 "
+				+ "and patient.voided=0 "
+				+ "and obs.concept_id = 6309 "
+				+ "and	obs.value_coded = 6307 "
+				+ "group by patient.patient_id "
+				+ ") Contacto on inicioTARV.patient_id=Contacto.patient_id "
+				+ "inner join ( "
+				+ "select p.patient_id AS patient_id, "
+				+ "max(e.encounter_datetime) AS encounter_datetime, "
+				+ "e.encounter_type AS encounter_type from (patient p "
+				+ "join encounter e on((e.patient_id = p.patient_id))) "
+				+ "where ((p.voided = 0) "
+				+ "and (e.voided = 0) "
+				+ "and (e.encounter_type = 18)) "
+				+ "group by p.patient_id "
+				+ ")maxFila on inicioTARV.patient_id=maxFila.patient_id "
+				+ "inner join 	obs obsProximo on obsProximo.person_id=maxFila.patient_id and obsProximo.concept_id=5096 and obsProximo.voided=0 "
+				+ "inner join person p on p.person_id = maxFila.patient_id  "
+				+ "inner join person_attribute pa on pa.person_id = maxFila.patient_id and pa.person_attribute_type_id = 9 and pa.voided=0 "
+				+ "inner join patient_identifier pid on pid.patient_id = maxFila.patient_id and pid.voided=0 "
+				+ "inner join person_name pn on pn.person_id=maxFila.patient_id and pn.voided=0 where maxFila.patient_id=4697 "
+				+ "group by maxFila.patient_id ";
+		
+		final Query query = this.getCurrentSession().createSQLQuery(sql);
+
+
+		final List<NotificationPatient> notificationPatients = new ArrayList<NotificationPatient>();
+
+		@SuppressWarnings("unchecked")
+		final List<Object[]> list = query.list();
+		
+		for (final Object[] object : list) {
+
+			final NotificationPatient notificationPatient = new NotificationPatient();
+
+			notificationPatient.setInicioTarv((Date) object[0]);
+			notificationPatient.setNid((String)object[1]);
+			notificationPatient.setNome((String) object[2]);
+			notificationPatient.setTelemovel((String)object[3]);
+			notificationPatient.setSexo((String)object[4]);
+			notificationPatient.setTipoVisita((Integer)object[5]);
+			notificationPatient.setUltimaVisita((Date)object[6]);
+			notificationPatient.setProximaVisita((Date) object[7]);
+			notificationPatient.setDiasRemanescente((BigInteger)object[8]);
+			notificationPatient.setIdentificador((Integer) object [9]);
+
+			notificationPatients.add(notificationPatient);
+		}
+
+		return notificationPatients;
+
+
 	}
 
 	@SuppressWarnings("unchecked")
@@ -207,7 +323,7 @@ public class HibernateSmsReminderDAO implements SmsReminderDAO {
 				+ "o.concept_id=1410 and datediff(CURDATE(), o.value_datetime)<1) "
 				+ "and datediff(CURDATE(),o.value_datetime) between 1 and 60 ";
 
-		final Query query = this.sessionFactory.getCurrentSession().createSQLQuery(sql);
+		final Query query = this.getCurrentSession().createSQLQuery(sql);
 
 		final List<NotificationFollowUpPatient> notificationFollowUpPatients = new ArrayList<NotificationFollowUpPatient>();
 

@@ -63,13 +63,6 @@ public class Sent extends BaseOpenmrsData implements Serializable {
         this.message = message;
     }
 
-    public Integer getRemainDays() {
-        return this.remainDays;
-    }
-
-    public void setRemainDays(final Integer remainDays) {
-        this.remainDays = remainDays;
-    }
 
     public String getStatus() {
         return this.status;
@@ -121,5 +114,14 @@ public class Sent extends BaseOpenmrsData implements Serializable {
 	public void setSentType(final SentType sentType) {
 		this.sentType = sentType;
 	}
+
+	public Integer getRemainDays() {
+		return remainDays;
+	}
+
+	public void setRemainDays(Integer remainDays) {
+		this.remainDays = remainDays;
+	}
+
 
 }

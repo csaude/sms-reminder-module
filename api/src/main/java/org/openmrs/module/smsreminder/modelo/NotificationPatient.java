@@ -1,9 +1,10 @@
 package org.openmrs.module.smsreminder.modelo;
 
-import org.openmrs.BaseOpenmrsData;
-
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.util.Date;
+
+import org.openmrs.BaseOpenmrsData;
 
 /**
  * Created by nelson.mahumane on 12-06-2015.
@@ -15,7 +16,7 @@ public class NotificationPatient extends BaseOpenmrsData implements Serializable
     private String telemovel;
     private String nome;
     private String sexo;
-    private Integer diasRemanescente;
+    private BigInteger diasRemanescente;
     private Integer identificador;
     private Integer tipoVisita;
     private Date ultimaVisita;
@@ -47,13 +48,7 @@ public class NotificationPatient extends BaseOpenmrsData implements Serializable
         this.telemovel = telemovel;
     }
 
-    public Integer getDiasRemanescente() {
-        return diasRemanescente;
-    }
 
-    public void setDiasRemanescente(Integer diasRemanescente) {
-        this.diasRemanescente = diasRemanescente;
-    }
 
     public Integer getIdentificador() {
         return identificador;
@@ -109,4 +104,12 @@ public class NotificationPatient extends BaseOpenmrsData implements Serializable
     public void setSexo(String sexo) {
         this.sexo = sexo;
     }
+
+	public BigInteger getDiasRemanescente() {
+		return diasRemanescente;
+	}
+
+	public void setDiasRemanescente(BigInteger diasRemanescente) {
+		this.diasRemanescente = diasRemanescente;
+	}
 }

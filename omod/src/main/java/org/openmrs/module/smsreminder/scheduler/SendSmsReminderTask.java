@@ -19,7 +19,8 @@ import org.openmrs.module.smsreminder.utils.DatasUtil;
 import org.openmrs.module.smsreminder.utils.SentType;
 import org.openmrs.module.smsreminder.utils.SmsReminderResource;
 import org.openmrs.scheduler.tasks.AbstractTask;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import com.mashape.unirest.http.exceptions.UnirestException;
 
 /**
  * Created by nelson.mahumane on 20-10-2015.
@@ -27,22 +28,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class SendSmsReminderTask extends AbstractTask {
 	// private static Log log = LogFactory.getLog(SendSmsReminderTask.class);
 	private final Log log = LogFactory.getLog(this.getClass());
-	
-	@Autowired private SendSMS sms;
 
 	@Override
 	public void execute() {
 
 		Context.openSession();
 		this.log.info("Starting send SMS ... ");
-		this.getNotificationPatient();
+		try {
+			this.getNotificationPatient();
+		} catch (UnirestException e) {
+			e.printStackTrace();
+		}
 
-		this.log.info("Sending SMS to Follow Up Patient ... ");
-		this.getNotificationFollowUpPatient();
+		this.log.info("End send SMS ... ");
+
+//		this.log.info("Sending SMS to Follow Up Patient ... ");
+//		this.getNotificationFollowUpPatient();
 
 	}
 
-	private void getNotificationFollowUpPatient() {
+	private void getNotificationFollowUpPatient() throws UnirestException{
 		try {
 
 			final List<NotificationFollowUpPatient> notificationPatients = SmsReminderResource
@@ -58,7 +63,7 @@ public class SendSmsReminderTask extends AbstractTask {
 								+ " o dia " + notificationFollowUpPatient.getNextFila()
 								+ " Vem ao teu hospital,estamos a tua espera!";
 
-						sms.sms(notificationFollowUpPatient.getPhoneNumber(), message);
+						SendSMS.sms(notificationFollowUpPatient.getPhoneNumber(), message);
 						
 						notificationFollowUpPatient.setNotificationMassage(message);
 
@@ -68,7 +73,7 @@ public class SendSmsReminderTask extends AbstractTask {
 					if (notificationFollowUpPatient.getTotalFollowUpDays().intValue() == 7) {
 						final String message = "A tua saude e muito importante. Lembra-te que tinhas visita marcada para o dia "
 								+ notificationFollowUpPatient.getNextFila() + " Nao deixes de vir ao teu hospital!";
-						sms.sms(notificationFollowUpPatient.getPhoneNumber(), message);
+						SendSMS.sms(notificationFollowUpPatient.getPhoneNumber(), message);
 						
 						notificationFollowUpPatient.setNotificationMassage(message);
 
@@ -80,7 +85,7 @@ public class SendSmsReminderTask extends AbstractTask {
 					if (notificationFollowUpPatient.getTotalFollowUpDays().intValue() == 15) {
 						final String message = "A sua saude e' muito importante para si e para a sua familia."
 								+ " Lembra-se que esta sem " + "vir a consulta ha 15 dias.";
-						sms.sms(notificationFollowUpPatient.getPhoneNumber(), message);
+						SendSMS.sms(notificationFollowUpPatient.getPhoneNumber(), message);
 						
 						notificationFollowUpPatient.setNotificationMassage(message);
 
@@ -91,7 +96,7 @@ public class SendSmsReminderTask extends AbstractTask {
 					if (notificationFollowUpPatient.getTotalFollowUpDays().intValue() == 30) {
 						final String message = "A sua saude e' muito importante para si e para a sua familia. "
 								+ "Continuamos a sua espera. Nao deixe de vir ao seu hospital.";
-						sms.sms(notificationFollowUpPatient.getPhoneNumber(), message);
+						SendSMS.sms(notificationFollowUpPatient.getPhoneNumber(), message);
 						
 						notificationFollowUpPatient.setNotificationMassage(message);
 
@@ -103,11 +108,13 @@ public class SendSmsReminderTask extends AbstractTask {
 						final String message = "Com saude construimos o futuro, "
 								+ "continue a controlar a sua saude no hospital. " + "Estamos a sua espera!";
 						
-						sms.sms(notificationFollowUpPatient.getPhoneNumber(), message);
+						SendSMS.sms(notificationFollowUpPatient.getPhoneNumber(), message);
 						
 						notificationFollowUpPatient.setNotificationMassage(message);
 
 						this.saveSent(notificationFollowUpPatient);
+						
+
 
 					}
 				}
@@ -139,10 +146,10 @@ public class SendSmsReminderTask extends AbstractTask {
 
 	}
 
-	private void getNotificationPatient() {
+	private void getNotificationPatient() throws UnirestException {
 		try {
 			final AdministrationService administrationService = Context.getAdministrationService();
-			final List<NotificationPatient> notificationPatients = SmsReminderResource.getAllNotificationPatiens();
+			final List<NotificationPatient> notificationPatients = SmsReminderResource.getAllNotificationPatient();;
 			final SmsReminderService smsReminderService = SmsReminderUtils.getService();
 			final PatientService patientService = Context.getPatientService();
 			final LocationService locationService = Context.getLocationService();
@@ -155,6 +162,7 @@ public class SendSmsReminderTask extends AbstractTask {
 
 				for (final NotificationPatient notificationPatient : notificationPatients) {
 					
+					
 					final String messagem = (notificationPatient.getSexo().equals("M"))
 							? "O sr: " + notificationPatient.getNome() + " " + message + " "
 									+ "no " + locationService.getLocation(Integer.valueOf(us)).getName() + " "
@@ -163,16 +171,19 @@ public class SendSmsReminderTask extends AbstractTask {
 									+ locationService.getLocation(Integer.valueOf(us)).getName() + " " + "no dia  "
 									+ DatasUtil.formatarDataPt(notificationPatient.getProximaVisita());
 
-					sms.sms(notificationPatient.getTelemovel(), messagem);
+									SendSMS.sms(notificationPatient.getTelemovel(), messagem);
 
 					final Sent sent = new Sent();
 					sent.setCellNumber(notificationPatient.getTelemovel());
 					sent.setAlertDate(notificationPatient.getProximaVisita());
 					sent.setMessage(messagem);
-					sent.setRemainDays(notificationPatient.getDiasRemanescente());
+					sent.setRemainDays(notificationPatient.getDiasRemanescente().intValue());
 					sent.setPatient(patientService.getPatient(notificationPatient.getIdentificador()));
 					sent.setSentType(SentType.New_Member);
 					smsReminderService.saveSent(sent);
+					this.log.info("Send done... ");
+				
+					
 				}
 			}
 

@@ -56,7 +56,7 @@ public interface SmsReminderDAO {
 
 	public List<NotificationPatient> getNotificationPatientList() throws DAOException;
 
-	public List<NotificationPatient> getNotificationPatientByDiasRemanescente(Integer days) throws DAOException;
+	public List<NotificationPatient> getNotificationPatientByDiasRemanescente() throws DAOException;
 
 	public List<NotificationFollowUpPatient> searchFollowUpPatient();
 }

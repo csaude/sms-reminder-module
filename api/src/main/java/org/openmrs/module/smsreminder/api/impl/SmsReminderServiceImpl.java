@@ -13,12 +13,10 @@
  */
 package org.openmrs.module.smsreminder.api.impl;
 
-import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.openmrs.Patient;
 import org.openmrs.api.APIException;
 import org.openmrs.api.db.PatientDAO;
 import org.openmrs.api.impl.BaseOpenmrsService;
@@ -37,6 +35,7 @@ public class SmsReminderServiceImpl extends BaseOpenmrsService implements SmsRem
 	protected final Log log = LogFactory.getLog(this.getClass());
 
 	private SmsReminderDAO dao;
+	
 	@Autowired
 	private PatientDAO patientDAO;
 
@@ -66,55 +65,10 @@ public class SmsReminderServiceImpl extends BaseOpenmrsService implements SmsRem
 		return this.getDao().getAllSent();
 	}
 
-	@Override
-	public Sent getSentById(final Integer id) throws APIException {
-		return this.getDao().getSentById(id);
-	}
 
 	@Override
-	public List<Sent> getSentByCellNumber(final String cellNumber) throws APIException {
-		return this.getDao().getSentByCellNumber(cellNumber);
-	}
-
-	@Override
-	public List<Sent> getSentByAlertDate(final Date alertDate) throws APIException {
-		return this.getDao().getSentByAlertDate(alertDate);
-	}
-
-	@Override
-	public List<Sent> getSentByMessage(final String message) throws APIException {
-		return this.getDao().getSentByMessage(message);
-	}
-
-	@Override
-	public List<Sent> getSentByStatus(final String status) throws APIException {
-		return this.getDao().getSentByStatus(status);
-	}
-
-	@Override
-	public List<Sent> getSentByCreated(final Date created) throws APIException {
-		return this.getDao().getSentByCreated(created);
-	}
-
-	@Override
-	public List<Sent> getSentBetweenCreatedAndStatus(final Date start, final Date end, final List statuses)
-			throws APIException {
-		return this.getDao().getSentBetweenCreatedAndStatus(start, end, statuses);
-	}
-
-	@Override
-	public List<Sent> getSentByPatient(final Patient patient) throws APIException {
-		return this.getDao().getSentByPatient(patient);
-	}
-
-	@Override
-	public List<NotificationPatient> getNotificationPatientList() throws APIException {
-		return this.getDao().getNotificationPatientList();
-	}
-
-	@Override
-	public List<NotificationPatient> getNotificationPatientByDiasRemanescente(final Integer days) {
-		return this.getDao().getNotificationPatientByDiasRemanescente(days);
+	public List<NotificationPatient> getNotificationPatientByDiasRemanescente() {
+		return this.getDao().getNotificationPatientByDiasRemanescente();
 	}
 
 	@Override
