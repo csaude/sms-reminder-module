@@ -16,9 +16,18 @@ public class SendSMS {
 
 		return response.getBody();
 	}
-	
-public static void main(String[] args) throws UnirestException {
-	SendSMS.sms("+258840665903", "Ola");
 
-}
+	public static void main(String[] args) throws UnirestException {
+		SendSMS.sms("+258840665903", "Ola");
+
+	}
+
+	public String SendMessage(String username, String password, String partnerEventId, String timezone,
+			String partnerMsgId, String sender, String msisdn, int mobileOperator, int priority,
+			String expirationDatetime, String messageText, String scheduleDatetime, String beginTime, String endTime,
+			Boolean workingDays, Boolean isFlash) {
+		
+		return null;
+
+	}
 }
