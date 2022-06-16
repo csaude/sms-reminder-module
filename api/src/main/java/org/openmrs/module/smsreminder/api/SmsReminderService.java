@@ -17,9 +17,8 @@ import java.util.List;
 
 import org.openmrs.api.APIException;
 import org.openmrs.api.OpenmrsService;
-import org.openmrs.module.smsreminder.modelo.NotificationFollowUpPatient;
-import org.openmrs.module.smsreminder.modelo.NotificationPatient;
-import org.openmrs.module.smsreminder.modelo.Sent;
+import org.openmrs.module.smsreminder.model.NotificationPatient;
+import org.openmrs.module.smsreminder.model.Sent;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -47,6 +46,6 @@ public interface SmsReminderService extends OpenmrsService {
 	public List<NotificationPatient> getNotificationPatientByDiasRemanescente() throws APIException;
 
 	@Transactional
-	public List<NotificationFollowUpPatient> searchFollowUpPatient();
+	public List<NotificationPatient> searchFollowUpPatient();
 
 }

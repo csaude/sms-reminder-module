@@ -22,9 +22,8 @@ import org.openmrs.api.db.PatientDAO;
 import org.openmrs.api.impl.BaseOpenmrsService;
 import org.openmrs.module.smsreminder.api.SmsReminderService;
 import org.openmrs.module.smsreminder.api.db.SmsReminderDAO;
-import org.openmrs.module.smsreminder.modelo.NotificationFollowUpPatient;
-import org.openmrs.module.smsreminder.modelo.NotificationPatient;
-import org.openmrs.module.smsreminder.modelo.Sent;
+import org.openmrs.module.smsreminder.model.NotificationPatient;
+import org.openmrs.module.smsreminder.model.Sent;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -72,7 +71,7 @@ public class SmsReminderServiceImpl extends BaseOpenmrsService implements SmsRem
 	}
 
 	@Override
-	public List<NotificationFollowUpPatient> searchFollowUpPatient() {
+	public List<NotificationPatient> searchFollowUpPatient() {
 		return this.getDao().searchFollowUpPatient();
 	}
 
