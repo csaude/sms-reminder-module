@@ -4,27 +4,25 @@
 
 	<parent>
 		<groupId>org.openmrs.module</groupId>
-		<artifactId>smsreminder</artifactId>
-		<version>2.0</version>
+		<artifactId>smsrimender</artifactId>
+		<version>1.0-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>smsreminder-omod</artifactId>
+	<artifactId>smsrimender-omod</artifactId>
 	<packaging>jar</packaging>
-	<name>SMS Reminder to FGH Patients Module OMOD</name>
-	<description>OMOD project for SMSRemindertoFGHPatients</description>
+	<name>SMS Module Module OMOD</name>
+	<description>OMOD project for DisaModule</description>
 
 	<dependencies>
 
 		<!-- Begin OpenMRS modules -->
-
+		
 		<dependency>
 			<groupId>${project.parent.groupId}</groupId>
-			<artifactId>${project.parent.artifactId}-api</artifactId>
+			<artifactId>smsreminder-api</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency>
 
-
-		<!-- Begin OpenMRS core -->
 
 		<dependency>
 			<groupId>org.openmrs.api</groupId>
@@ -59,57 +57,27 @@
 			<scope>test</scope>
 		</dependency>
 
+		<!-- End OpenMRS core -->
+		
 		<dependency>
 			<groupId>org.openmrs.module</groupId>
 			<artifactId>legacyui-omod</artifactId>
-			<version>1.5.0</version>
+			<version>1.8.2</version>
 			<scope>provided</scope>
 		</dependency>
-
-		<!-- https://mvnrepository.com/artifact/org.rxtx/rxtx -->
-		<dependency>
-			<groupId>org.rxtx</groupId>
-			<artifactId>rxtx</artifactId>
-			<version>2.1.7</version>
-		</dependency>
-
-		<dependency>
-			<groupId>com.mashape.unirest</groupId>
-			<artifactId>unirest-java</artifactId>
-			<version>1.4.7</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpclient</artifactId>
-			<version>4.3.6</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpasyncclient</artifactId>
-			<version>4.0.2</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpmime</artifactId>
-			<version>4.3.6</version>
-		</dependency>
-		
-		<dependency>
-		    <groupId>javax.xml</groupId>
-		    <artifactId>webservices-api</artifactId>
-		    <version>2.0.1</version>
-		</dependency>
-		
-		<!-- https://mvnrepository.com/artifact/xerces/xercesImpl -->
-<dependency>
-    <groupId>xerces</groupId>
-    <artifactId>xercesImpl</artifactId>
-    <version>2.8.0</version>
-</dependency>
-
-
 	</dependencies>
+	
+	<repositories>
+		<repository>
+			<id>openmrs-repo</id>
+			<name>OpenMRS Public Repository</name>
+			<url>https://mavenrepo.openmrs.org/public</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+	
 	<build>
 		<finalName>${project.parent.artifactId}-${project.parent.version}</finalName>
 		<resources>
@@ -189,17 +157,6 @@
 						</lifecycleMappingMetadata>
 					</configuration>
 				</plugin>
-
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-surefire-plugin</artifactId>
-					<configuration>
-						<forkCount>3</forkCount>
-						<reuseForks>true</reuseForks>
-						<argLine>-Xmx1024m -XX:MaxPermSize=256m</argLine>
-					</configuration>
-				</plugin>
-
 			</plugins>
 		</pluginManagement>
 
