@@ -34,7 +34,7 @@ public class SendSmsReminderTask extends AbstractTask {
 		if (!notificationPatients.isEmpty()) {
 			for (NotificationPatient notificationPatient : notificationPatients) {
 
-				String mensage = "Sr ".concat(" " + notificationPatient.getFullName())
+				String mensage = "Sr ".concat(notificationPatient.getFullName())
 						.concat(PropertiesCache.getInstance().getProperty("message"))
 						.concat(locationService.getLocation(Integer.valueOf(gpUs.getPropertyValue())).getName())
 						.concat(" no dia").concat(DatasUtil.formatarDataPt(notificationPatient.getNextVisitDate()));
