@@ -11,7 +11,7 @@
  *
  * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
  */
-package org.openmrs.module.smsreminder;
+package org.openmrs.module.smsrimender;
 
 import java.io.Serializable;
 import org.openmrs.BaseOpenmrsObject;

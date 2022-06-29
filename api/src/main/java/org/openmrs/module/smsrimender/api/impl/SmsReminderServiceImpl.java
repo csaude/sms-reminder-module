@@ -11,7 +11,7 @@
  *
  * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
  */
-package org.openmrs.module.smsreminder.api.impl;
+package org.openmrs.module.smsrimender.api.impl;
 
 import java.util.List;
 
@@ -20,10 +20,10 @@ import org.apache.commons.logging.LogFactory;
 import org.openmrs.api.APIException;
 import org.openmrs.api.db.PatientDAO;
 import org.openmrs.api.impl.BaseOpenmrsService;
-import org.openmrs.module.smsreminder.api.SmsReminderService;
-import org.openmrs.module.smsreminder.api.db.SmsReminderDAO;
-import org.openmrs.module.smsreminder.model.NotificationPatient;
-import org.openmrs.module.smsreminder.model.Sent;
+import org.openmrs.module.smsrimender.api.SmsReminderService;
+import org.openmrs.module.smsrimender.api.db.SmsReminderDAO;
+import org.openmrs.module.smsrimender.model.NotificationPatient;
+import org.openmrs.module.smsrimender.model.Sent;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**

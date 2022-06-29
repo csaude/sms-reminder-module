@@ -11,7 +11,7 @@
 	<artifactId>smsrimender-omod</artifactId>
 	<packaging>jar</packaging>
 	<name>SMS Module Module OMOD</name>
-	<description>OMOD project for DisaModule</description>
+	<description>OMOD project for SMSRIMENDER</description>
 
 	<dependencies>
 
@@ -19,7 +19,7 @@
 		
 		<dependency>
 			<groupId>${project.parent.groupId}</groupId>
-			<artifactId>smsreminder-api</artifactId>
+			<artifactId>smsrimender-api</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency>
 

@@ -21,7 +21,8 @@ import java.util.List;
 
 import org.junit.Ignore;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.smsreminder.model.NotificationPatient;
+import org.openmrs.module.smsrimender.api.SmsReminderService;
+import org.openmrs.module.smsrimender.model.NotificationPatient;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 
 /**

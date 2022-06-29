@@ -1,4 +1,4 @@
-package org.openmrs.module.smsreminder;
+package org.openmrs.module.smsrimender;
 
 /**
  * Created by nelson.mahumane on 05-06-2015.
@@ -6,7 +6,7 @@ package org.openmrs.module.smsreminder;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.smsreminder.api.SmsReminderService;
+import org.openmrs.module.smsrimender.api.SmsReminderService;
 
 public class SmsReminderUtils {
     protected final Log log = LogFactory.getLog(getClass());

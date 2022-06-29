@@ -11,10 +11,9 @@
  *
  * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
  */
-package org.openmrs.module.smsreminder.api.db.hibernate;
+package org.openmrs.module.smsrimender.api.db.hibernate;
 
 import java.lang.reflect.Method;
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -28,10 +27,10 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.openmrs.Patient;
 import org.openmrs.api.db.DAOException;
-import org.openmrs.module.smsreminder.api.db.SmsReminderDAO;
-import org.openmrs.module.smsreminder.model.NotificationPatient;
-import org.openmrs.module.smsreminder.model.Sent;
-import org.openmrs.module.smsreminder.utils.DatasUtil;
+import org.openmrs.module.smsrimender.api.db.SmsReminderDAO;
+import org.openmrs.module.smsrimender.model.NotificationPatient;
+import org.openmrs.module.smsrimender.model.Sent;
+import org.openmrs.module.smsrimender.utils.DatasUtil;
 
 /**
  * It is a default implementation of {@link SmsReminderDAO}.
@@ -233,7 +232,7 @@ public class HibernateSmsReminderDAO implements SmsReminderDAO {
 			notificationPatient.setVisitType((Integer) object[5]);
 			notificationPatient.setLastVisitDate((Date) object[6]);
 			notificationPatient.setNextVisitDate((Date) object[7]);
-			notificationPatient.setReminderDays((BigInteger) object[8]);
+			notificationPatient.setReminderDays((Integer) object[8]);
 
 			notificationPatients.add(notificationPatient);
 		}
@@ -293,7 +292,7 @@ public class HibernateSmsReminderDAO implements SmsReminderDAO {
 			notificationPatient.setId((Integer) object[0]);
 			notificationPatient.setArtStartDate((Date) object[1]);
 			notificationPatient.setNid((String) object[2]);
-			notificationPatient.setReminderDays((BigInteger) object[2]);
+			notificationPatient.setReminderDays((Integer) object[2]);
 
 			notificationPatients.add(notificationPatient);
 		}

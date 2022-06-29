@@ -3,10 +3,13 @@ package org.openmrs.module.smsreminder.utils;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.openmrs.api.PatientService;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.smsreminder.SmsReminderUtils;
-import org.openmrs.module.smsreminder.api.SmsReminderService;
-import org.openmrs.module.smsreminder.model.NotificationPatient;
+import org.openmrs.module.smsrimender.SmsReminderUtils;
+import org.openmrs.module.smsrimender.api.SmsReminderService;
+import org.openmrs.module.smsrimender.model.NotificationPatient;
+import org.openmrs.module.smsrimender.model.Sent;
+import org.openmrs.module.smsrimender.utils.SentType;
 
 /**
  * Created by nelson.mahumane on 20-10-2015. Classe que organiza todos recursos
@@ -38,6 +41,18 @@ public class SmsReminderResource {
 
 	}
 
+	public static void saveSent(final NotificationPatient notificationPatient, SentType sentType) {
+		final Sent sent = new Sent();
+		final PatientService patientService = Context.getPatientService();
+		final SmsReminderService smsReminderService = SmsReminderUtils.getService();
+		sent.setPhoneNumber(notificationPatient.getPhoneNumber());
+		sent.setMessage(notificationPatient.getMensage());
+		sent.setAlertDate(notificationPatient.getDateCreated());
+		sent.setReminderDays(notificationPatient.getReminderDays());
+		sent.setPatient(patientService.getPatient(notificationPatient.getPatientId()));
+		sent.setSentType(sentType);
+		smsReminderService.saveSent(sent);
 
+	}
 	
 }

@@ -3,9 +3,9 @@
     "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
 
-<hibernate-mapping package="org.openmrs.module.smsreminder.modelo">
-	<class name="org.openmrs.module.smsreminder.modelo.Sent" table="smsreminder_sent" batch-size="25">
-		<id name="sentId" type="int" column="sent_id" unsaved-value="0">
+<hibernate-mapping package="org.openmrs.module.smsrimender.modelo">
+	<class name="org.openmrs.module.smsrimender.model.Sent" table="smsreminder_sent" batch-size="25">
+		<id name="sentId" type="int" column="sent_id" unsaved-value="0" >
 			<generator class="native" />
 		</id>
 		<discriminator column="sent_id" insert="false" />
@@ -16,7 +16,6 @@
 		<property name="message" type="java.lang.String" column="message" not-null="true" length="150"/>
 		<property name="status" type="java.lang.String" column="status" not-null="false"  length="150"/>
 		<property name="sentType" type="java.lang.String" column="sent_type" not-null="false"  length="150"/>
-		<!-- bi-directional many-to-one association to Patient -->
 		<many-to-one name="patient" class="org.openmrs.Patient" not-null="false" column="patient_id"/>
 	</class>
 </hibernate-mapping>

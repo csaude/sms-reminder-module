@@ -3,15 +3,15 @@
     "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
 
-<hibernate-mapping package="org.openmrs.module.smsreminder.model">
-	<class name="org.openmrs.module.smsreminder.model.NotificationPatient"
+<hibernate-mapping package="org.openmrs.module.smsrimender.model">
+	<class name="org.openmrs.module.smsrimender.model.NotificationPatient"
 		table="notification_patient" batch-size="25">
 		<composite-id>
-			<key-property name="patientId" type="java.lang.Integer" column="patient_id" length="11"/>
+			<key-property name="patientId" type="java.lang.Integer" column="patient_id" length="11" />
 			<key-property name="visitType" type="java.lang.Integer" column="visit_type" length="11"/>
 		</composite-id>
-		<property name="patientId" type="java.lang.Integer" column="patient_id" length="10" insert="false"/>
-		<property name="phoneNumber" type="java.lang.String" column="phone_number" length="10" insert="false"/>
+		<property name="patientId" type="java.lang.Integer" column="patient_id" length="10" insert="false" update="false"/>
+		<property name="phoneNumber" type="java.lang.String" column="phone_number" length="10" insert="false" update="false"/>
 		<property name="mensage" type="java.lang.String" column="mensage" length="10" insert="false"/>
 		<property name="reminderDays" type="java.lang.Integer" column="reminder_days" length="20" insert="false" />
 		<property name="lastVisitDate" type="java.util.Date" column="last_visit_date"  insert="false" />

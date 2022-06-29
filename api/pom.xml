@@ -8,7 +8,7 @@
 		<version>1.0-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>smsreminder-api</artifactId>
+	<artifactId>smsrimender-api</artifactId>
 	<packaging>jar</packaging>
 	<name>SMS Module Module API</name>
 	<description>API project for SMS Module</description>

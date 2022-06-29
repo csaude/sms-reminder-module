@@ -1,11 +1,11 @@
-package org.openmrs.module.smsreminder.model;
+package org.openmrs.module.smsrimender.model;
 
 import java.io.Serializable;
 import java.util.Date;
 
 import org.openmrs.BaseOpenmrsData;
 import org.openmrs.Patient;
-import org.openmrs.module.smsreminder.utils.SentType;
+import org.openmrs.module.smsrimender.utils.SentType;
 
 /**
  * Created by Nelson.Mahumane on 03-09-2015.
@@ -14,7 +14,8 @@ public class Sent extends BaseOpenmrsData implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private Integer sentId;
-    private  String phoneNumber;
+
+	private  String phoneNumber;
     private Date alertDate;
     private Date dateCreated;
     private String message;
@@ -123,6 +124,11 @@ public class Sent extends BaseOpenmrsData implements Serializable {
 	public void setReminderDays(Integer reminderDays) {
 		this.reminderDays = reminderDays;
 	}
+	
+    public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
 
 
 }

@@ -1,4 +1,4 @@
-package org.openmrs.module.smsreminder.utils;
+package org.openmrs.module.smsrimender.utils;
 
 public enum SentType {
 	New_Member, Follow_Up, Pregnant

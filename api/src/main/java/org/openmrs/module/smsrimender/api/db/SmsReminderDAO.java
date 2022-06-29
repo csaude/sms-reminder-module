@@ -11,16 +11,16 @@
  *
  * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
  */
-package org.openmrs.module.smsreminder.api.db;
+package org.openmrs.module.smsrimender.api.db;
 
 import java.util.Date;
 import java.util.List;
 
 import org.openmrs.Patient;
 import org.openmrs.api.db.DAOException;
-import org.openmrs.module.smsreminder.api.SmsReminderService;
-import org.openmrs.module.smsreminder.model.NotificationPatient;
-import org.openmrs.module.smsreminder.model.Sent;
+import org.openmrs.module.smsrimender.api.SmsReminderService;
+import org.openmrs.module.smsrimender.model.NotificationPatient;
+import org.openmrs.module.smsrimender.model.Sent;
 
 /**
  * Database methods for {@link SmsReminderService}.

@@ -1,21 +1,19 @@
-package org.openmrs.module.smsreminder.model;
+package org.openmrs.module.smsrimender.model;
 
 import java.io.Serializable;
-import java.math.BigInteger;
 import java.util.Date;
 
 import org.openmrs.BaseOpenmrsData;
-import org.openmrs.module.smsreminder.utils.SentType;
+import org.openmrs.module.smsrimender.utils.SentType;
 
 public class NotificationPatient extends BaseOpenmrsData implements Serializable {
 
-	private static final long serialVersionUID = 1L;
 	private Integer patientId;
 	private String phoneNumber;
 	private String mensage;
-	private BigInteger reminderDays;
+	private Integer reminderDays;
 	private String nid;
-    private Integer visitType;;
+	private Integer visitType;;
 	private Date lastVisitDate;
 	private Date nextVisitDate;
 	private Date artStartDate;
@@ -50,14 +48,6 @@ public class NotificationPatient extends BaseOpenmrsData implements Serializable
 
 	}
 
-	public BigInteger getReminderDays() {
-		return reminderDays;
-	}
-
-	public void setReminderDays(BigInteger reminderDays) {
-		this.reminderDays = reminderDays;
-	}
-
 	public Date getLastVisitDate() {
 		return lastVisitDate;
 	}
@@ -65,7 +55,6 @@ public class NotificationPatient extends BaseOpenmrsData implements Serializable
 	public void setLastVisitDate(Date lastVisitDate) {
 		this.lastVisitDate = lastVisitDate;
 	}
-
 
 	public Date getNextVisitDate() {
 		return nextVisitDate;
@@ -123,5 +112,26 @@ public class NotificationPatient extends BaseOpenmrsData implements Serializable
 		this.nid = nid;
 	}
 
+	public Integer getReminderDays() {
+		return reminderDays;
+	}
+
+	public void setReminderDays(Integer reminderDays) {
+		this.reminderDays = reminderDays;
+	}
+
+	private static final long serialVersionUID = 1L;
+
+	public Integer getPatientId() {
+		return patientId;
+	}
+
+	public void setPatientId(Integer patientId) {
+		this.patientId = patientId;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 
 }

@@ -11,14 +11,14 @@
  *
  * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
  */
-package org.openmrs.module.smsreminder.api;
+package org.openmrs.module.smsrimender.api;
 
 import java.util.List;
 
 import org.openmrs.api.APIException;
 import org.openmrs.api.OpenmrsService;
-import org.openmrs.module.smsreminder.model.NotificationPatient;
-import org.openmrs.module.smsreminder.model.Sent;
+import org.openmrs.module.smsrimender.model.NotificationPatient;
+import org.openmrs.module.smsrimender.model.Sent;
 import org.springframework.transaction.annotation.Transactional;
 
 /**

@@ -2,36 +2,6 @@
 <!DOCTYPE sqldiff PUBLIC "-//OpenMRS//DTD OpenMRS SQL Diff Config 1.0//EN" "http://resources.openmrs.org/doctype/sqldiff-1.0.dtd">
 
 <sqldiff version="1.0">
-	<help>
-		USE:
-			The diffs are ordered by data model version number.
-			The script can be run in a top down fashion and is
-			expected to not fail or overwrite old data
-		
-		EXPECT:
-			- "use business-database-name;" was called prior to
-			   calling this script
-	</help>
-	<diff>
-		<version>1.0</version>
-		<author>Nelson.Mahumane</author>
-		<date>10 jun 2015</date>
-		<description>Sql para criação de tabelas do modulo sms remider</description>
-		<sql>
-			CREATE TABLE IF NOT EXISTS `smsreminder_sent` (
-			`sent_id` int(15) NOT NULL AUTO_INCREMENT,
-			`phone_number` varchar(20) NOT NULL,
-			`alert_date` date NOT NULL,
-			`message` varchar(150) NOT NULL,
-			`reminder_days` int(7) NOT NULL,
-			`patient_id` int(15) NOT NULL,
-			`status` varchar(20) DEFAULT NULL,
-			`sent_type` varchar(20) DEFAULT NULL,
-			`created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-			 PRIMARY KEY (`sent_id`),
-			 KEY `patient_pk` (`patient_id`),
-			CONSTRAINT `patient_pk` FOREIGN KEY (`patient_id`) REFERENCES `patient` (`patient_id`)
-			) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-        </sql>
-	</diff>
+
+	
 </sqldiff>
