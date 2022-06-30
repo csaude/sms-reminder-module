@@ -19,8 +19,7 @@
 
 
 	<!-- Module Activator -->
-	<activator>org.openmrs.module.smsreminder.SMSRemindertoFGHPatientsActivator
-	</activator>
+	<activator>org.openmrs.module.smsrimender.SMSRemindertoFGHPatientsActivator</activator>
 
 	<aware_of_modules>
 		<aware_of_module>org.openmrs.module.legacyui</aware_of_module>

@@ -1,12 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
- 
-<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
-    <!--
-        See http://www.liquibase.org/manual/home#available_database_refactorings
-        for a list of supported elements and attributes
-    -->
-    
+
+
+	<changeSet author="emaposse" id="20200402-1806">
+		<preConditions onFail="MARK_RAN">
+			<not>
+				<tableExists tableName="smsreminder_sent" />
+			</not>
+		</preConditions>
+		<comment>
+			Create smsreminder_sent
+		</comment>
+		<createTable tableName="smsreminder_sent">
+			<column autoIncrement="true" name="sent_id" type="int">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column defaultValue="" name="phone_number" type="varchar(50)">
+				<constraints nullable="false" />
+			</column>
+			<column name="alert_date" type="DATETIME">
+				<constraints nullable="false" />
+			</column>
+			<column defaultValueNumeric="0" name="created" type="int">
+				<constraints nullable="false" />
+			</column>
+			<column name="reminder_days" type="int">
+				<constraints nullable="false" />
+			</column>
+			<column name="message" type="varchar(50)">
+				<constraints nullable="false" />
+			</column>
+			<column name="status" type="varchar(255)">
+				<constraints nullable="true" />
+			</column>
+			<column name="sent_type" type="varchar(255)">
+				<constraints nullable="true" />
+			</column>
+			<column name="patient_id" type="int">
+				<constraints nullable="true" />
+			</column>
+		</createTable>
+		<modifySql dbms="mssql">
+			<replace replace="CHAR(38)"
+				with="UNIQUEIDENTIFIER NOT NULL DEFAULT NEWSEQUENTIALID()" />
+		</modifySql>
+	</changeSet>
+
 </databaseChangeLog>
