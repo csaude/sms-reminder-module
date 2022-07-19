@@ -17,14 +17,14 @@ public class SMSController {
 	@RequestMapping(value = "/module/smsreminder/smssenderlist", method = RequestMethod.GET)
 	public ModelAndView patientListSender() {
 		final ModelAndView modelAndView = new ModelAndView();
-		modelAndView.addObject("notificationPatients", SmsReminderResource.getAllNotificationPatient());
+		modelAndView.addObject("smss", SmsReminderResource.getAllNotificationPatient());
 		return modelAndView;
 	}
 
 	@RequestMapping(value = "/module/smsreminder/smssendedlist", method = RequestMethod.GET)
 	public ModelAndView patientListSended() {
 		final ModelAndView modelAndView = new ModelAndView();
-		modelAndView.addObject("notificationPatients", SmsReminderResource.getAllSmsSent());
+		modelAndView.addObject("smss", SmsReminderResource.getAllSmsSent());
 		return modelAndView;
 	}
 }

@@ -1,69 +1,43 @@
-<%@ include file="/WEB-INF/template/include.jsp" %>
-<%@ include file="/WEB-INF/template/header.jsp" %>
-<%@ include file="template/localHeader.jsp" %>
+<%@ include file="/WEB-INF/template/include.jsp"%>
+<%@ include file="/WEB-INF/template/header.jsp"%>
 
-<openmrs:htmlInclude file="/scripts/jquery/dataTables/css/dataTables_jui.css"/>
-<openmrs:htmlInclude file="/scripts/jquery/dataTables/js/jquery.dataTables.min.js"/>
+<%@ include file="template/localHeader.jsp"%>
 
-<script type="text/javascript">
-    $j(document).ready(function() {
-        $j('#listaPacientes').dataTable();
-    } );
-</script>
+<h2><openmrs:message code="SMS LIST"/></h2>
+<form method="get">
+	
+	<div class="row">
+		<table border="1">
+		 
+			<tr>
+					<td>NID</td>
+			        <td>Nome Comple</td>
+			        <td>Sexo</td>
+			        <td>Telefone</td>
+			        <td>Ultima Visita</td>
+			        <td>Proxima Visita</td>
+			        <td>Inicio de TARV</td>
+			        <td>Tipo de Paciente</td>  
+			</tr>
+		
+			<c:forEach items="${smss}" var="sms">
+			    <tr>   
+				        <td>${sms.nid}</td>
+				        <td>${sms.fullName}</td>
+				        <td>${sms.gender}</td>
+				        <td>${sms.phoneNumber}</td>
+				        <td>${sms.lastVisitDate}</td>
+				        <td>${sms.nextVisitDate}</td>
+				        <td>${sms.artStartDate}</td>
+				        <td>${sms.sentType}</td>
+			    </tr>
+			</c:forEach>
+			
+		</table>
+	</div><br>
+	<div class="row">
+    	<input id="subValue" type="submit" value="Exportar para Excel">
+    </div>
+</form>
 
-<!--Variaveis para setar texto no botão-->
-<spring:message code="smsreminder.manual_submission.save" var="variable1"/>
-
-<h4>
-    <spring:message code="smsreminder.manual_submission"/>
-</h4>
-
-<div class="box">
-    <spring:message code="smsreminder.manual_submission.title"/>
-    <form method="get" onSubmit="return confirm('${variable1}?');">
-
-
-
-<table id="listaPacientes" class="display" width="600px">
-    <thead>
-    <tr>
-        <th> <spring:message code="smsreminder.manual_submission.nid"/></th>
-        <th> <spring:message code="smsreminder.manual_submission.fullName"/></th>
-        <th> <spring:message code="smsreminder.manual_submission.phoneNumber"/></th>
-        <th> <spring:message code="smsreminder.manual_submission.lastVisitDate"/></th>
-         <th> <spring:message code="smsreminder.manual_submission.reminderDays"/></th>
-    </tr>
-    </thead>
-    <tbody>
-    <c:forEach var="notification" items="${notificationPatients}">
-        <tr>
-            <td align="left">
-            ${notification.nid}
-        </td>
-            <td align="left">
-                ${notification.fullName}
-            </td>
-            <td align="left">
-                ${notification.phoneNumber}
-            </td>
-            <td align="left">
-                ${notification.lastVisitDate}
-            </td>
-            <td align="left">
-               ${notification.reminderDays}
-             </td>
-        </tr>
-    </c:forEach>
-    </tbody>
-</table>
-        <input type="submit" value="${variable1}">
-    </form>
-
-    <!--Função javascript para automaticamente focar o ponteiro no 1º campo da página-->
-    <script type="text/javascript">
-        document.forms[0].elements[0].focus();
-    </script>
-</div>
-
-
-<%@ include file="/WEB-INF/template/footer.jsp" %>
+<%@ include file="/WEB-INF/template/footer.jsp"%>
