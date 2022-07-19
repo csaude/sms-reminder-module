@@ -27,11 +27,11 @@
 <table id="listaPacientes" class="display" width="600px">
     <thead>
     <tr>
-        <th> <spring:message code="smsreminder.manual_submission.id"/></th>
-        <th> <spring:message code="smsreminder.manual_submission.name"/></th>
-        <th> <spring:message code="smsreminder.manual_submission.telemovel"/></th>
-        <th> <spring:message code="smsreminder.manual_submission.date_visit"/></th>
-         <th> <spring:message code="smsreminder.manual_submission.days"/></th>
+        <th> <spring:message code="smsreminder.manual_submission.nid"/></th>
+        <th> <spring:message code="smsreminder.manual_submission.fullName"/></th>
+        <th> <spring:message code="smsreminder.manual_submission.phoneNumber"/></th>
+        <th> <spring:message code="smsreminder.manual_submission.lastVisitDate"/></th>
+         <th> <spring:message code="smsreminder.manual_submission.reminderDays"/></th>
     </tr>
     </thead>
     <tbody>
@@ -41,16 +41,16 @@
             ${notification.nid}
         </td>
             <td align="left">
-                ${notification.nome}
+                ${notification.fullName}
             </td>
             <td align="left">
-                ${notification.telemovel}
+                ${notification.phoneNumber}
             </td>
             <td align="left">
-                ${notification.proximaVisita}
+                ${notification.lastVisitDate}
             </td>
             <td align="left">
-               ${notification.diasRemanescente}
+               ${notification.reminderDays}
              </td>
         </tr>
     </c:forEach>
