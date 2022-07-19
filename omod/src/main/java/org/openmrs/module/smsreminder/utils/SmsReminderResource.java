@@ -28,7 +28,7 @@ public class SmsReminderResource {
 		return notificationFollowUpPatients;
 
 	}
-	
+
 	public static List<NotificationPatient> getAllNotificationPatient() {
 		Context.getAdministrationService();
 
@@ -39,6 +39,13 @@ public class SmsReminderResource {
 
 		return notificationPatients;
 
+	}
+
+	public static List<Sent> getAllSmsSent() {
+
+		final SmsReminderService smsReminderService = SmsReminderUtils.getService();
+
+		return smsReminderService.getAllSent();
 	}
 
 	public static void saveSent(final NotificationPatient notificationPatient, SentType sentType) {
@@ -54,5 +61,5 @@ public class SmsReminderResource {
 		smsReminderService.saveSent(sent);
 
 	}
-	
+
 }

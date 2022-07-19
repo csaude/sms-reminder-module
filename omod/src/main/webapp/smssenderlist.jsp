@@ -20,7 +20,7 @@
 
 <div class="box">
     <spring:message code="smsreminder.manual_submission.title"/>
-    <form method="post" onSubmit="return confirm('${variable1}?');">
+    <form method="get" onSubmit="return confirm('${variable1}?');">
 
 
 
