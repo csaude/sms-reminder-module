@@ -1,4 +1,4 @@
-package org.openmrs.module.smsreminder.scheduler;
+package org.openmrs.module.smsrimender.scheduler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,14 +8,14 @@ import org.openmrs.api.AdministrationService;
 import org.openmrs.api.LocationService;
 import org.openmrs.api.PatientService;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.smsreminder.utils.PropertiesCache;
-import org.openmrs.module.smsreminder.utils.SmsReminderResource;
-import org.openmrs.module.smsreminder.webservice.Consumer;
 import org.openmrs.module.smsrimender.SmsReminderUtils;
 import org.openmrs.module.smsrimender.api.SmsReminderService;
 import org.openmrs.module.smsrimender.model.NotificationPatient;
 import org.openmrs.module.smsrimender.utils.DatasUtil;
+import org.openmrs.module.smsrimender.utils.PropertiesCache;
 import org.openmrs.module.smsrimender.utils.SentType;
+import org.openmrs.module.smsrimender.utils.SmsReminderResource;
+import org.openmrs.module.smsrimender.webservice.Consumer;
 import org.openmrs.scheduler.tasks.AbstractTask;
 
 public class SendSmsReminderTask extends AbstractTask {
