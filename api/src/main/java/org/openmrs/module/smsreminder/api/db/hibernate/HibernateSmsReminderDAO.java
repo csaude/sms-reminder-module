@@ -11,7 +11,7 @@
  *
  * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
  */
-package org.openmrs.module.smsrimender.api.db.hibernate;
+package org.openmrs.module.smsreminder.api.db.hibernate;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -27,10 +27,10 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.openmrs.Patient;
 import org.openmrs.api.db.DAOException;
-import org.openmrs.module.smsrimender.api.db.SmsReminderDAO;
-import org.openmrs.module.smsrimender.model.NotificationPatient;
-import org.openmrs.module.smsrimender.model.Sent;
-import org.openmrs.module.smsrimender.utils.DatasUtil;
+import org.openmrs.module.smsreminder.api.db.SmsReminderDAO;
+import org.openmrs.module.smsreminder.model.NotificationPatient;
+import org.openmrs.module.smsreminder.model.Sent;
+import org.openmrs.module.smsreminder.utils.DatasUtil;
 
 /**
  * It is a default implementation of {@link SmsReminderDAO}.

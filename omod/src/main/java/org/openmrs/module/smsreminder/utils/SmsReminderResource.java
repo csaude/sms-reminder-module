@@ -1,14 +1,15 @@
-package org.openmrs.module.smsrimender.utils;
+package org.openmrs.module.smsreminder.utils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.openmrs.api.PatientService;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.smsrimender.SmsReminderUtils;
-import org.openmrs.module.smsrimender.api.SmsReminderService;
-import org.openmrs.module.smsrimender.model.NotificationPatient;
-import org.openmrs.module.smsrimender.model.Sent;
+import org.openmrs.module.smsreminder.SmsReminderUtils;
+import org.openmrs.module.smsreminder.api.SmsReminderService;
+import org.openmrs.module.smsreminder.model.NotificationPatient;
+import org.openmrs.module.smsreminder.model.Sent;
+import org.openmrs.module.smsreminder.utils.SentType;
 
 /**
  * Created by nelson.mahumane on 20-10-2015. Classe que organiza todos recursos

@@ -1,4 +1,4 @@
-package org.openmrs.module.smsrimender;
+package org.openmrs.module.smsreminder;
 
 /*
  * The contents of this file are subject to the OpenMRS Public License

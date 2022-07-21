@@ -7,16 +7,16 @@
 	<li
 		<c:if test='<%=request.getRequestURI().contains("/smssenderlist")%>'>class="active"</c:if>>
 		<a
-		href="${pageContext.request.contextPath}/module/smsrimender/smssenderlist.form"><spring:message
-				code="smsrimender.smssenderlist" /></a>
+		href="${pageContext.request.contextPath}/module/smsreminder/smssenderlist.form"><spring:message
+				code="smsreminder.smssenderlist" /></a>
 	</li>
 				
 
 	<li
 		<c:if test='<%=request.getRequestURI().contains("/smssendedlist")%>'>class="active"</c:if>>
 		<a
-		href="${pageContext.request.contextPath}/module/smsrimender/smssendedlist.form"><spring:message
-				code="smsrimender.smssendedlist" /></a>
+		href="${pageContext.request.contextPath}/module/smsreminder/smssendedlist.form"><spring:message
+				code="smsreminder.smssendedlist" /></a>
 	</li>
 
 	<!-- Add further links here -->

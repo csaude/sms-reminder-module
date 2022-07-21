@@ -20,16 +20,16 @@
 		<bean parent="serviceContext">
 		<property name="moduleService">
 			<list>
-				<value>${project.parent.groupId}.${project.parent.artifactId}.api.SmsReminderService</value>
+				<value>org.openmrs.module.smsreminder.api.SmsReminderService</value>
 				<bean
 					class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
 					<property name="transactionManager">
 						<ref bean="transactionManager" />
 					</property>
 					<property name="target">
-						<bean class="${project.parent.groupId}.${project.parent.artifactId}.api.impl.SmsReminderServiceImpl">
+						<bean class="org.openmrs.module.smsreminder.api.impl.SmsReminderServiceImpl">
 							<property name="dao">
-								<bean class="${project.parent.groupId}.${project.parent.artifactId}.api.db.hibernate.HibernateSmsReminderDAO">
+								<bean class="org.openmrs.module.smsreminder.api.db.hibernate.HibernateSmsReminderDAO">
 									<property name="sessionFactory">
 										<ref bean="sessionFactory" />
 									</property>

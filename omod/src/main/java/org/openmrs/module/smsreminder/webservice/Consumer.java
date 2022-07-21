@@ -1,4 +1,4 @@
-package org.openmrs.module.smsrimender.webservice;
+package org.openmrs.module.smsreminder.webservice;
 
 
 import pt.usendit.api.v2.ArrayOfSms;

@@ -3,8 +3,8 @@
     "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
 
-<hibernate-mapping package="org.openmrs.module.smsrimender.modelo">
-	<class name="org.openmrs.module.smsrimender.model.Sent" table="smsreminder_sent" batch-size="25">
+<hibernate-mapping package="org.openmrs.module.smsreminder.model">
+	<class name="org.openmrs.module.smsreminder.model.Sent" table="smsreminder_sent" batch-size="25">
 		<id name="sentId" type="int" column="sent_id" unsaved-value="0" >
 			<generator class="native" />
 		</id>

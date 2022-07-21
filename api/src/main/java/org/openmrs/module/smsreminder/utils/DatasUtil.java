@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.openmrs.module.smsrimender.utils;
+package org.openmrs.module.smsreminder.utils;
 
 import java.text.DateFormat;
 import java.text.ParseException;

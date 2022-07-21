@@ -1,4 +1,4 @@
-package org.openmrs.module.smsrimender.utils;
+package org.openmrs.module.smsreminder.utils;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;

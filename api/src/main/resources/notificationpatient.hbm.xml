@@ -3,8 +3,8 @@
     "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
 
-<hibernate-mapping package="org.openmrs.module.smsrimender.model">
-	<class name="org.openmrs.module.smsrimender.model.NotificationPatient"
+<hibernate-mapping package="org.openmrs.module.smsreminder.model">
+	<class name="org.openmrs.module.smsreminder.model.NotificationPatient"
 		table="notification_patient" batch-size="25">
 		<composite-id>
 			<key-property name="patientId" type="java.lang.Integer" column="patient_id" length="11" />

@@ -1,10 +1,10 @@
-package org.openmrs.module.smsrimender.model;
+package org.openmrs.module.smsreminder.model;
 
 import java.io.Serializable;
 import java.util.Date;
 
 import org.openmrs.BaseOpenmrsData;
-import org.openmrs.module.smsrimender.utils.SentType;
+import org.openmrs.module.smsreminder.utils.SentType;
 
 public class NotificationPatient extends BaseOpenmrsData implements Serializable {
 
