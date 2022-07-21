@@ -31,6 +31,7 @@ import org.openmrs.module.smsreminder.api.db.SmsReminderDAO;
 import org.openmrs.module.smsreminder.model.NotificationPatient;
 import org.openmrs.module.smsreminder.model.Sent;
 import org.openmrs.module.smsreminder.utils.DatasUtil;
+import org.openmrs.module.smsreminder.utils.SentType;
 
 /**
  * It is a default implementation of {@link SmsReminderDAO}.
@@ -160,7 +161,7 @@ public class HibernateSmsReminderDAO implements SmsReminderDAO {
 				+ "CONCAT(ifnull(pn.given_name,''),' ',ifnull(pn.middle_name,''),' ',ifnull(pn.family_name,''))  AS nome_completo, "
 				+ "pa.value AS telemovel," + "p.gender AS sexo, " + "maxFila.encounter_type as visita, "
 				+ "maxFila.encounter_datetime as ultima_visita, " + "obsProximo.value_datetime as proximo_visita, "
-				+ "(to_days(obsProximo.value_datetime) - to_days(curdate())) AS dias_remanescente, maxFila.patient_id "
+				+ "(to_days(curdate()) - to_days(obsProximo.value_datetime)) AS dias_remanescente, maxFila.patient_id "
 				+ "from ( " + "select p.patient_id AS patient_id,min(e.encounter_datetime) AS data_inicio "
 				+ "from ((patient p " + "join encounter e on((p.patient_id = e.patient_id))) "
 				+ "join obs o on((o.encounter_id = e.encounter_id))) " + "where ((e.voided = 0) "
@@ -206,11 +207,11 @@ public class HibernateSmsReminderDAO implements SmsReminderDAO {
 				+ "join encounter e on((e.patient_id = p.patient_id))) " + "where ((p.voided = 0) "
 				+ "and (e.voided = 0) " + "and (e.encounter_type = 18)) " + "group by p.patient_id "
 				+ ")maxFila on inicioTARV.patient_id=maxFila.patient_id "
-				+ "inner join 	obs obsProximo on obsProximo.person_id=maxFila.patient_id and obsProximo.concept_id=5096 and obsProximo.voided=0 "
+				+ "inner join 	obs obsProximo on obsProximo.person_id=maxFila.patient_id and obsProximo.concept_id=5096 and obsProximo.voided=0 and obsProximo.voided=0 and obsProximo.obs_datetime=maxFila.encounter_datetime "
 				+ "inner join person p on p.person_id = maxFila.patient_id  "
 				+ "inner join person_attribute pa on pa.person_id = maxFila.patient_id and pa.person_attribute_type_id = 9 and pa.voided=0 "
 				+ "inner join patient_identifier pid on pid.patient_id = maxFila.patient_id and pid.voided=0 "
-				+ "inner join person_name pn on pn.person_id=maxFila.patient_id and pn.voided=0 where maxFila.patient_id=4697 "
+				+ "inner join person_name pn on pn.person_id=maxFila.patient_id and pn.voided=0  "
 				+ "group by maxFila.patient_id ";
 
 		final Query query = this.getCurrentSession().createSQLQuery(sql);
@@ -233,6 +234,7 @@ public class HibernateSmsReminderDAO implements SmsReminderDAO {
 			notificationPatient.setLastVisitDate((Date) object[6]);
 			notificationPatient.setNextVisitDate((Date) object[7]);
 			notificationPatient.setReminderDays((Integer) object[8]);
+			notificationPatient.setSentType(SentType.NOVO_INICIO);
 
 			notificationPatients.add(notificationPatient);
 		}

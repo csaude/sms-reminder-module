@@ -9,7 +9,6 @@ import org.openmrs.module.smsreminder.SmsReminderUtils;
 import org.openmrs.module.smsreminder.api.SmsReminderService;
 import org.openmrs.module.smsreminder.model.NotificationPatient;
 import org.openmrs.module.smsreminder.model.Sent;
-import org.openmrs.module.smsreminder.utils.SentType;
 
 /**
  * Created by nelson.mahumane on 20-10-2015. Classe que organiza todos recursos
@@ -35,7 +34,14 @@ public class SmsReminderResource {
 		final SmsReminderService smsReminderService = SmsReminderUtils.getService();
 
 		final List<NotificationPatient> notificationPatients = new ArrayList<NotificationPatient>();
-		notificationPatients.addAll(smsReminderService.getNotificationPatientByDiasRemanescente());
+
+		for (NotificationPatient n : smsReminderService.getNotificationPatientByDiasRemanescente()) {
+
+			if (n.getReminderDays() == 13 || n.getReminderDays() == 7 || n.getReminderDays() == 3) {
+				
+				notificationPatients.add(n);
+			}
+		}
 
 		return notificationPatients;
 

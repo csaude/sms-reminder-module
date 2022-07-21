@@ -1,6 +1,5 @@
 package org.openmrs.module.smsreminder.webservice;
 
-
 import pt.usendit.api.v2.ArrayOfSms;
 import pt.usendit.api.v2.RemoteUsendit;
 import pt.usendit.api.v2.RemoteUsenditSoap;
@@ -11,8 +10,7 @@ public class Consumer {
 
 	public static final String PASSWORD_PROPERTY_NAME = "smsrimender.password";
 
-	public static ScheduleResult sendMensage(String mensage, String number)
-			throws Throwable {
+	public static ScheduleResult sendMensage(String mensage, String number) throws Throwable {
 		RemoteUsenditSoap remoteUsendit = new RemoteUsendit().getRemoteUsenditSoap();
 		ArrayOfSms smsbulk = new ArrayOfSms();
 		Sms sms = new Sms();
@@ -22,14 +20,17 @@ public class Consumer {
 		sms.setIsFlash(false);
 		sms.setMessageText(mensage);
 		sms.setMsisdn(number);
-		sms.setSender("");
+		sms.setSender("Info MZ");
 		sms.setPriority(1);
 		sms.setWorkingDays(false);
-		sms.setPartnerMsgId("");
+		sms.setPartnerMsgId("Info MZ");
 		smsbulk.getSms().add(sms);
-		ScheduleResult result = remoteUsendit.sendMessages("emaposse", "", "", null, smsbulk);
-		System.out.println(result.getScheduleStatus());
+		ScheduleResult result = remoteUsendit.sendMessages("emaposse", "Mapo@@1991", "Info MZ", null, smsbulk);
 		return result;
+	}
+	
+	public static void main(String[] args) throws Throwable {
+		sendMensage("TRC", "258840665903");
 	}
 
 }

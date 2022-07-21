@@ -41,7 +41,7 @@ public class SendSmsReminderTask extends AbstractTask {
 
 				try {
 					Consumer.sendMensage(mensage, notificationPatient.getPhoneNumber());
-					SmsReminderResource.saveSent(notificationPatient, SentType.New_Member);
+					SmsReminderResource.saveSent(notificationPatient, SentType.NOVO_INICIO);
 				} catch (Throwable e) {
 					e.printStackTrace();
 				}

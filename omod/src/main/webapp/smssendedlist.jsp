@@ -3,11 +3,26 @@
 
 <%@ include file="template/localHeader.jsp"%>
 
-<h2><openmrs:message code="SMS LIST"/></h2>
+<openmrs:htmlInclude
+	file="/scripts/jquery/dataTables/css/dataTables_jui.css" />
+<openmrs:htmlInclude
+	file="/scripts/jquery/dataTables/js/jquery.dataTables.min.js" />
+
+<script type="text/javascript">
+	$j(document).ready(function() {
+		$j('#vlResultsTable').dataTable({
+			"iDisplayLength" : 10
+		});
+	})
+</script>
+
+
+<h2><openmrs:message code="LISTA DE SMS POR ENVIAR PARA PACIENTES"/></h2>
 <form method="get">
 	
 	<div class="row">
-		<table border="1">
+		<table border="1" class="display" width="100%" cellpadding="2" cellspacing="0"
+				style="font-size: 13px;">
 		 
 			<tr>
 					<td>NID</td>
@@ -35,9 +50,6 @@
 			
 		</table>
 	</div><br>
-	<div class="row">
-    	<input id="subValue" type="submit" value="Exportar para Excel">
-    </div>
 </form>
 
 <%@ include file="/WEB-INF/template/footer.jsp"%>

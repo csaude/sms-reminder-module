@@ -6,22 +6,17 @@ import org.openmrs.module.smsreminder.utils.SmsReminderResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@SessionAttributes("smss")
-public class SMSController {
+public class SMSReminderSentSMSController {
 
 	protected final Log log = LogFactory.getLog(getClass());
 
-	@RequestMapping(value = "/module/smsreminder/smssenderlist", method = RequestMethod.GET)
+	@RequestMapping(value = "/module/smsreminder/smssendedlist", method = RequestMethod.GET)
 	public ModelAndView patientListSender() {
 		final ModelAndView modelAndView = new ModelAndView();
-		modelAndView.addObject("smss", SmsReminderResource.getAllNotificationPatient());
-		System.out.println(modelAndView.getViewName());
-		System.out.println(modelAndView.getView());
-
+		modelAndView.addObject("smss", SmsReminderResource.getAllSmsSent());
 		return modelAndView;
 	}
 
