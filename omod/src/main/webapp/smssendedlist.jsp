@@ -32,7 +32,8 @@
 			        <td>Ultima Visita</td>
 			        <td>Proxima Visita</td>
 			        <td>Inicio de TARV</td>
-			        <td>Tipo de Paciente</td>  
+			        <td>Tipo de Paciente</td> 
+			        <td>Estado do Envio</td>  
 			</tr>
 		
 			<c:forEach items="${smss}" var="sms">
@@ -45,6 +46,7 @@
 				        <td>${sms.nextVisitDate}</td>
 				        <td>${sms.artStartDate}</td>
 				        <td>${sms.sentType}</td>
+				        td>${sms.status}</td>
 			    </tr>
 			</c:forEach>
 			
