@@ -8,17 +8,9 @@
 <openmrs:htmlInclude
 	file="/scripts/jquery/dataTables/js/jquery.dataTables.min.js" />
 
-<script type="text/javascript">
-	$j(document).ready(function() {
-		$j('#vlResultsTable').dataTable({
-			"iDisplayLength" : 10
-		});
-	})
-</script>
-
 
 <h2><openmrs:message code="LISTA DE SMS POR ENVIAR PARA PACIENTES"/></h2>
-<form method="get">
+<form method="post">
 	
 	<div class="row">
 		<table border="1" class="display" width="100%" cellpadding="2" cellspacing="0"
