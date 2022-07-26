@@ -4,18 +4,13 @@
 package org.openmrs.module.smsreminder.webservice;
 
 import org.glassfish.jersey.server.ResourceConfig;
+import org.openmrs.module.smsreminder.model.DeliveryReportStatus;
 import org.springframework.stereotype.Service;
 
-import mz.org.fgh.disaapi.integ.resources.viralload.ViralLoadResource;
-
-/**
- * @author Stélio Moiane
- *
- */
 @Service
 public class JerseyConfig extends ResourceConfig {
 
 	public JerseyConfig() {
-		this.register(ViralLoadResource.class);
+		this.register(DeliveryReportStatus.class);
 	}
 }
