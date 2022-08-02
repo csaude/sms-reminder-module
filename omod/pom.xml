@@ -21,8 +21,7 @@
 			<artifactId>smsreminder-api</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency>
-
-
+	
 		<dependency>
 			<groupId>org.openmrs.api</groupId>
 			<artifactId>openmrs-api</artifactId>
@@ -66,49 +65,29 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-web</artifactId>
-			<version>5.7.2</version>
+			<groupId>org.openmrs.module.smsreminder</groupId>
+			<artifactId>USenditService</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>/home/emaposse/USenditService.jar</systemPath>
+		</dependency>
+		
+			<dependency>
+			<groupId>org.openmrs.module</groupId>
+			<artifactId>webservices.rest-omod-common</artifactId>
+			<version>${openMRSWebServicesVersion}</version>
+			<type>jar</type>
+			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-config</artifactId>
-			<version>5.7.2</version>
+			<groupId>org.openmrs.module</groupId>
+			<artifactId>webservices.rest-omod</artifactId>
+			<version>${openMRSWebServicesVersion}</version>
+			<type>jar</type>
+			<scope>provided</scope>
 		</dependency>
 
-
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-core</artifactId>
-			<version>5.7.2</version>
-		</dependency>
-
-
-		<dependency>
-			<groupId>javax.ws.rs</groupId>
-			<artifactId>javax.ws.rs-api</artifactId>
-			<version>2.1.1</version>
-		</dependency>
-
-
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-context</artifactId>
-			<version>5.3.22</version>
-		</dependency>
-
-		<dependency>
-			<groupId>javax.inject</groupId>
-			<artifactId>javax.inject</artifactId>
-			<version>1</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.glassfish.jersey.containers</groupId>
-			<artifactId>jersey-container-servlet-core</artifactId>
-			<version>2.29.1</version>
-		</dependency>
 
 	</dependencies>
 

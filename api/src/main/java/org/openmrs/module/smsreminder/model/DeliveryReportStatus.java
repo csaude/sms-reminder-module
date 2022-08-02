@@ -2,8 +2,10 @@ package org.openmrs.module.smsreminder.model;
 
 import java.util.Date;
 
-public class DeliveryReportStatus {
-	
+import org.openmrs.BaseOpenmrsData;
+
+public class DeliveryReportStatus extends BaseOpenmrsData {
+
 	private int msgId;
 	private String deliveryReportDescription;
 	private String deliveryReportReasonCode;
@@ -45,7 +47,6 @@ public class DeliveryReportStatus {
 		this.deliveryReportUpdateDatetime = deliveryReportUpdateDatetime;
 	}
 
-
 	public Date getMessageSentDatetime() {
 		return messageSentDatetime;
 	}
@@ -76,6 +77,17 @@ public class DeliveryReportStatus {
 
 	public void setDeliveryReportStatus(int deliveryReportStatus) {
 		this.deliveryReportStatus = deliveryReportStatus;
+	}
+
+	@Override
+	public Integer getId() {
+		return msgId;
+	}
+
+	@Override
+	public void setId(Integer id) {
+		this.msgId = id;
+
 	}
 
 }

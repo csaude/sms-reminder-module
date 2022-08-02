@@ -12,93 +12,94 @@ import org.openmrs.module.smsreminder.utils.SentType;
  */
 public class Sent extends BaseOpenmrsData implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    private Integer sentId;
-	private  String phoneNumber;
-    private Date alertDate;
-    private Date dateCreated;
-    private String message;
-    private String status;
-    private Patient patient;
-    private Integer reminderDays;
-    private SentType sentType;
+	private static final long serialVersionUID = 1L;
+	private Integer sentId;
+	private String phoneNumber;
+	private Date alertDate;
+	private Date dateCreated;
+	private String message;
+	private String status;
+	private Patient patient;
+	private Integer reminderDays;
+	private SentType sentType;
 
-    public Integer getSentId() {
-        return this.sentId;
-    }
+	public Integer getSentId() {
+		return this.sentId;
+	}
 
-    public void setSentId(final Integer sentId) {
-        this.sentId = sentId;
-    }
-    @Override
+	public void setSentId(final Integer sentId) {
+		this.sentId = sentId;
+	}
+
+	@Override
 	public Integer getId() {
-        return this.getSentId();
-    }
-    @Override
+		return this.getSentId();
+	}
+
+	@Override
 	public void setId(final Integer id) {
-        this.setSentId(id);
-    }
+		this.setSentId(id);
+	}
 
+	public Date getAlertDate() {
+		return this.alertDate;
+	}
 
-    public Date getAlertDate() {
-        return this.alertDate;
-    }
+	public void setAlertDate(final Date alertDate) {
+		this.alertDate = alertDate;
+	}
 
-    public void setAlertDate(final Date alertDate) {
-        this.alertDate = alertDate;
-    }
+	public String getMessage() {
+		return this.message;
+	}
 
-    public String getMessage() {
-        return this.message;
-    }
+	public void setMessage(final String message) {
+		this.message = message;
+	}
 
-    public void setMessage(final String message) {
-        this.message = message;
-    }
+	public String getStatus() {
+		return this.status;
+	}
 
+	public void setStatus(final String status) {
+		this.status = status;
+	}
 
-    public String getStatus() {
-        return this.status;
-    }
+	@Override
+	public Date getDateCreated() {
+		return this.dateCreated;
+	}
 
-    public void setStatus(final String status) {
-        this.status = status;
-    }
+	@Override
+	public void setDateCreated(final Date dateCreated) {
+		this.dateCreated = dateCreated;
+	}
 
-    @Override
-    public Date getDateCreated() {
-        return this.dateCreated;
-    }
+	public Patient getPatient() {
+		return this.patient;
+	}
 
-    @Override
-    public void setDateCreated(final Date dateCreated) {
-        this.dateCreated = dateCreated;
-    }
+	public void setPatient(final Patient patient) {
+		this.patient = patient;
+	}
 
-    public Patient getPatient() {
-        return this.patient;
-    }
-    public void setPatient(final Patient patient) {
-        this.patient = patient;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
+	@Override
+	public boolean equals(final Object o) {
+		if (this == o) {
 			return true;
 		}
-        if (!(o instanceof Sent)) {
+		if (!(o instanceof Sent)) {
 			return false;
 		}
-        if (!super.equals(o)) {
+		if (!super.equals(o)) {
 			return false;
 		}
 
-        final Sent sent = (Sent) o;
+		final Sent sent = (Sent) o;
 
-        return this.sentId.equals(sent.sentId);
+		return this.sentId.equals(sent.sentId);
 
-    }
+	}
 
 	public SentType getSentType() {
 		return this.sentType;
@@ -123,11 +124,9 @@ public class Sent extends BaseOpenmrsData implements Serializable {
 	public void setReminderDays(Integer reminderDays) {
 		this.reminderDays = reminderDays;
 	}
-	
-    public static long getSerialversionuid() {
+
+	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-
-
 
 }
