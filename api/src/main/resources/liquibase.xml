@@ -42,6 +42,11 @@
 			<column name="status" type="varchar(255)">
 				<constraints nullable="true" />
 			</column>
+
+			<column name="status_description_reason" type="varchar(255)">
+				<constraints nullable="true" />
+			</column>
+
 			<column name="sent_type" type="varchar(255)">
 				<constraints nullable="true" />
 			</column>
