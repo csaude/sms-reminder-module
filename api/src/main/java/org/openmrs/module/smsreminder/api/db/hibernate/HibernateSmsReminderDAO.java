@@ -100,7 +100,6 @@ public class HibernateSmsReminderDAO implements SmsReminderDAO {
 		return c.list();
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 
 	public Sent getSentByMsgId(final Integer id) throws DAOException {
