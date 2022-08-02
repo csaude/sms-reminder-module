@@ -9,12 +9,14 @@
 			<generator class="native" />
 		</id>
 		<discriminator column="sent_id" insert="false" />
+		<property name="msgId" type="java.lang.Integer" column="msg_id" not-null="true" length="5"/>
 		<property name="phoneNumber" type="java.lang.String" column="phone_number" length="15" />
 		<property name="alertDate" type="java.util.Date" column="alert_date" />
 		<property name="dateCreated" type="java.util.Date" column="created" not-null="true" length="19" />
 		<property name="reminderDays" type="java.lang.Integer" column="reminder_days" not-null="true" length="5"/>
 		<property name="message" type="java.lang.String" column="message" not-null="true" length="150"/>
 		<property name="status" type="java.lang.String" column="status" not-null="false"  length="150"/>
+		<property name="statusDescriptionReason" type="java.lang.String" column="status_description_reason" not-null="true"  length="150"/>
 		<property name="sentType" type="java.lang.String" column="sent_type" not-null="false"  length="150"/>
 		<many-to-one name="patient" class="org.openmrs.Patient" not-null="false" column="patient_id"/>
 	</class>

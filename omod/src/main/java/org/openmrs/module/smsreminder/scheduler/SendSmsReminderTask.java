@@ -18,6 +18,8 @@ import org.openmrs.module.smsreminder.utils.SmsReminderResource;
 import org.openmrs.module.smsreminder.webservice.Consumer;
 import org.openmrs.scheduler.tasks.AbstractTask;
 
+import pt.usendit.api.v2.ScheduleResult;
+
 public class SendSmsReminderTask extends AbstractTask {
 
 	final AdministrationService administrationService = Context.getAdministrationService();
@@ -40,7 +42,8 @@ public class SendSmsReminderTask extends AbstractTask {
 						.concat(" no dia").concat(DatasUtil.formatarDataPt(notificationPatient.getNextVisitDate()));
 
 				try {
-					Consumer.sendMensage(mensage, notificationPatient.getPhoneNumber());
+					ScheduleResult c= Consumer.sendMensage(mensage, notificationPatient.getPhoneNumber());
+					notificationPatient.setMsgId(c.getEventId());
 					SmsReminderResource.saveSent(notificationPatient, SentType.NOVO_INICIO);
 				} catch (Throwable e) {
 					e.printStackTrace();

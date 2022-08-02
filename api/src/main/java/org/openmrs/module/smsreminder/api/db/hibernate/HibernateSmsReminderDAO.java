@@ -102,6 +102,13 @@ public class HibernateSmsReminderDAO implements SmsReminderDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
+
+	public Sent getSentByMsgId(final Integer id) throws DAOException {
+		return (Sent) this.sessionFactory.getCurrentSession().get(Sent.class, id);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
 	public List<Sent> getSentByAlertDate(final Date alertDate) throws DAOException {
 		final Criteria c = this.sessionFactory.getCurrentSession().createCriteria(Sent.class);
 		c.add(Restrictions.eq("alertDate", DatasUtil.formatarMysqlDate(alertDate)));

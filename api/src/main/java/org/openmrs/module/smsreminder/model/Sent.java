@@ -14,11 +14,13 @@ public class Sent extends BaseOpenmrsData implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private Integer sentId;
+	private  int msgId;
 	private String phoneNumber;
 	private Date alertDate;
 	private Date dateCreated;
 	private String message;
 	private String status;
+	private String statusDescriptionReason;
 	private Patient patient;
 	private Integer reminderDays;
 	private SentType sentType;
@@ -127,6 +129,22 @@ public class Sent extends BaseOpenmrsData implements Serializable {
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+	public String getStatusDescriptionReason() {
+		return statusDescriptionReason;
+	}
+
+	public void setStatusDescriptionReason(String statusDescriptionReason) {
+		this.statusDescriptionReason = statusDescriptionReason;
+	}
+
+	public int getMsgId() {
+		return msgId;
+	}
+
+	public void setMsgId(int msgId) {
+		this.msgId = msgId;
 	}
 
 }

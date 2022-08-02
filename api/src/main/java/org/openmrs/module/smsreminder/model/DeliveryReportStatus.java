@@ -6,7 +6,8 @@ import org.openmrs.BaseOpenmrsData;
 
 public class DeliveryReportStatus extends BaseOpenmrsData {
 
-	private int msgId;
+	private static final long serialVersionUID = 1L;
+	private Integer msgId;
 	private String deliveryReportDescription;
 	private String deliveryReportReasonCode;
 	private Date deliveryReportUpdateDatetime;
@@ -15,11 +16,11 @@ public class DeliveryReportStatus extends BaseOpenmrsData {
 	private int nrSms;
 	private String partnerMsgId;
 
-	public int getMsgId() {
+	public Integer getMsgId() {
 		return msgId;
 	}
 
-	public void setMsgId(int msgId) {
+	public void setMsgId(Integer msgId) {
 		this.msgId = msgId;
 	}
 

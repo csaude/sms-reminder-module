@@ -18,6 +18,7 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.api.APIException;
+import org.openmrs.api.db.DAOException;
 import org.openmrs.api.db.PatientDAO;
 import org.openmrs.api.impl.BaseOpenmrsService;
 import org.openmrs.module.smsreminder.api.SmsReminderService;
@@ -73,6 +74,11 @@ public class SmsReminderServiceImpl extends BaseOpenmrsService implements SmsRem
 	@Override
 	public List<NotificationPatient> searchFollowUpPatient() {
 		return this.getDao().searchFollowUpPatient();
+	}
+
+	@Override
+	public Sent getSentByMsgId(Integer id) throws DAOException {
+		return this.getDao().getSentByMsgId(id);
 	}
 
 }

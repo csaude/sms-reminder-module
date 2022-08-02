@@ -38,6 +38,8 @@ public interface SmsReminderDAO {
 	public List<Sent> getAllSent() throws DAOException;
 
 	public Sent getSentById(Integer id) throws DAOException;
+	public Sent getSentByMsgId(Integer id) throws DAOException;
+
 
 	public List<Sent> getSentByCellNumber(String cellNumber) throws DAOException;
 

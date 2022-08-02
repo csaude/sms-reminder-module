@@ -26,6 +26,8 @@ public class Consumer {
 		sms.setPartnerMsgId("Info MZ");
 		smsbulk.getSms().add(sms);
 		ScheduleResult result = remoteUsendit.sendMessages("emaposse", "Mapo@@1991", "Info MZ", null, smsbulk);
+		
+		System.out.println(result.getEventId());
 		return result;
 	}
 	

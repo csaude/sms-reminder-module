@@ -38,7 +38,7 @@ public class SmsReminderResource {
 		for (NotificationPatient n : smsReminderService.getNotificationPatientByDiasRemanescente()) {
 
 			if (n.getReminderDays() == 13 || n.getReminderDays() == 7 || n.getReminderDays() == 3) {
-				
+
 				notificationPatients.add(n);
 			}
 		}
@@ -66,6 +66,26 @@ public class SmsReminderResource {
 		sent.setSentType(sentType);
 		smsReminderService.saveSent(sent);
 
+	}
+
+	public static void updateSent(Integer id, Integer status, String statusDescripion) {
+		final SmsReminderService smsReminderService = SmsReminderUtils.getService();
+		Sent sent = smsReminderService.getSentByMsgId(id);
+		if (status == 0) {
+			sent.setStatus("ENTREGUE");
+			sent.setStatusDescriptionReason(statusDescripion);
+
+		}
+		if (status == 1) {
+			sent.setStatus("EM ESPERA");
+			sent.setStatusDescriptionReason(statusDescripion);
+
+		}
+		if (status == 2) {
+			sent.setStatus("NAO ENTREGUE");
+			sent.setStatusDescriptionReason(statusDescripion);
+		}
+		smsReminderService.saveSent(sent);
 	}
 
 }
