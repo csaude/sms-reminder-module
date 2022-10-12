@@ -24,6 +24,16 @@ public class Sent extends BaseOpenmrsData implements Serializable {
 	private Patient patient;
 	private Integer reminderDays;
 	private SentType sentType;
+	private String uuid;
+
+
+	public String getUuid() {
+		return uuid;
+	}
+
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
 
 	public Integer getSentId() {
 		return this.sentId;

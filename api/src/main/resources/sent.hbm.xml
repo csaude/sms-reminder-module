@@ -18,6 +18,7 @@
 		<property name="status" type="java.lang.String" column="status" not-null="false"  length="150"/>
 		<property name="statusDescriptionReason" type="java.lang.String" column="status_description_reason" not-null="true"  length="150"/>
 		<property name="sentType" type="java.lang.String" column="sent_type" not-null="false"  length="150"/>
+		<property name="uuid" type="java.lang.String" column="uuid" not-null="false"  length="150"/>
 		<many-to-one name="patient" class="org.openmrs.Patient" not-null="false" column="patient_id"/>
 	</class>
 </hibernate-mapping>

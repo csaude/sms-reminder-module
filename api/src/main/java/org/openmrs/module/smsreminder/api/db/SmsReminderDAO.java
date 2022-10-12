@@ -13,12 +13,11 @@
  */
 package org.openmrs.module.smsreminder.api.db;
 
-import java.util.Date;
 import java.util.List;
 
-import org.openmrs.Patient;
 import org.openmrs.api.db.DAOException;
 import org.openmrs.module.smsreminder.api.SmsReminderService;
+import org.openmrs.module.smsreminder.model.DeliveryReportStatus;
 import org.openmrs.module.smsreminder.model.NotificationPatient;
 import org.openmrs.module.smsreminder.model.Sent;
 
@@ -33,31 +32,16 @@ public interface SmsReminderDAO {
 
 	public Sent saveSent(Sent sent);
 
-	public void deleteSent(Sent sent) throws DAOException;
-
 	public List<Sent> getAllSent() throws DAOException;
-
-	public Sent getSentById(Integer id) throws DAOException;
-	public Sent getSentByMsgId(Integer id) throws DAOException;
-
-
-	public List<Sent> getSentByCellNumber(String cellNumber) throws DAOException;
-
-	public List<Sent> getSentByAlertDate(Date alertDate) throws DAOException;
-
-	public List<Sent> getSentByMessage(String message) throws DAOException;
-
-	public List<Sent> getSentByStatus(String status) throws DAOException;
-
-	public List<Sent> getSentByCreated(Date created) throws DAOException;
-
-	public List<Sent> getSentBetweenCreatedAndStatus(Date start, Date end, List statuses) throws DAOException;
-
-	public List<Sent> getSentByPatient(Patient patient) throws DAOException;
-
-	public List<NotificationPatient> getNotificationPatientList() throws DAOException;
 
 	public List<NotificationPatient> getNotificationPatientByDiasRemanescente() throws DAOException;
 
 	public List<NotificationPatient> searchFollowUpPatient();
+
+	public DeliveryReportStatus searchDeliveryMensage(String uuid);
+	
+	
+	public DeliveryReportStatus saveDeliveryReportStatus(DeliveryReportStatus deliveryReportStatus);
+
+
 }

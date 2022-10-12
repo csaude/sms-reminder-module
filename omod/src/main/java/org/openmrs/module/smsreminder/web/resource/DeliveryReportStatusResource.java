@@ -19,9 +19,10 @@ import io.swagger.models.properties.DateProperty;
 import io.swagger.models.properties.IntegerProperty;
 import io.swagger.models.properties.StringProperty;
 
-@Resource(name = RestConstants.VERSION_1
-		+ "/deliveryReportStatus", supportedClass = DeliveryReportStatus.class, supportedOpenmrsVersions = {
-				"2.3.* - 9.*" })
+
+
+@Resource(name = RestConstants.VERSION_1+ "/deliveryReportStatus" ,
+supportedClass = DeliveryReportStatus.class, supportedOpenmrsVersions = {"1.8.*", "1.9.*, 1.10.*, 1.11.*", "1.12.*", "2.0.*", "2.1.*", "2.2.*", "2.3.*", "2.4.*"})
 public class DeliveryReportStatusResource extends DelegatingCrudResource<DeliveryReportStatus> {
 
 	@Override
@@ -38,6 +39,7 @@ public class DeliveryReportStatusResource extends DelegatingCrudResource<Deliver
 			description.addProperty("messageSentDatetime");
 			description.addProperty("nrSms");
 			description.addProperty("partnerMsgId");
+			description.addProperty("uuid");
 
 			return description;
 
@@ -52,6 +54,7 @@ public class DeliveryReportStatusResource extends DelegatingCrudResource<Deliver
 			description.addProperty("messageSentDatetime");
 			description.addProperty("nrSms");
 			description.addProperty("partnerMsgId");
+			description.addProperty("uuid");
 
 			return description;
 		} else if (rep instanceof FullRepresentation) {
@@ -65,6 +68,7 @@ public class DeliveryReportStatusResource extends DelegatingCrudResource<Deliver
 			description.addProperty("messageSentDatetime");
 			description.addProperty("nrSms");
 			description.addProperty("partnerMsgId");
+			description.addProperty("uuid");
 
 			return description;
 		} else {
@@ -83,7 +87,7 @@ public class DeliveryReportStatusResource extends DelegatingCrudResource<Deliver
 					.property("deliveryReportUpdateDatetime", new DateProperty())
 					.property("deliveryReportStatus", new IntegerProperty())
 					.property("messageSentDatetime", new DateProperty()).property("nrSms", new IntegerProperty())
-					.property("partnerMsgId", new StringProperty());
+					.property("partnerMsgId", new StringProperty()).property("uuid", new StringProperty());
 		}
 		return model;
 	}
@@ -99,7 +103,7 @@ public class DeliveryReportStatusResource extends DelegatingCrudResource<Deliver
 				.property("deliveryReportUpdateDatetime", new DateProperty())
 				.property("deliveryReportStatus", new IntegerProperty())
 				.property("messageSentDatetime", new DateProperty()).property("nrSms", new IntegerProperty())
-				.property("partnerMsgId", new StringProperty());
+				.property("partnerMsgId", new StringProperty()).property("uuid", new StringProperty());
 	}
 
 	/**
@@ -113,7 +117,7 @@ public class DeliveryReportStatusResource extends DelegatingCrudResource<Deliver
 				.property("deliveryReportUpdateDatetime", new DateProperty())
 				.property("deliveryReportStatus", new IntegerProperty())
 				.property("messageSentDatetime", new DateProperty()).property("nrSms", new IntegerProperty())
-				.property("partnerMsgId", new StringProperty());
+				.property("partnerMsgId", new StringProperty()).property("uuid", new StringProperty());
 	}
 
 	/**
@@ -131,6 +135,7 @@ public class DeliveryReportStatusResource extends DelegatingCrudResource<Deliver
 		description.addProperty("messageSentDatetime");
 		description.addProperty("nrSms");
 		description.addProperty("partnerMsgId");
+		description.addProperty("uuid");
 
 		return description;
 	}
@@ -150,6 +155,7 @@ public class DeliveryReportStatusResource extends DelegatingCrudResource<Deliver
 		description.addProperty("messageSentDatetime");
 		description.addProperty("nrSms");
 		description.addProperty("partnerMsgId");
+		description.addProperty("uuid");
 
 		return description;
 	}
@@ -161,14 +167,16 @@ public class DeliveryReportStatusResource extends DelegatingCrudResource<Deliver
 
 	@Override
 	public DeliveryReportStatus save(DeliveryReportStatus delegate) {
-		SmsReminderResource.updateSent(delegate.getMsgId(), delegate.getDeliveryReportStatus(),
-				delegate.getDeliveryReportDescription());
-		System.out.println("update status" + delegate.getDeliveryReportStatus());
+		System.out.println("Funcionando");
+		SmsReminderResource.SaveDeliveryReportStatus(delegate);
+		System.out.println("Gravado");
 		return delegate;
 	}
 
 	@Override
 	public DeliveryReportStatus getByUniqueId(String uniqueId) {
+		System.out.println("Funcionando"+" "+uniqueId);
+
 		return null;
 	}
 

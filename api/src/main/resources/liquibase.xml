@@ -54,6 +54,36 @@
 				<constraints nullable="true" />
 			</column>
 		</createTable>
+
+		<createTable tableName="smsreminder_deliveryreportstatus">
+			<column name="msg_id" type="int">
+				<constraints nullable="true" />
+			</column>
+			<column name="delivery_report_description" type="varchar(255)">
+				<constraints nullable="true" />
+			</column>
+
+			<column name="delivery_report_reason_code" type="varchar(255)">
+				<constraints nullable="true" />
+			</column>
+
+			<column name="delivery_report_update_datetime" type="DATETIME">
+				<constraints nullable="true" />
+			</column>
+			<column name="delivery_report_status" type="int">
+				<constraints nullable="true" />
+			</column>
+			<column name="message_sent_datetime" type="DATETIME">
+				<constraints nullable="true" />
+			</column>
+			<column name="nr_sms" type="int">
+				<constraints nullable="true" />
+			</column>
+			<column name="partner_msg_id" type="varchar(255)">
+				<constraints nullable="true" />
+			</column>
+		</createTable>
+		
 		<modifySql dbms="mssql">
 			<replace replace="CHAR(38)"
 				with="UNIQUEIDENTIFIER NOT NULL DEFAULT NEWSEQUENTIALID()" />

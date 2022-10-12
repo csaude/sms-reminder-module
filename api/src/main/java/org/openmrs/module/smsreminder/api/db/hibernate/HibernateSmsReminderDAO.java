@@ -23,14 +23,11 @@ import org.apache.commons.logging.LogFactory;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Restrictions;
-import org.openmrs.Patient;
 import org.openmrs.api.db.DAOException;
 import org.openmrs.module.smsreminder.api.db.SmsReminderDAO;
+import org.openmrs.module.smsreminder.model.DeliveryReportStatus;
 import org.openmrs.module.smsreminder.model.NotificationPatient;
 import org.openmrs.module.smsreminder.model.Sent;
-import org.openmrs.module.smsreminder.utils.DatasUtil;
 import org.openmrs.module.smsreminder.utils.SentType;
 
 /**
@@ -75,8 +72,10 @@ public class HibernateSmsReminderDAO implements SmsReminderDAO {
 	}
 
 	@Override
-	public void deleteSent(final Sent sent) throws DAOException {
-		this.sessionFactory.getCurrentSession().delete(sent);
+	public DeliveryReportStatus saveDeliveryReportStatus(DeliveryReportStatus deliveryReportStatus) {
+		getCurrentSession().saveOrUpdate(deliveryReportStatus);
+		return deliveryReportStatus;
+
 	}
 
 	@SuppressWarnings("unchecked")
@@ -84,81 +83,6 @@ public class HibernateSmsReminderDAO implements SmsReminderDAO {
 	public List<Sent> getAllSent() throws DAOException {
 		final Criteria c = this.sessionFactory.getCurrentSession().createCriteria(Sent.class);
 
-		return c.list();
-	}
-
-	@Override
-	public Sent getSentById(final Integer id) throws DAOException {
-		return (Sent) this.sessionFactory.getCurrentSession().get(Sent.class, id);
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Sent> getSentByCellNumber(final String cellNumber) throws DAOException {
-		final Criteria c = this.sessionFactory.getCurrentSession().createCriteria(Sent.class, cellNumber);
-		c.addOrder(Order.asc("cellNumber"));
-		return c.list();
-	}
-
-	@Override
-
-	public Sent getSentByMsgId(final Integer id) throws DAOException {
-		return (Sent) this.sessionFactory.getCurrentSession().get(Sent.class, id);
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Sent> getSentByAlertDate(final Date alertDate) throws DAOException {
-		final Criteria c = this.sessionFactory.getCurrentSession().createCriteria(Sent.class);
-		c.add(Restrictions.eq("alertDate", DatasUtil.formatarMysqlDate(alertDate)));
-		return c.list();
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Sent> getSentByMessage(final String message) throws DAOException {
-		final Criteria c = this.sessionFactory.getCurrentSession().createCriteria(Sent.class, message);
-		return c.list();
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Sent> getSentByStatus(final String status) throws DAOException {
-		final Criteria c = this.sessionFactory.getCurrentSession().createCriteria(Sent.class, status);
-		return c.list();
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Sent> getSentByCreated(final Date created) throws DAOException {
-		final Criteria c = this.sessionFactory.getCurrentSession().createCriteria(Sent.class);
-		c.add(Restrictions.eq("dateCreated", DatasUtil.formatarMysqlDate(created)));
-		return c.list();
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Sent> getSentBetweenCreatedAndStatus(final Date start, final Date end,
-			@SuppressWarnings("rawtypes") final List statuses) throws DAOException {
-		final Criteria c = this.sessionFactory.getCurrentSession().createCriteria(Sent.class);
-		c.add(Restrictions.between("dateCreated", DatasUtil.formatarMysqlDate(start),
-				DatasUtil.formatarMysqlDate(end)));
-		c.add(Restrictions.in("status", statuses));
-		return c.list();
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Sent> getSentByPatient(final Patient patient) throws DAOException {
-		final Criteria c = this.sessionFactory.getCurrentSession().createCriteria(Sent.class);
-		c.add(Restrictions.eq("patient", patient));
-		return c.list();
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<NotificationPatient> getNotificationPatientList() throws DAOException {
-		final Criteria c = this.sessionFactory.getCurrentSession().createCriteria(NotificationPatient.class);
 		return c.list();
 	}
 
@@ -307,4 +231,10 @@ public class HibernateSmsReminderDAO implements SmsReminderDAO {
 
 		return notificationPatients;
 	}
+
+	@Override
+	public DeliveryReportStatus searchDeliveryMensage(String uuid) {
+		return (DeliveryReportStatus) this.sessionFactory.getCurrentSession().get(DeliveryReportStatus.class, uuid);
+	}
+
 }

@@ -15,6 +15,7 @@ public class DeliveryReportStatus extends BaseOpenmrsData {
 	private Date messageSentDatetime;
 	private int nrSms;
 	private String partnerMsgId;
+	private String uuid;
 
 	public Integer getMsgId() {
 		return msgId;
@@ -89,6 +90,14 @@ public class DeliveryReportStatus extends BaseOpenmrsData {
 	public void setId(Integer id) {
 		this.msgId = id;
 
+	}
+
+	public String getUuid() {
+		return uuid;
+	}
+
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
 	}
 
 }

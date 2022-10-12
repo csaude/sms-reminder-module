@@ -42,8 +42,8 @@ public class PropertiesCache
    
    public static void main(String[] args)
    {
-     System.out.println(PropertiesCache.getInstance().getProperty("firstName"));
-     System.out.println(PropertiesCache.getInstance().getProperty("lastName"));
+     System.out.println(PropertiesCache.getInstance().getProperty("smsreminder.message"));
+     System.out.println(PropertiesCache.getInstance().getProperty("smsreminder.message"));
      System.out.println(PropertiesCache.getInstance().getAllPropertyNames());
    }
 

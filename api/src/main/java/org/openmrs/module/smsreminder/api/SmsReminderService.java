@@ -17,7 +17,7 @@ import java.util.List;
 
 import org.openmrs.api.APIException;
 import org.openmrs.api.OpenmrsService;
-import org.openmrs.api.db.DAOException;
+import org.openmrs.module.smsreminder.model.DeliveryReportStatus;
 import org.openmrs.module.smsreminder.model.NotificationPatient;
 import org.openmrs.module.smsreminder.model.Sent;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,16 +39,12 @@ public interface SmsReminderService extends OpenmrsService {
 
 	@Transactional
 	public Sent saveSent(Sent sent);
-
+	@Transactional
+	public DeliveryReportStatus saveDeliveryReportStatus(DeliveryReportStatus deliveryReportStatus);
 	@Transactional
 	public List<Sent> getAllSent() throws APIException;
-	
-	public Sent getSentByMsgId(Integer id) throws DAOException;
-
-
 	@Transactional
 	public List<NotificationPatient> getNotificationPatientByDiasRemanescente() throws APIException;
-
 	@Transactional
 	public List<NotificationPatient> searchFollowUpPatient();
 

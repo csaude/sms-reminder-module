@@ -18,14 +18,12 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.api.APIException;
-import org.openmrs.api.db.DAOException;
-import org.openmrs.api.db.PatientDAO;
 import org.openmrs.api.impl.BaseOpenmrsService;
 import org.openmrs.module.smsreminder.api.SmsReminderService;
 import org.openmrs.module.smsreminder.api.db.SmsReminderDAO;
+import org.openmrs.module.smsreminder.model.DeliveryReportStatus;
 import org.openmrs.module.smsreminder.model.NotificationPatient;
 import org.openmrs.module.smsreminder.model.Sent;
-import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * It is a default implementation of {@link SmsReminderService}.
@@ -36,8 +34,6 @@ public class SmsReminderServiceImpl extends BaseOpenmrsService implements SmsRem
 
 	private SmsReminderDAO dao;
 	
-	@Autowired
-	private PatientDAO patientDAO;
 
 	/**
 	 * @return the dao
@@ -59,6 +55,11 @@ public class SmsReminderServiceImpl extends BaseOpenmrsService implements SmsRem
 	public Sent saveSent(final Sent sent) {
 		return this.getDao().saveSent(sent);
 	}
+	
+	@Override
+	public DeliveryReportStatus saveDeliveryReportStatus(DeliveryReportStatus deliveryReportStatus) {
+		return this.getDao().saveDeliveryReportStatus(deliveryReportStatus);
+	}
 
 	@Override
 	public List<Sent> getAllSent() throws APIException {
@@ -74,11 +75,6 @@ public class SmsReminderServiceImpl extends BaseOpenmrsService implements SmsRem
 	@Override
 	public List<NotificationPatient> searchFollowUpPatient() {
 		return this.getDao().searchFollowUpPatient();
-	}
-
-	@Override
-	public Sent getSentByMsgId(Integer id) throws DAOException {
-		return this.getDao().getSentByMsgId(id);
 	}
 
 }

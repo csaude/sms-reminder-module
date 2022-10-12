@@ -12,7 +12,6 @@ import org.openmrs.module.smsreminder.SmsReminderUtils;
 import org.openmrs.module.smsreminder.api.SmsReminderService;
 import org.openmrs.module.smsreminder.model.NotificationPatient;
 import org.openmrs.module.smsreminder.utils.DatasUtil;
-import org.openmrs.module.smsreminder.utils.PropertiesCache;
 import org.openmrs.module.smsreminder.utils.SentType;
 import org.openmrs.module.smsreminder.utils.SmsReminderResource;
 import org.openmrs.module.smsreminder.webservice.Consumer;
@@ -36,13 +35,12 @@ public class SendSmsReminderTask extends AbstractTask {
 		if (!notificationPatients.isEmpty()) {
 			for (NotificationPatient notificationPatient : notificationPatients) {
 
-				String mensage = "Sr ".concat(notificationPatient.getFullName())
-						.concat(PropertiesCache.getInstance().getProperty("message"))
+				String mensage = "Sr ".concat(notificationPatient.getFullName()).concat(" Tem um Encontro")
 						.concat(locationService.getLocation(Integer.valueOf(gpUs.getPropertyValue())).getName())
 						.concat(" no dia").concat(DatasUtil.formatarDataPt(notificationPatient.getNextVisitDate()));
 
 				try {
-					ScheduleResult c= Consumer.sendMensage(mensage, notificationPatient.getPhoneNumber());
+					ScheduleResult c = Consumer.sendMensage(mensage, "258" + notificationPatient.getPhoneNumber());
 					notificationPatient.setMsgId(c.getEventId());
 					SmsReminderResource.saveSent(notificationPatient, SentType.NOVO_INICIO);
 				} catch (Throwable e) {

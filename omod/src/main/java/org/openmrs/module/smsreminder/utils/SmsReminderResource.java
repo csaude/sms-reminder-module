@@ -7,6 +7,7 @@ import org.openmrs.api.PatientService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.smsreminder.SmsReminderUtils;
 import org.openmrs.module.smsreminder.api.SmsReminderService;
+import org.openmrs.module.smsreminder.model.DeliveryReportStatus;
 import org.openmrs.module.smsreminder.model.NotificationPatient;
 import org.openmrs.module.smsreminder.model.Sent;
 
@@ -37,7 +38,7 @@ public class SmsReminderResource {
 
 		for (NotificationPatient n : smsReminderService.getNotificationPatientByDiasRemanescente()) {
 
-			if (n.getReminderDays() == 13 || n.getReminderDays() == 7 || n.getReminderDays() == 3) {
+			if (n.getReminderDays() == 20 || n.getReminderDays() == 7 || n.getReminderDays() == 3) {
 
 				notificationPatients.add(n);
 			}
@@ -48,9 +49,7 @@ public class SmsReminderResource {
 	}
 
 	public static List<Sent> getAllSmsSent() {
-
 		final SmsReminderService smsReminderService = SmsReminderUtils.getService();
-
 		return smsReminderService.getAllSent();
 	}
 
@@ -68,24 +67,9 @@ public class SmsReminderResource {
 
 	}
 
-	public static void updateSent(Integer id, Integer status, String statusDescripion) {
+	public static void SaveDeliveryReportStatus(final DeliveryReportStatus deliveryReportStatus) {
 		final SmsReminderService smsReminderService = SmsReminderUtils.getService();
-		Sent sent = smsReminderService.getSentByMsgId(id);
-		if (status == 0) {
-			sent.setStatus("ENTREGUE");
-			sent.setStatusDescriptionReason(statusDescripion);
-
-		}
-		if (status == 1) {
-			sent.setStatus("EM ESPERA");
-			sent.setStatusDescriptionReason(statusDescripion);
-
-		}
-		if (status == 2) {
-			sent.setStatus("NAO ENTREGUE");
-			sent.setStatusDescriptionReason(statusDescripion);
-		}
-		smsReminderService.saveSent(sent);
+		smsReminderService.saveDeliveryReportStatus(deliveryReportStatus);
 	}
 
 }
