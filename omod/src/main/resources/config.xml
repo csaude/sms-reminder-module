@@ -39,14 +39,6 @@
 
 	<!-- Maps hibernate file's, if present -->
 	<mappingFiles>
-		notificationpatient.hbm.xml
-	</mappingFiles>
-
-	<mappingFiles>
-		sent.hbm.xml
-	</mappingFiles>
-
-	<mappingFiles>
 		deliveryReportStatus.hbm.xml
 	</mappingFiles>
 

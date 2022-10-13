@@ -7,15 +7,21 @@ import org.openmrs.BaseOpenmrsData;
 public class DeliveryReportStatus extends BaseOpenmrsData {
 
 	private static final long serialVersionUID = 1L;
+	private Integer id;
 	private Integer msgId;
+	private String uuid;
 	private String deliveryReportDescription;
 	private String deliveryReportReasonCode;
 	private Date deliveryReportUpdateDatetime;
-	private int deliveryReportStatus;
+	private Integer status;
 	private Date messageSentDatetime;
-	private int nrSms;
+	private Integer nrSms;
 	private String partnerMsgId;
-	private String uuid;
+	private Date dateCreated;
+
+	public DeliveryReportStatus() {
+
+	}
 
 	public Integer getMsgId() {
 		return msgId;
@@ -23,6 +29,26 @@ public class DeliveryReportStatus extends BaseOpenmrsData {
 
 	public void setMsgId(Integer msgId) {
 		this.msgId = msgId;
+	}
+
+	@Override
+	public String getUuid() {
+		return uuid;
+	}
+
+	@Override
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
+
+	@Override
+	public Date getDateCreated() {
+		return dateCreated;
+	}
+
+	@Override
+	public void setDateCreated(Date dateCreated) {
+		this.dateCreated = dateCreated;
 	}
 
 	public String getDeliveryReportDescription() {
@@ -57,14 +83,6 @@ public class DeliveryReportStatus extends BaseOpenmrsData {
 		this.messageSentDatetime = messageSentDatetime;
 	}
 
-	public int getNrSms() {
-		return nrSms;
-	}
-
-	public void setNrSms(int nrSms) {
-		this.nrSms = nrSms;
-	}
-
 	public String getPartnerMsgId() {
 		return partnerMsgId;
 	}
@@ -73,31 +91,46 @@ public class DeliveryReportStatus extends BaseOpenmrsData {
 		this.partnerMsgId = partnerMsgId;
 	}
 
-	public int getDeliveryReportStatus() {
-		return deliveryReportStatus;
+	public Integer getStatus() {
+		return status;
 	}
 
-	public void setDeliveryReportStatus(int deliveryReportStatus) {
-		this.deliveryReportStatus = deliveryReportStatus;
+	public void setStatus(Integer status) {
+		this.status = status;
 	}
 
-	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (!(obj instanceof DeliveryReportStatus)) {
+			return false;
+		}
+		DeliveryReportStatus other = (DeliveryReportStatus) obj;
+		if (getUuid() == null) {
+			return false;
+		}
+		return getUuid().equals(other.getUuid());
+	}
+
+	public int hashCode() {
+		return (getUuid() == null ? super.hashCode() : getUuid().hashCode());
+	}
+
+	public Integer getNrSms() {
+		return nrSms;
+	}
+
+	public void setNrSms(Integer nrSms) {
+		this.nrSms = nrSms;
+	}
+
 	public Integer getId() {
-		return msgId;
+		return id;
 	}
 
-	@Override
 	public void setId(Integer id) {
-		this.msgId = id;
-
-	}
-
-	public String getUuid() {
-		return uuid;
-	}
-
-	public void setUuid(String uuid) {
-		this.uuid = uuid;
+		this.id = id;
 	}
 
 }

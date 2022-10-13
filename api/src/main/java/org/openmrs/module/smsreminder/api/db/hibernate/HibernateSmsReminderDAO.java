@@ -73,7 +73,10 @@ public class HibernateSmsReminderDAO implements SmsReminderDAO {
 
 	@Override
 	public DeliveryReportStatus saveDeliveryReportStatus(DeliveryReportStatus deliveryReportStatus) {
-		getCurrentSession().saveOrUpdate(deliveryReportStatus);
+		try {
+			this.sessionFactory.getCurrentSession().saveOrUpdate(deliveryReportStatus);
+		} catch (Exception e) {
+		}
 		return deliveryReportStatus;
 
 	}

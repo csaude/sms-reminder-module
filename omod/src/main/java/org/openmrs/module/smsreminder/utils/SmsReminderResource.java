@@ -1,6 +1,7 @@
 package org.openmrs.module.smsreminder.utils;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import org.openmrs.api.PatientService;
@@ -68,7 +69,8 @@ public class SmsReminderResource {
 	}
 
 	public static void SaveDeliveryReportStatus(final DeliveryReportStatus deliveryReportStatus) {
-		final SmsReminderService smsReminderService = SmsReminderUtils.getService();
+		final SmsReminderService smsReminderService = SmsReminderUtils.getService();	
+		deliveryReportStatus.setDateCreated(Calendar.getInstance().getTime());
 		smsReminderService.saveDeliveryReportStatus(deliveryReportStatus);
 	}
 

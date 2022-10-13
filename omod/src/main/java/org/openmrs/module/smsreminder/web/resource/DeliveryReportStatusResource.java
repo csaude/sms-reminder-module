@@ -19,10 +19,9 @@ import io.swagger.models.properties.DateProperty;
 import io.swagger.models.properties.IntegerProperty;
 import io.swagger.models.properties.StringProperty;
 
-
-
-@Resource(name = RestConstants.VERSION_1+ "/deliveryReportStatus" ,
-supportedClass = DeliveryReportStatus.class, supportedOpenmrsVersions = {"1.8.*", "1.9.*, 1.10.*, 1.11.*", "1.12.*", "2.0.*", "2.1.*", "2.2.*", "2.3.*", "2.4.*"})
+@Resource(name = RestConstants.VERSION_1
+		+ "/delivery", supportedClass = DeliveryReportStatus.class, supportedOpenmrsVersions = { "1.8.*",
+				"1.9.*, 1.10.*, 1.11.*", "1.12.*", "2.0.*", "2.1.*", "2.2.*", "2.3.*", "2.4.*" })
 public class DeliveryReportStatusResource extends DelegatingCrudResource<DeliveryReportStatus> {
 
 	@Override
@@ -32,43 +31,42 @@ public class DeliveryReportStatusResource extends DelegatingCrudResource<Deliver
 
 			final DelegatingResourceDescription description = new DelegatingResourceDescription();
 			description.addProperty("msgId");
+			description.addProperty("uuid");
 			description.addProperty("deliveryReportDescription");
 			description.addProperty("deliveryReportReasonCode");
 			description.addProperty("deliveryReportUpdateDatetime");
-			description.addProperty("deliveryReportStatus");
+			description.addProperty("status");
 			description.addProperty("messageSentDatetime");
 			description.addProperty("nrSms");
 			description.addProperty("partnerMsgId");
-			description.addProperty("uuid");
-
 			return description;
 
 		} else if (rep instanceof DefaultRepresentation) {
 
 			final DelegatingResourceDescription description = new DelegatingResourceDescription();
 			description.addProperty("msgId");
+			description.addProperty("uuid");
 			description.addProperty("deliveryReportDescription");
 			description.addProperty("deliveryReportReasonCode");
 			description.addProperty("deliveryReportUpdateDatetime");
-			description.addProperty("deliveryReportStatus");
+			description.addProperty("status");
 			description.addProperty("messageSentDatetime");
 			description.addProperty("nrSms");
 			description.addProperty("partnerMsgId");
-			description.addProperty("uuid");
 
 			return description;
 		} else if (rep instanceof FullRepresentation) {
 
 			final DelegatingResourceDescription description = new DelegatingResourceDescription();
 			description.addProperty("msgId");
+			description.addProperty("uuid");
 			description.addProperty("deliveryReportDescription");
 			description.addProperty("deliveryReportReasonCode");
 			description.addProperty("deliveryReportUpdateDatetime");
-			description.addProperty("deliveryReportStatus");
+			description.addProperty("status");
 			description.addProperty("messageSentDatetime");
 			description.addProperty("nrSms");
 			description.addProperty("partnerMsgId");
-			description.addProperty("uuid");
 
 			return description;
 		} else {
@@ -82,12 +80,13 @@ public class DeliveryReportStatusResource extends DelegatingCrudResource<Deliver
 	public Model getGETModel(Representation rep) {
 		ModelImpl model = ((ModelImpl) super.getGETModel(rep));
 		if (rep instanceof DefaultRepresentation || rep instanceof FullRepresentation) {
-			model.property("msgId", new IntegerProperty()).property("deliveryReportDescription", new StringProperty())
+			model.property("msgId", new IntegerProperty()).property("uuid", new StringProperty())
+					.property("deliveryReportDescription", new StringProperty())
 					.property("deliveryReportReasonCode", new StringProperty())
 					.property("deliveryReportUpdateDatetime", new DateProperty())
-					.property("deliveryReportStatus", new IntegerProperty())
+					.property("status", new IntegerProperty())
 					.property("messageSentDatetime", new DateProperty()).property("nrSms", new IntegerProperty())
-					.property("partnerMsgId", new StringProperty()).property("uuid", new StringProperty());
+					.property("partnerMsgId", new StringProperty());
 		}
 		return model;
 	}
@@ -97,13 +96,13 @@ public class DeliveryReportStatusResource extends DelegatingCrudResource<Deliver
 	 */
 	@Override
 	public Model getCREATEModel(Representation rep) {
-		return new ModelImpl().property("msgId", new IntegerProperty())
+		return new ModelImpl().property("msgId", new IntegerProperty()).property("uuid", new StringProperty())
 				.property("deliveryReportDescription", new StringProperty())
 				.property("deliveryReportReasonCode", new StringProperty())
 				.property("deliveryReportUpdateDatetime", new DateProperty())
-				.property("deliveryReportStatus", new IntegerProperty())
+				.property("status", new IntegerProperty())
 				.property("messageSentDatetime", new DateProperty()).property("nrSms", new IntegerProperty())
-				.property("partnerMsgId", new StringProperty()).property("uuid", new StringProperty());
+				.property("partnerMsgId", new StringProperty());
 	}
 
 	/**
@@ -111,13 +110,13 @@ public class DeliveryReportStatusResource extends DelegatingCrudResource<Deliver
 	 */
 	@Override
 	public Model getUPDATEModel(Representation representation) {
-		return new ModelImpl().property("msgId", new IntegerProperty())
+		return new ModelImpl().property("msgId", new IntegerProperty()).property("uuid", new StringProperty())
 				.property("deliveryReportDescription", new StringProperty())
 				.property("deliveryReportReasonCode", new StringProperty())
 				.property("deliveryReportUpdateDatetime", new DateProperty())
-				.property("deliveryReportStatus", new IntegerProperty())
+				.property("status", new IntegerProperty())
 				.property("messageSentDatetime", new DateProperty()).property("nrSms", new IntegerProperty())
-				.property("partnerMsgId", new StringProperty()).property("uuid", new StringProperty());
+				.property("partnerMsgId", new StringProperty());
 	}
 
 	/**
@@ -128,14 +127,14 @@ public class DeliveryReportStatusResource extends DelegatingCrudResource<Deliver
 		DelegatingResourceDescription description = new DelegatingResourceDescription();
 
 		description.addProperty("msgId");
+		description.addProperty("uuid");
 		description.addProperty("deliveryReportDescription");
 		description.addProperty("deliveryReportReasonCode");
 		description.addProperty("deliveryReportUpdateDatetime");
-		description.addProperty("deliveryReportStatus");
+		description.addProperty("status");
 		description.addProperty("messageSentDatetime");
 		description.addProperty("nrSms");
 		description.addProperty("partnerMsgId");
-		description.addProperty("uuid");
 
 		return description;
 	}
@@ -148,14 +147,14 @@ public class DeliveryReportStatusResource extends DelegatingCrudResource<Deliver
 		DelegatingResourceDescription description = new DelegatingResourceDescription();
 
 		description.addProperty("msgId");
+		description.addProperty("uuid");
 		description.addProperty("deliveryReportDescription");
 		description.addProperty("deliveryReportReasonCode");
 		description.addProperty("deliveryReportUpdateDatetime");
-		description.addProperty("deliveryReportStatus");
+		description.addProperty("status");
 		description.addProperty("messageSentDatetime");
 		description.addProperty("nrSms");
 		description.addProperty("partnerMsgId");
-		description.addProperty("uuid");
 
 		return description;
 	}
@@ -167,16 +166,12 @@ public class DeliveryReportStatusResource extends DelegatingCrudResource<Deliver
 
 	@Override
 	public DeliveryReportStatus save(DeliveryReportStatus delegate) {
-		System.out.println("Funcionando");
 		SmsReminderResource.SaveDeliveryReportStatus(delegate);
-		System.out.println("Gravado");
 		return delegate;
 	}
 
 	@Override
 	public DeliveryReportStatus getByUniqueId(String uniqueId) {
-		System.out.println("Funcionando"+" "+uniqueId);
-
 		return null;
 	}
 
