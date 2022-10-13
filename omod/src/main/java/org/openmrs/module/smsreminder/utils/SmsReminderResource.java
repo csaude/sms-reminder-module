@@ -63,7 +63,6 @@ public class SmsReminderResource {
 		sent.setAlertDate(notificationPatient.getDateCreated());
 		sent.setReminderDays(notificationPatient.getReminderDays());
 		sent.setPatient(patientService.getPatient(notificationPatient.getPatientId()));
-		sent.setSentType(sentType);
 		smsReminderService.saveSent(sent);
 
 	}

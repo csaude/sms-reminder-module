@@ -5,7 +5,6 @@ import java.util.Date;
 
 import org.openmrs.BaseOpenmrsData;
 import org.openmrs.Patient;
-import org.openmrs.module.smsreminder.utils.SentType;
 
 /**
  * Created by Nelson.Mahumane on 03-09-2015.
@@ -14,7 +13,7 @@ public class Sent extends BaseOpenmrsData implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private Integer sentId;
-	private  int msgId;
+	private  Integer msgId;
 	private String phoneNumber;
 	private Date alertDate;
 	private Date dateCreated;
@@ -23,7 +22,6 @@ public class Sent extends BaseOpenmrsData implements Serializable {
 	private String statusDescriptionReason;
 	private Patient patient;
 	private Integer reminderDays;
-	private SentType sentType;
 	private String uuid;
 
 
@@ -113,13 +111,7 @@ public class Sent extends BaseOpenmrsData implements Serializable {
 
 	}
 
-	public SentType getSentType() {
-		return this.sentType;
-	}
 
-	public void setSentType(final SentType sentType) {
-		this.sentType = sentType;
-	}
 
 	public String getPhoneNumber() {
 		return phoneNumber;
@@ -149,12 +141,14 @@ public class Sent extends BaseOpenmrsData implements Serializable {
 		this.statusDescriptionReason = statusDescriptionReason;
 	}
 
-	public int getMsgId() {
+	public Integer getMsgId() {
 		return msgId;
 	}
 
-	public void setMsgId(int msgId) {
+	public void setMsgId(Integer msgId) {
 		this.msgId = msgId;
 	}
+
+
 
 }

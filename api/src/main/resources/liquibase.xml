@@ -30,7 +30,7 @@
 			<column name="alert_date" type="DATETIME">
 				<constraints nullable="false" />
 			</column>
-			<column defaultValueNumeric="0" name="created" type="int">
+			<column  name="date_created" type="DATETIME">
 				<constraints nullable="false" />
 			</column>
 			<column name="reminder_days" type="int">
@@ -47,24 +47,25 @@
 				<constraints nullable="true" />
 			</column>
 
-			<column name="sent_type" type="varchar(255)">
+			<column name="patient_id" type="int">
 				<constraints nullable="true" />
 			</column>
-			<column name="patient_id" type="int">
+
+			<column name="uuid" type="varchar(255)">
 				<constraints nullable="true" />
 			</column>
 		</createTable>
 
 		<createTable tableName="smsreminder_deliveryreportstatus">
-			
+
 			<column autoIncrement="true" name="delivery_id" type="int">
 				<constraints nullable="false" primaryKey="true" />
 			</column>
-			
+
 			<column name="msg_id" type="int">
 				<constraints nullable="true" />
 			</column>
-			
+
 			<column name="delivery_report_description" type="varchar(255)">
 				<constraints nullable="true" />
 			</column>
@@ -88,17 +89,17 @@
 			<column name="partner_msg_id" type="varchar(255)">
 				<constraints nullable="true" />
 			</column>
-			
+
 			<column name="uuid" type="varchar(255)">
 				<constraints nullable="true" />
 			</column>
-			
+
 			<column name="date_created" type="DATETIME">
 				<constraints nullable="true" />
 			</column>
-			
+
 		</createTable>
-		
+
 		<modifySql dbms="mssql">
 			<replace replace="CHAR(38)"
 				with="UNIQUEIDENTIFIER NOT NULL DEFAULT NEWSEQUENTIALID()" />

@@ -40,6 +40,7 @@
 	<!-- Maps hibernate file's, if present -->
 	<mappingFiles>
 		deliveryReportStatus.hbm.xml
+		sent.hbm.xml
 	</mappingFiles>
 
 

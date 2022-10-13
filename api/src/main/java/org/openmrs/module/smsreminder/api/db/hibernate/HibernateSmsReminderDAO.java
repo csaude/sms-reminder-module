@@ -74,7 +74,29 @@ public class HibernateSmsReminderDAO implements SmsReminderDAO {
 	@Override
 	public DeliveryReportStatus saveDeliveryReportStatus(DeliveryReportStatus deliveryReportStatus) {
 		try {
+			Query q = sessionFactory.getCurrentSession().createQuery("FROM Sent s WHERE s.msgId = :msgId");
+
+			q.setParameter("msgId", deliveryReportStatus.getMsgId());
+
+			Sent sent = (Sent) q.uniqueResult();
+
+			if (deliveryReportStatus.getStatus() == 0) {
+				sent.setStatus("ENTREGUE");
+				sent.setStatusDescriptionReason(deliveryReportStatus.getDeliveryReportDescription());
+
+			}
+			if (deliveryReportStatus.getStatus() == 1) {
+				sent.setStatus("EM ESPERA");
+				sent.setStatusDescriptionReason(deliveryReportStatus.getDeliveryReportDescription());
+
+			}
+			if (deliveryReportStatus.getStatus() == 2) {
+				sent.setStatus("NAO ENTREGUE");
+				sent.setStatusDescriptionReason(deliveryReportStatus.getDeliveryReportDescription());
+			}
 			this.sessionFactory.getCurrentSession().saveOrUpdate(deliveryReportStatus);
+			this.sessionFactory.getCurrentSession().saveOrUpdate(sent);
+
 		} catch (Exception e) {
 		}
 		return deliveryReportStatus;
