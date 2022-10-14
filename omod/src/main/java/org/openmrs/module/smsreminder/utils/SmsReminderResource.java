@@ -39,7 +39,7 @@ public class SmsReminderResource {
 
 		for (NotificationPatient n : smsReminderService.getNotificationPatientByDiasRemanescente()) {
 
-			if (n.getReminderDays() == 20 || n.getReminderDays() == 7 || n.getReminderDays() == 3) {
+			if (n.getReminderDays() == 15 || n.getReminderDays() == 7 || n.getReminderDays() == 2) {
 
 				notificationPatients.add(n);
 			}
