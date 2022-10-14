@@ -13,7 +13,7 @@
 		<property name="phoneNumber" type="java.lang.String" column="phone_number" length="15" />
 		<property name="nid" type="java.lang.String" column="nid" length="15" />
 		<property name="fullName" type="java.lang.String" column="full_name" length="100" />
-		<property name="gender" type="java.lang.String" column="full_name" length="1" />
+		<property name="gender" type="java.lang.String" column="gender" length="1" />
 		<property name="lastVisitDate" type="java.util.Date" column="last_visit_date" />
 		<property name="nextVisitDate" type="java.util.Date" column="next_visit_date" />
 		<property name="alertDate" type="java.util.Date" column="alert_date" />

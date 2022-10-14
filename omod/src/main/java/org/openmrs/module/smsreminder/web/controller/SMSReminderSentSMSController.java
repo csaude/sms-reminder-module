@@ -13,7 +13,7 @@ public class SMSReminderSentSMSController {
 
 	protected final Log log = LogFactory.getLog(getClass());
 
-	@RequestMapping(value = "/module/smsreminder/smssendedlist", method = RequestMethod.POST)
+	@RequestMapping(value = "/module/smsreminder/smssendedlist", method = RequestMethod.GET)
 	public ModelAndView patientListSender() {
 		final ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject("smss", SmsReminderResource.getAllSmsSent());
