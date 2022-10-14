@@ -30,10 +30,12 @@ public class Sent extends BaseOpenmrsData implements Serializable {
 	private String uuid;
 
 
+	@Override
 	public String getUuid() {
 		return uuid;
 	}
 
+	@Override
 	public void setUuid(String uuid) {
 		this.uuid = uuid;
 	}
