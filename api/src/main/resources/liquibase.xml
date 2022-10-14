@@ -25,19 +25,38 @@
 				<constraints nullable="true" />
 			</column>
 			<column defaultValue="" name="phone_number" type="varchar(50)">
-				<constraints nullable="false" />
+				<constraints nullable="true" />
 			</column>
+			<column name="nid" type="varchar(50)">
+				<constraints nullable="true" />
+			</column>
+			<column name="full_name" type="varchar(50)">
+				<constraints nullable="true" />
+			</column>
+
+			<column name="gender" type="varchar(50)">
+				<constraints nullable="true" />
+			</column>
+
+			<column name="last_visit_date" type="DATETIME">
+				<constraints nullable="true" />
+			</column>
+
+			<column name="next_visit_date" type="DATETIME">
+				<constraints nullable="true" />
+			</column>
+
 			<column name="alert_date" type="DATETIME">
-				<constraints nullable="false" />
+				<constraints nullable="true" />
 			</column>
-			<column  name="date_created" type="DATETIME">
-				<constraints nullable="false" />
+			<column name="date_created" type="DATETIME">
+				<constraints nullable="true" />
 			</column>
 			<column name="reminder_days" type="int">
-				<constraints nullable="false" />
+				<constraints nullable="true" />
 			</column>
 			<column name="message" type="varchar(50)">
-				<constraints nullable="false" />
+				<constraints nullable="true" />
 			</column>
 			<column name="status" type="varchar(255)">
 				<constraints nullable="true" />
@@ -104,6 +123,17 @@
 			<replace replace="CHAR(38)"
 				with="UNIQUEIDENTIFIER NOT NULL DEFAULT NEWSEQUENTIALID()" />
 		</modifySql>
+	</changeSet>
+
+	<changeSet author="emaposse1" id="20200402-1807">
+
+		<insert tableName="global_property">
+			<column name="property" value="smsreminder.reference_date" />
+			<column name="property_value" value="now()" />
+			<column name="description" value="Send SMS to art patient" />
+			<column name="uuid"
+				value="f605e8da-4b92-11ed-852d-1f76523e63b4" />
+		</insert>
 	</changeSet>
 
 </databaseChangeLog>

@@ -14,8 +14,13 @@ public class Sent extends BaseOpenmrsData implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Integer sentId;
 	private  Integer msgId;
+	private String nid;
+	private String fullName;
 	private String phoneNumber;
+	private String gender;
 	private Date alertDate;
+	private Date lastVisitDate;
+	private Date nextVisitDate;
 	private Date dateCreated;
 	private String message;
 	private String status;
@@ -147,6 +152,46 @@ public class Sent extends BaseOpenmrsData implements Serializable {
 
 	public void setMsgId(Integer msgId) {
 		this.msgId = msgId;
+	}
+
+	public String getNid() {
+		return nid;
+	}
+
+	public void setNid(String nid) {
+		this.nid = nid;
+	}
+
+	public String getFullName() {
+		return fullName;
+	}
+
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
+	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	public Date getLastVisitDate() {
+		return lastVisitDate;
+	}
+
+	public void setLastVisitDate(Date lastVisitDate) {
+		this.lastVisitDate = lastVisitDate;
+	}
+
+	public Date getNextVisitDate() {
+		return nextVisitDate;
+	}
+
+	public void setNextVisitDate(Date nextVisitDate) {
+		this.nextVisitDate = nextVisitDate;
 	}
 
 
