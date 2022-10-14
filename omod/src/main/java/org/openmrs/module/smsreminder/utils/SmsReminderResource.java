@@ -54,21 +54,30 @@ public class SmsReminderResource {
 		return smsReminderService.getAllSent();
 	}
 
-	public static void saveSent(final NotificationPatient notificationPatient, SentType sentType) {
+	public static void saveSent(final NotificationPatient notificationPatient) {
 		final Sent sent = new Sent();
+
 		final PatientService patientService = Context.getPatientService();
 		final SmsReminderService smsReminderService = SmsReminderUtils.getService();
+
 		sent.setPhoneNumber(notificationPatient.getPhoneNumber());
 		sent.setMessage(notificationPatient.getMensage());
 		sent.setAlertDate(notificationPatient.getDateCreated());
 		sent.setReminderDays(notificationPatient.getReminderDays());
 		sent.setPatient(patientService.getPatient(notificationPatient.getPatientId()));
+		sent.setFullName(notificationPatient.getFullName());
+		sent.setGender(notificationPatient.getGender());
+		sent.setLastVisitDate(notificationPatient.getLastVisitDate());
+		sent.setNextVisitDate(notificationPatient.getNextVisitDate());
+		sent.setReminderDays(notificationPatient.getReminderDays());
+		sent.setMsgId(notificationPatient.getMsgId());
+
 		smsReminderService.saveSent(sent);
 
 	}
 
 	public static void SaveDeliveryReportStatus(final DeliveryReportStatus deliveryReportStatus) {
-		final SmsReminderService smsReminderService = SmsReminderUtils.getService();	
+		final SmsReminderService smsReminderService = SmsReminderUtils.getService();
 		deliveryReportStatus.setDateCreated(Calendar.getInstance().getTime());
 		smsReminderService.saveDeliveryReportStatus(deliveryReportStatus);
 	}

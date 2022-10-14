@@ -12,7 +12,6 @@ import org.openmrs.module.smsreminder.SmsReminderUtils;
 import org.openmrs.module.smsreminder.api.SmsReminderService;
 import org.openmrs.module.smsreminder.model.NotificationPatient;
 import org.openmrs.module.smsreminder.utils.DatasUtil;
-import org.openmrs.module.smsreminder.utils.SentType;
 import org.openmrs.module.smsreminder.utils.SmsReminderResource;
 import org.openmrs.module.smsreminder.webservice.Consumer;
 import org.openmrs.scheduler.tasks.AbstractTask;
@@ -42,7 +41,7 @@ public class SendSmsReminderTask extends AbstractTask {
 				try {
 					ScheduleResult c = Consumer.sendMensage(mensage, "258" + notificationPatient.getPhoneNumber());
 					notificationPatient.setMsgId(c.getEventId());
-					SmsReminderResource.saveSent(notificationPatient, SentType.NOVO_INICIO);
+					SmsReminderResource.saveSent(notificationPatient);
 				} catch (Throwable e) {
 					e.printStackTrace();
 				}
