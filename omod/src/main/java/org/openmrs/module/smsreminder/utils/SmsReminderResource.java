@@ -39,7 +39,9 @@ public class SmsReminderResource {
 
 		for (NotificationPatient n : smsReminderService.getNotificationPatientByDiasRemanescente()) {
 
-			if (n.getReminderDays() == 15 || n.getReminderDays() == 7 || n.getReminderDays() == 2) {
+//			if (n.getReminderDays() == 15 || n.getReminderDays() == 7 || n.getReminderDays() == 3) {
+			//fixando 8 dias apenas para testes 
+			if (n.getReminderDays() == 8) {
 
 				notificationPatients.add(n);
 			}
