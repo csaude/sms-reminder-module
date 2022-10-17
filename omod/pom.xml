@@ -89,6 +89,11 @@
 		</dependency>
 
 
+		<dependency>
+			<groupId>org.openmrs.module.smsreminder</groupId>
+			<artifactId>USenditService</artifactId>
+			<version>1.0</version>
+		</dependency>
 	</dependencies>
 
 	<repositories>

@@ -9,7 +9,7 @@
 			<generator class="native" />
 		</id>
 		<discriminator column="sent_id" insert="false" />
-		<property name="msgId" type="java.lang.Integer" column="msg_id" not-null="false" length="5"/>
+		<property name="msgId" type="java.lang.Long" column="msg_id" not-null="false" length="5"/>
 		<property name="phoneNumber" type="java.lang.String" column="phone_number" length="15" />
 		<property name="nid" type="java.lang.String" column="nid" length="15" />
 		<property name="fullName" type="java.lang.String" column="full_name" length="100" />
@@ -17,11 +17,11 @@
 		<property name="lastVisitDate" type="java.util.Date" column="last_visit_date" />
 		<property name="nextVisitDate" type="java.util.Date" column="next_visit_date" />
 		<property name="alertDate" type="java.util.Date" column="alert_date" />
-		<property name="dateCreated" type="java.util.Date" column="date_created" not-null="true" length="100" />
+		<property name="dateCreated" type="java.util.Date" column="date_created" not-null="false" length="100" />
 		<property name="reminderDays" type="java.lang.Integer" column="reminder_days" not-null="true" length="5"/>
-		<property name="message" type="java.lang.String" column="message" not-null="true" length="150"/>
-		<property name="status" type="java.lang.String" column="status" not-null="false"  length="150"/>
-		<property name="statusDescriptionReason" type="java.lang.String" column="status_description_reason" not-null="true"  length="150"/>
+		<property name="message" type="java.lang.String" column="message" not-null="false" length="1000"/>
+		<property name="status" type="java.lang.String" column="status" not-null="false"  length="1000"/>
+		<property name="statusDescriptionReason" type="java.lang.String" column="status_description_reason" not-null="false"  length="150"/>
 		<property name="uuid" type="java.lang.String" column="uuid" not-null="false"  length="150"/>
 		<many-to-one name="patient" class="org.openmrs.Patient" not-null="false" column="patient_id"/>
 	</class>

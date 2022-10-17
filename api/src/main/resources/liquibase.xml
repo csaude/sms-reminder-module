@@ -21,7 +21,7 @@
 				<constraints nullable="false" primaryKey="true" />
 			</column>
 
-			<column name="msg_id" type="int">
+			<column name="msg_id" type="long">
 				<constraints nullable="true" />
 			</column>
 			<column defaultValue="" name="phone_number" type="varchar(50)">
@@ -54,7 +54,7 @@
 			<column name="reminder_days" type="int">
 				<constraints nullable="true" />
 			</column>
-			<column name="message" type="varchar(50)">
+			<column name="message" type="varchar(2000)">
 				<constraints nullable="true" />
 			</column>
 			<column name="status" type="varchar(255)">

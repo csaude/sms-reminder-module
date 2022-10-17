@@ -13,10 +13,7 @@ import org.openmrs.module.smsreminder.api.SmsReminderService;
 import org.openmrs.module.smsreminder.model.NotificationPatient;
 import org.openmrs.module.smsreminder.utils.DatasUtil;
 import org.openmrs.module.smsreminder.utils.SmsReminderResource;
-import org.openmrs.module.smsreminder.webservice.Consumer;
 import org.openmrs.scheduler.tasks.AbstractTask;
-
-import pt.usendit.api.v2.ScheduleResult;
 
 public class SendSmsReminderTask extends AbstractTask {
 
@@ -34,14 +31,19 @@ public class SendSmsReminderTask extends AbstractTask {
 		if (!notificationPatients.isEmpty()) {
 			for (NotificationPatient notificationPatient : notificationPatients) {
 
-				String mensage = "Sr ".concat(notificationPatient.getFullName()).concat(" Tem um Encontro")
+				String mensage = "Sr ".concat(notificationPatient.getFullName()).concat(" Tem um Encontro Marcado na ")
 						.concat(locationService.getLocation(Integer.valueOf(gpUs.getPropertyValue())).getName())
-						.concat(" no dia").concat(DatasUtil.formatarDataPt(notificationPatient.getNextVisitDate()));
+						.concat(" no dia ").concat(DatasUtil.formatarDataPt(notificationPatient.getNextVisitDate()));
 
 				try {
-					ScheduleResult c = Consumer.sendMensage(mensage, "258" + notificationPatient.getPhoneNumber());
-					notificationPatient.setMsgId(c.getEventId());
+				    String[] result =  notificationPatient.getPhoneNumber().split(",");
+				    for (String s : result) {
+//					ScheduleResult c = Consumer.sendMensage(mensage, "258"+"840665903");
+//					notificationPatient.setMsgId((long) c.getEventId());
+				    notificationPatient.setMensage(mensage);
 					SmsReminderResource.saveSent(notificationPatient);
+					
+				    }
 				} catch (Throwable e) {
 					e.printStackTrace();
 				}

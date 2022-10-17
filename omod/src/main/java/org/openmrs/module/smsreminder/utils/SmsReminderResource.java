@@ -39,10 +39,7 @@ public class SmsReminderResource {
 
 		for (NotificationPatient n : smsReminderService.getNotificationPatientByDiasRemanescente()) {
 
-//			if (n.getReminderDays() == 15 || n.getReminderDays() == 7 || n.getReminderDays() == 3) {
-			//fixando 8 dias apenas para testes 
-			if (n.getReminderDays() == 8) {
-
+			if (n.getReminderDays() == 15 || n.getReminderDays() == 7 || n.getReminderDays() == 3) {
 				notificationPatients.add(n);
 			}
 		}
@@ -61,8 +58,10 @@ public class SmsReminderResource {
 
 		final PatientService patientService = Context.getPatientService();
 		final SmsReminderService smsReminderService = SmsReminderUtils.getService();
+	    String[] result =  notificationPatient.getPhoneNumber().split(",");
+	    for (String s : result) {
 
-		sent.setPhoneNumber(notificationPatient.getPhoneNumber());
+		sent.setPhoneNumber(s);
 		sent.setMessage(notificationPatient.getMensage());
 		sent.setAlertDate(notificationPatient.getDateCreated());
 		sent.setReminderDays(notificationPatient.getReminderDays());
@@ -73,7 +72,7 @@ public class SmsReminderResource {
 		sent.setNextVisitDate(notificationPatient.getNextVisitDate());
 		sent.setReminderDays(notificationPatient.getReminderDays());
 		sent.setMsgId(notificationPatient.getMsgId());
-
+	    }
 		smsReminderService.saveSent(sent);
 
 	}

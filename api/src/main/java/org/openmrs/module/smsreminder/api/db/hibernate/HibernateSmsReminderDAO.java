@@ -143,20 +143,28 @@ public class HibernateSmsReminderDAO implements SmsReminderDAO {
 				+ "and (pg.date_enrolled >= (select global_property.property_value "
 				+ "from global_property where (global_property.property = 'smsreminder.reference_date'))) "
 				+ "and (pg.location_id = (select cast(global_property.property_value as unsigned) "
-				+ "from global_property where (global_property.property = 'smsreminder.us')))) " + ")inicioTARV "
-				+ "inner join ( " + "select patient.patient_id AS patient_id, "
-				+ "encounter.encounter_datetime AS encounter_datetime " + "from obs "
+				+ "from global_property where (global_property.property = 'smsreminder.us')))) "
+				+ ")inicioTARV "
+				+ "inner join "
+				+ "( "
+				+ "select patient.patient_id AS patient_id, "
+				+ "encounter.encounter_datetime AS encounter_datetime from obs "
 				+ "join encounter on obs.encounter_id = encounter.encounter_id "
 				+ "join patient on encounter.patient_id = patient.patient_id " + "where obs.concept_id = 6309 "
-				+ "and encounter.encounter_type = 34 " + "and encounter.voided=0 " + "and patient.voided=0 "
-				+ "and obs.value_coded = 6307 " + "group by patient.patient_id " + "UNION "
+				+ "and encounter.encounter_type = 34 and encounter.voided=0 and patient.voided=0 "
+				+ "and obs.value_coded = 6307 "
+				+ "group by patient.patient_id "
+				+ "UNION "
 				+ "select patient.patient_id AS patient_id, "
 				+ "max(encounter.encounter_datetime) AS encounter_datetime from obs "
 				+ "join encounter on obs.encounter_id = encounter.encounter_id "
-				+ "join patient on encounter.patient_id = patient.patient_id " + "where  encounter.encounter_type = 35 "
-				+ "and encounter.voided=0 " + "and patient.voided=0 " + "and obs.concept_id = 6309 "
+				+ "join patient on encounter.patient_id = patient.patient_id "
+				+ "where  encounter.encounter_type = 35 "
+				+ "and encounter.voided=0 " + "and patient.voided=0 and obs.concept_id = 6309 "
 				+ "and	obs.value_coded = 6307 " + "group by patient.patient_id "
-				+ ") Contacto on inicioTARV.patient_id=Contacto.patient_id " + "inner join ( "
+				+ ") Contacto on inicioTARV.patient_id=Contacto.patient_id "
+				+ "inner join "
+				+ "( "
 				+ "select p.patient_id AS patient_id, " + "max(e.encounter_datetime) AS encounter_datetime, "
 				+ "e.encounter_type AS encounter_type from (patient p "
 				+ "join encounter e on((e.patient_id = p.patient_id))) " + "where ((p.voided = 0) "
@@ -190,6 +198,7 @@ public class HibernateSmsReminderDAO implements SmsReminderDAO {
 			notificationPatient.setNextVisitDate((Date) object[7]);
 			notificationPatient.setReminderDays((Integer) object[8]);
 			notificationPatient.setSentType(SentType.NOVO_INICIO);
+			notificationPatient.setPatientId((Integer) object[9]);;
 
 			notificationPatients.add(notificationPatient);
 		}

@@ -11,7 +11,7 @@
 			<key-property name="visitType" type="java.lang.Integer" column="visit_type" length="11"/>
 		</composite-id>
 		<property name="msgId" type="java.lang.Integer" column="msg_id" not-null="true" length="5"/>
-		<property name="patientId" type="java.lang.Integer" column="patient_id" length="10" insert="false" update="false"/>
+		<property name="patientId" type="java.lang.Long" column="patient_id" length="10" insert="false" update="false"/>
 		<property name="phoneNumber" type="java.lang.String" column="phone_number" length="10" insert="false" update="false"/>
 		<property name="mensage" type="java.lang.String" column="mensage" length="10" insert="false"/>
 		<property name="reminderDays" type="java.lang.Integer" column="reminder_days" length="20" insert="false" />
