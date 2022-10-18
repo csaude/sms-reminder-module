@@ -117,7 +117,22 @@
 			</column>
 
 		</createTable>
+		<sql>
+			INSERT INTO global_property
+			(property, property_value,
+			description, uuid, datatype, datatype_config, preferred_handler,
+			handler_config)
+			VALUES('smsreminder.us','221','Specifies the
+			location',UUID(),NULL,NULL,NULL,NULL);
 
+			INSERT INTO global_property
+			(property, property_value, description, uuid, datatype,
+			datatype_config, preferred_handler, handler_config)
+			VALUES('smsreminder.reference_date',cast(CURRENT_DATE() AS
+			CHAR(10)),'Specifies the date of new
+			enrolled',UUID(),NULL,NULL,NULL,NULL);
+
+		</sql>
 		<modifySql dbms="mssql">
 			<replace replace="CHAR(38)"
 				with="UNIQUEIDENTIFIER NOT NULL DEFAULT NEWSEQUENTIALID()" />
