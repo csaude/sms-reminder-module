@@ -2,6 +2,7 @@ package org.openmrs.module.smsreminder.scheduler;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import org.openmrs.GlobalProperty;
 import org.openmrs.api.AdministrationService;
@@ -15,8 +16,6 @@ import org.openmrs.module.smsreminder.utils.DatasUtil;
 import org.openmrs.module.smsreminder.utils.SmsReminderResource;
 import org.openmrs.module.smsreminder.webservice.Consumer;
 import org.openmrs.scheduler.tasks.AbstractTask;
-
-import pt.usendit.api.v2.ScheduleResult;
 
 public class SendSmsReminderTask extends AbstractTask {
 
@@ -39,14 +38,16 @@ public class SendSmsReminderTask extends AbstractTask {
 						.concat(" no dia ").concat(DatasUtil.formatarDataPt(notificationPatient.getNextVisitDate()));
 
 				try {
-				    String[] result =  notificationPatient.getPhoneNumber().split(",");
-				    for (String s : result) {
-					ScheduleResult c = Consumer.sendMensage(mensage, "258"+s);
-					notificationPatient.setPartnerMsgId(c.getPartnerEventId());
-				    notificationPatient.setMensage(mensage);
-					SmsReminderResource.saveSent(notificationPatient);
-					
-				    }
+					String[] result = notificationPatient.getPhoneNumber().split(",");
+					for (String s : result) {
+						String partnerMsgId = UUID.randomUUID().toString();
+
+						Consumer.sendMensage(mensage, "258" + s, partnerMsgId);
+						notificationPatient.setPartnerMsgId(partnerMsgId);
+						notificationPatient.setMensage(mensage);
+						SmsReminderResource.saveSent(notificationPatient);
+
+					}
 				} catch (Throwable e) {
 					e.printStackTrace();
 				}

@@ -1,6 +1,7 @@
 package org.openmrs.module.smsreminder.webservice;
 
 import java.util.Properties;
+import java.util.UUID;
 
 import org.openmrs.util.OpenmrsUtil;
 
@@ -15,7 +16,7 @@ public class Consumer {
 	public static final String PASSWORD_PROPERTY_NAME = "smsrimender.password";
 	public static final String USER_PROPERTY_NAME = "smsrimender.user";
 
-	public static ScheduleResult sendMensage(String mensage, String number) throws Throwable {
+	public static ScheduleResult sendMensage(String mensage, String number, String partnerMsgId) throws Throwable {
 
 		Properties props = OpenmrsUtil.getRuntimeProperties(null);
 
@@ -31,11 +32,10 @@ public class Consumer {
 		sms.setSender("Info MZ");
 		sms.setPriority(1);
 		sms.setWorkingDays(false);
-		sms.setPartnerMsgId("Info MZ");
+		sms.setPartnerMsgId(partnerMsgId);
 		smsbulk.getSms().add(sms);
 		ScheduleResult result = remoteUsendit.sendMessages(props.getProperty(USER_PROPERTY_NAME),
 				props.getProperty(PASSWORD_PROPERTY_NAME), "Info MZ", null, smsbulk);
 		return result;
 	}
-
 }
