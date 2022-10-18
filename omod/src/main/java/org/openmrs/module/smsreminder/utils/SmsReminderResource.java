@@ -12,10 +12,7 @@ import org.openmrs.module.smsreminder.model.DeliveryReportStatus;
 import org.openmrs.module.smsreminder.model.NotificationPatient;
 import org.openmrs.module.smsreminder.model.Sent;
 
-/**
- * Created by nelson.mahumane on 20-10-2015. Classe que organiza todos recursos
- * necessarios para o envio de sms filtrando as de a cordo com as suas categoria
- */
+
 public class SmsReminderResource {
 
 	public static List<NotificationPatient> getAllNotificationFolowUpPatient() {
@@ -72,9 +69,8 @@ public class SmsReminderResource {
 		sent.setNextVisitDate(notificationPatient.getNextVisitDate());
 		sent.setReminderDays(notificationPatient.getReminderDays());
 		sent.setMsgId(notificationPatient.getMsgId());
-	    }
 		smsReminderService.saveSent(sent);
-
+	    }
 	}
 
 	public static void SaveDeliveryReportStatus(final DeliveryReportStatus deliveryReportStatus) {
