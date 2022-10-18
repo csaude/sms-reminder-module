@@ -1,7 +1,6 @@
 package org.openmrs.module.smsreminder.webservice;
 
 import java.util.Properties;
-import java.util.UUID;
 
 import org.openmrs.util.OpenmrsUtil;
 
