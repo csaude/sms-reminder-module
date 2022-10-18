@@ -21,9 +21,14 @@
 				<constraints nullable="false" primaryKey="true" />
 			</column>
 
-			<column name="msg_id" type="long">
+			<column name="msg_id" type="int">
 				<constraints nullable="true" />
 			</column>
+
+			<column name="partner_msg_Id" type="varchar(500)">
+				<constraints nullable="true" />
+			</column>
+
 			<column defaultValue="" name="phone_number" type="varchar(50)">
 				<constraints nullable="true" />
 			</column>

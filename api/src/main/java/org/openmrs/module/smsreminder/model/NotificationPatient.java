@@ -9,7 +9,8 @@ import org.openmrs.module.smsreminder.utils.SentType;
 public class NotificationPatient extends BaseOpenmrsData implements Serializable {
 
 	private Integer patientId;
-	private  Long msgId;
+	private  Integer msgId;
+	private String PartnerMsgId;
 	private String phoneNumber;
 	private String mensage;
 	private Integer reminderDays;
@@ -135,11 +136,21 @@ public class NotificationPatient extends BaseOpenmrsData implements Serializable
 		return serialVersionUID;
 	}
 
-	public Long getMsgId() {
+
+
+	public String getPartnerMsgId() {
+		return PartnerMsgId;
+	}
+
+	public void setPartnerMsgId(String partnerMsgId) {
+		PartnerMsgId = partnerMsgId;
+	}
+
+	public Integer getMsgId() {
 		return msgId;
 	}
 
-	public void setMsgId(Long msgId) {
+	public void setMsgId(Integer msgId) {
 		this.msgId = msgId;
 	}
 

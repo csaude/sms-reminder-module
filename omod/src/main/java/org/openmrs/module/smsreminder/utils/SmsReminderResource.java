@@ -69,6 +69,7 @@ public class SmsReminderResource {
 		sent.setNextVisitDate(notificationPatient.getNextVisitDate());
 		sent.setReminderDays(notificationPatient.getReminderDays());
 		sent.setMsgId(notificationPatient.getMsgId());
+		sent.setPartnerMsgId(notificationPatient.getPartnerMsgId());
 		smsReminderService.saveSent(sent);
 	    }
 	}

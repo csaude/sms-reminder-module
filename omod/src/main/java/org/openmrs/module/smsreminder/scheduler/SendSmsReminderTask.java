@@ -42,7 +42,7 @@ public class SendSmsReminderTask extends AbstractTask {
 				    String[] result =  notificationPatient.getPhoneNumber().split(",");
 				    for (String s : result) {
 					ScheduleResult c = Consumer.sendMensage(mensage, "258"+s);
-					notificationPatient.setMsgId((long) c.getEventId());
+					notificationPatient.setPartnerMsgId(c.getPartnerEventId());
 				    notificationPatient.setMensage(mensage);
 					SmsReminderResource.saveSent(notificationPatient);
 					
