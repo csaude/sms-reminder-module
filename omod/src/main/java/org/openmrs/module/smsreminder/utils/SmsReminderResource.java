@@ -1,5 +1,6 @@
 package org.openmrs.module.smsreminder.utils;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -55,6 +56,8 @@ public class SmsReminderResource {
 
 		final PatientService patientService = Context.getPatientService();
 		final SmsReminderService smsReminderService = SmsReminderUtils.getService();
+		SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
+
 	    String[] result =  notificationPatient.getPhoneNumber().split(",");
 	    for (String s : result) {
 

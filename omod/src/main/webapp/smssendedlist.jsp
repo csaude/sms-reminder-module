@@ -2,6 +2,8 @@
 <%@ include file="/WEB-INF/template/header.jsp"%>
 
 <%@ include file="template/localHeader.jsp"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+
 
 <openmrs:htmlInclude
 	file="/scripts/jquery/dataTables/css/dataTables_jui.css" />
@@ -37,10 +39,10 @@
 					<td>${sms.nid}</td>
 					<td>${sms.fullName}</td>
 					<td>${sms.gender}</td>
-					<td>${sms.alertDate}</td>
+					<td><fmt:formatDate pattern = "yyyy-MM-dd" value = "${sms.alertDate}" /></td>
 					<td>${sms.phoneNumber}</td>
-					<td>${sms.lastVisitDate}</td>
-					<td>${sms.nextVisitDate}</td>
+					<td><fmt:formatDate pattern = "yyyy-MM-dd" value = "${sms.lastVisitDate}" /></td>
+					<td><fmt:formatDate pattern = "yyyy-MM-dd" value = "${sms.nextVisitDate}" /></td>
 					<td>${sms.status}</td>
 					<td>${sms.statusDescriptionReason}</td>
 

@@ -3,6 +3,7 @@ package org.openmrs.module.smsreminder.web.controller;
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -32,6 +33,7 @@ public class SMSReminderSentSMSController {
 	@RequestMapping(value = "/module/smsreminder/smssendedlist", method = RequestMethod.GET)
 	public ModelAndView patientListSender() {
 		final ModelAndView modelAndView = new ModelAndView();
+
 		modelAndView.addObject("smss", SmsReminderResource.getAllSmsSent());
 		return modelAndView;
 	}
