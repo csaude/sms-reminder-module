@@ -20,7 +20,6 @@
 
 			<tr>
 
-				<td>ID_SMS</td>
 				<td>NID</td>
 				<td>Nome Completo</td>
 				<td>Sexo</td>
@@ -35,7 +34,6 @@
 
 			<c:forEach items="${smss}" var="sms">
 				<tr>
-					<td>${sms.msgId}</td>
 					<td>${sms.nid}</td>
 					<td>${sms.fullName}</td>
 					<td>${sms.gender}</td>
