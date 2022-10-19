@@ -75,7 +75,7 @@ public class HibernateSmsReminderDAO implements SmsReminderDAO {
 	public DeliveryReportStatus saveDeliveryReportStatus(DeliveryReportStatus deliveryReportStatus) {
 		try {
 			Query q = sessionFactory.getCurrentSession()
-					.createQuery("FROM Sent s WHERE s.PartnerMsgId = :PartnerMsgId");
+					.createQuery("FROM Sent s WHERE s.PartnerMsgId = :PartnerMsgId ");
 
 			q.setParameter("PartnerMsgId", deliveryReportStatus.getPartnerMsgId());
 
@@ -124,10 +124,10 @@ public class HibernateSmsReminderDAO implements SmsReminderDAO {
 	}
 
 	public List<NotificationPatient> getNotificationPatientByDiasRemanescente() throws DAOException {
-		final String sql = "select  " + "inicioTARV.data_inicio, " + "pid.identifier AS nid, "
+		final String sql = "select  " + "date(inicioTARV.data_inicio), " + "pid.identifier AS nid, "
 				+ "CONCAT(ifnull(pn.given_name,''),' ',ifnull(pn.middle_name,''),' ',ifnull(pn.family_name,''))  AS nome_completo, "
 				+ "pa.value AS telemovel," + "p.gender AS sexo, " + "maxFila.encounter_type as visita, "
-				+ "maxFila.encounter_datetime as ultima_visita, " + "obsProximo.value_datetime as proximo_visita, "
+				+ "date(maxFila.encounter_datetime) as ultima_visita, " + "date(obsProximo.value_datetime) as proximo_visita, "
 				+ "(to_days(curdate()) - to_days(obsProximo.value_datetime)) AS dias_remanescente, maxFila.patient_id "
 				+ "from ( " + "select p.patient_id AS patient_id,min(e.encounter_datetime) AS data_inicio "
 				+ "from ((patient p " + "join encounter e on((p.patient_id = e.patient_id))) "

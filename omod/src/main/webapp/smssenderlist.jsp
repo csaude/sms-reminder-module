@@ -27,6 +27,7 @@
 				<td>Ultima Visita</td>
 				<td>Proxima Visita</td>
 				<td>Inicio de TARV</td>
+				<td>Dias Remaneicentes</td>
 				<td>Tipo de Paciente</td>
 			</tr>
 
@@ -39,14 +40,15 @@
 					<td>${sms.lastVisitDate}</td>
 					<td>${sms.nextVisitDate}</td>
 					<td>${sms.artStartDate}</td>
+					<td>${sms.reminderDays}</td>
 					<td>${sms.sentType}</td>
 				</tr>
 			</c:forEach>
 
 		</table>
-
-		<div class="submit-btn" align="right">
-			<input type="submit" value='Exportar' name="export" />
+       <br>
+		<div class="row">
+			<input id="subValue" type="submit" value="Exportar para Excel">
 		</div>
 	</div>
 	<br>

@@ -51,12 +51,11 @@
 
 		</table>
 
-		<div class="submit-btn" align="right">
-			 <input type="submit"
-				value='Exportar'
-				name="export" />
+		<br>
+		<div class="row">
+			<input id="subValue" type="submit" value="Exportar para Excel">
 		</div>
-
+	</div>
 	</div>
 	<br>
 </form>
