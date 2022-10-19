@@ -43,7 +43,7 @@ public class SendSmsReminderTask extends AbstractTask {
 					for (String s : result) {
 						String partnerMsgId = UUID.randomUUID().toString();
 
-						Consumer.sendMensage(mensage, "258" + s, partnerMsgId);
+//						Consumer.sendMensage(mensage, "258" + s, partnerMsgId);
 						notificationPatient.setPartnerMsgId(partnerMsgId);
 						notificationPatient.setMensage(mensage);
 						notificationPatient.setDateCreated(Calendar.getInstance().getTime());

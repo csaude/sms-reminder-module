@@ -80,26 +80,29 @@ public class HibernateSmsReminderDAO implements SmsReminderDAO {
 			q.setParameter("PartnerMsgId", deliveryReportStatus.getPartnerMsgId());
 
 			Sent sent = (Sent) q.uniqueResult();
-			
+
 			if (sent != null) {
 
-				if (deliveryReportStatus.getStatus() == 0) {
-					sent.setStatus("ENTREGUE");
-					sent.setStatusDescriptionReason(deliveryReportStatus.getDeliveryReportDescription());
-					sent.setMsgId(deliveryReportStatus.getMsgId());
+				if (deliveryReportStatus.getStatus() != null) {
 
-				}
-				if (deliveryReportStatus.getStatus() == 1) {
-					sent.setStatus("EM ESPERA");
-					sent.setStatusDescriptionReason(deliveryReportStatus.getDeliveryReportDescription());
-					sent.setMsgId(deliveryReportStatus.getMsgId());
+					if (deliveryReportStatus.getStatus() == 0) {
+						sent.setStatus("ENTREGUE");
+						sent.setStatusDescriptionReason(deliveryReportStatus.getDeliveryReportDescription());
+						sent.setMsgId(deliveryReportStatus.getMsgId());
 
-				}
-				if (deliveryReportStatus.getStatus() == 2) {
-					sent.setStatus("NAO ENTREGUE");
-					sent.setStatusDescriptionReason(deliveryReportStatus.getDeliveryReportDescription());
-					sent.setMsgId(deliveryReportStatus.getMsgId());
+					}
+					if (deliveryReportStatus.getStatus() == 1) {
+						sent.setStatus("EM ESPERA");
+						sent.setStatusDescriptionReason(deliveryReportStatus.getDeliveryReportDescription());
+						sent.setMsgId(deliveryReportStatus.getMsgId());
 
+					}
+					if (deliveryReportStatus.getStatus() == 2) {
+						sent.setStatus("NAO ENTREGUE");
+						sent.setStatusDescriptionReason(deliveryReportStatus.getDeliveryReportDescription());
+						sent.setMsgId(deliveryReportStatus.getMsgId());
+
+					}
 				}
 				this.sessionFactory.getCurrentSession().saveOrUpdate(deliveryReportStatus);
 				this.sessionFactory.getCurrentSession().saveOrUpdate(sent);
