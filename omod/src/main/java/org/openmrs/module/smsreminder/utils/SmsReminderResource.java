@@ -61,7 +61,6 @@ public class SmsReminderResource {
 		sent.setPhoneNumber(s);
 		sent.setMessage(notificationPatient.getMensage());
 		sent.setAlertDate(notificationPatient.getDateCreated());
-		sent.setReminderDays(notificationPatient.getReminderDays());
 		sent.setPatient(patientService.getPatient(notificationPatient.getPatientId()));
 		sent.setFullName(notificationPatient.getFullName());
 		sent.setGender(notificationPatient.getGender());

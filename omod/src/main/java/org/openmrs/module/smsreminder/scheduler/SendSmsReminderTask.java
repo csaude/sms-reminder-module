@@ -1,6 +1,7 @@
 package org.openmrs.module.smsreminder.scheduler;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.UUID;
 
@@ -45,6 +46,7 @@ public class SendSmsReminderTask extends AbstractTask {
 						Consumer.sendMensage(mensage, "258" + s, partnerMsgId);
 						notificationPatient.setPartnerMsgId(partnerMsgId);
 						notificationPatient.setMensage(mensage);
+						notificationPatient.setDateCreated(Calendar.getInstance().getTime());
 						SmsReminderResource.saveSent(notificationPatient);
 
 					}
