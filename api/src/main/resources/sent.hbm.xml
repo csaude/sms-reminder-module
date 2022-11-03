@@ -11,7 +11,7 @@
 		<discriminator column="sent_id" insert="false" />
 		<property name="msgId" type="java.lang.Integer" column="msg_id" not-null="false" length="5"/>
 		<property name="phoneNumber" type="java.lang.String" column="phone_number" length="15" />
-		<property name="PartnerMsgId" type="java.lang.String" column="partner_msg_Id" length="15" />
+		<property name="PartnerMsgId" type="java.lang.String" column="partner_msg_Id" length="1000" />
 		<property name="nid" type="java.lang.String" column="nid" length="15" />
 		<property name="fullName" type="java.lang.String" column="full_name" length="100" />
 		<property name="gender" type="java.lang.String" column="gender" length="1" />

@@ -2,8 +2,11 @@ package org.openmrs.module.smsreminder.model;
 
 import java.util.Date;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 import org.openmrs.BaseOpenmrsData;
 
+@XmlRootElement (name="deliveryReportStatus")
 public class DeliveryReportStatus extends BaseOpenmrsData {
 
 	private static final long serialVersionUID = 1L;

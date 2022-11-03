@@ -1,5 +1,8 @@
 package org.openmrs.module.smsreminder.web.resource;
 
+import javax.ws.rs.Consumes;
+import javax.ws.rs.Produces;
+
 import org.openmrs.module.smsreminder.model.DeliveryReportStatus;
 import org.openmrs.module.smsreminder.utils.SmsReminderResource;
 import org.openmrs.module.webservices.rest.web.RequestContext;
@@ -22,6 +25,8 @@ import io.swagger.models.properties.StringProperty;
 @Resource(name = RestConstants.VERSION_1
 		+ "/delivery", supportedClass = DeliveryReportStatus.class, supportedOpenmrsVersions = { "1.8.*",
 				"1.9.*, 1.10.*, 1.11.*", "1.12.*", "2.0.*", "2.1.*", "2.2.*", "2.3.*", "2.4.*" })
+@Produces({ "application/xml", "application/x-www-form-urlencoded" })
+@Consumes({ "application/xml", "application/x-www-form-urlencoded" })
 public class DeliveryReportStatusResource extends DelegatingCrudResource<DeliveryReportStatus> {
 
 	@Override
@@ -31,7 +36,6 @@ public class DeliveryReportStatusResource extends DelegatingCrudResource<Deliver
 
 			final DelegatingResourceDescription description = new DelegatingResourceDescription();
 			description.addProperty("msgId");
-			description.addProperty("uuid");
 			description.addProperty("deliveryReportDescription");
 			description.addProperty("deliveryReportReasonCode");
 			description.addProperty("deliveryReportUpdateDatetime");
@@ -45,7 +49,6 @@ public class DeliveryReportStatusResource extends DelegatingCrudResource<Deliver
 
 			final DelegatingResourceDescription description = new DelegatingResourceDescription();
 			description.addProperty("msgId");
-			description.addProperty("uuid");
 			description.addProperty("deliveryReportDescription");
 			description.addProperty("deliveryReportReasonCode");
 			description.addProperty("deliveryReportUpdateDatetime");
@@ -59,7 +62,6 @@ public class DeliveryReportStatusResource extends DelegatingCrudResource<Deliver
 
 			final DelegatingResourceDescription description = new DelegatingResourceDescription();
 			description.addProperty("msgId");
-			description.addProperty("uuid");
 			description.addProperty("deliveryReportDescription");
 			description.addProperty("deliveryReportReasonCode");
 			description.addProperty("deliveryReportUpdateDatetime");
@@ -80,13 +82,11 @@ public class DeliveryReportStatusResource extends DelegatingCrudResource<Deliver
 	public Model getGETModel(Representation rep) {
 		ModelImpl model = ((ModelImpl) super.getGETModel(rep));
 		if (rep instanceof DefaultRepresentation || rep instanceof FullRepresentation) {
-			model.property("msgId", new IntegerProperty()).property("uuid", new StringProperty())
-					.property("deliveryReportDescription", new StringProperty())
+			model.property("msgId", new IntegerProperty()).property("deliveryReportDescription", new StringProperty())
 					.property("deliveryReportReasonCode", new StringProperty())
 					.property("deliveryReportUpdateDatetime", new DateProperty())
-					.property("status", new IntegerProperty())
-					.property("messageSentDatetime", new DateProperty()).property("nrSms", new IntegerProperty())
-					.property("partnerMsgId", new StringProperty());
+					.property("status", new IntegerProperty()).property("messageSentDatetime", new DateProperty())
+					.property("nrSms", new IntegerProperty()).property("partnerMsgId", new StringProperty());
 		}
 		return model;
 	}
@@ -96,11 +96,10 @@ public class DeliveryReportStatusResource extends DelegatingCrudResource<Deliver
 	 */
 	@Override
 	public Model getCREATEModel(Representation rep) {
-		return new ModelImpl().property("msgId", new IntegerProperty()).property("uuid", new StringProperty())
+		return new ModelImpl().property("msgId", new IntegerProperty())
 				.property("deliveryReportDescription", new StringProperty())
 				.property("deliveryReportReasonCode", new StringProperty())
-				.property("deliveryReportUpdateDatetime", new DateProperty())
-				.property("status", new IntegerProperty())
+				.property("deliveryReportUpdateDatetime", new DateProperty()).property("status", new IntegerProperty())
 				.property("messageSentDatetime", new DateProperty()).property("nrSms", new IntegerProperty())
 				.property("partnerMsgId", new StringProperty());
 	}
@@ -110,11 +109,10 @@ public class DeliveryReportStatusResource extends DelegatingCrudResource<Deliver
 	 */
 	@Override
 	public Model getUPDATEModel(Representation representation) {
-		return new ModelImpl().property("msgId", new IntegerProperty()).property("uuid", new StringProperty())
+		return new ModelImpl().property("msgId", new IntegerProperty())
 				.property("deliveryReportDescription", new StringProperty())
 				.property("deliveryReportReasonCode", new StringProperty())
-				.property("deliveryReportUpdateDatetime", new DateProperty())
-				.property("status", new IntegerProperty())
+				.property("deliveryReportUpdateDatetime", new DateProperty()).property("status", new IntegerProperty())
 				.property("messageSentDatetime", new DateProperty()).property("nrSms", new IntegerProperty())
 				.property("partnerMsgId", new StringProperty());
 	}
@@ -127,7 +125,6 @@ public class DeliveryReportStatusResource extends DelegatingCrudResource<Deliver
 		DelegatingResourceDescription description = new DelegatingResourceDescription();
 
 		description.addProperty("msgId");
-		description.addProperty("uuid");
 		description.addProperty("deliveryReportDescription");
 		description.addProperty("deliveryReportReasonCode");
 		description.addProperty("deliveryReportUpdateDatetime");
@@ -147,7 +144,6 @@ public class DeliveryReportStatusResource extends DelegatingCrudResource<Deliver
 		DelegatingResourceDescription description = new DelegatingResourceDescription();
 
 		description.addProperty("msgId");
-		description.addProperty("uuid");
 		description.addProperty("deliveryReportDescription");
 		description.addProperty("deliveryReportReasonCode");
 		description.addProperty("deliveryReportUpdateDatetime");
@@ -165,6 +161,8 @@ public class DeliveryReportStatusResource extends DelegatingCrudResource<Deliver
 	}
 
 	@Override
+	@Produces({ "application/xml", "application/x-www-form-urlencoded" })
+	@Consumes({ "application/xml", "application/x-www-form-urlencoded" })
 	public DeliveryReportStatus save(DeliveryReportStatus delegate) {
 		SmsReminderResource.SaveDeliveryReportStatus(delegate);
 		return delegate;
