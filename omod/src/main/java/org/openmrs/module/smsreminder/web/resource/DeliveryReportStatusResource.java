@@ -1,8 +1,5 @@
 package org.openmrs.module.smsreminder.web.resource;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.Produces;
-
 import org.openmrs.module.smsreminder.model.DeliveryReportStatus;
 import org.openmrs.module.smsreminder.utils.SmsReminderResource;
 import org.openmrs.module.webservices.rest.web.RequestContext;
@@ -25,8 +22,6 @@ import io.swagger.models.properties.StringProperty;
 @Resource(name = RestConstants.VERSION_1
 		+ "/delivery", supportedClass = DeliveryReportStatus.class, supportedOpenmrsVersions = { "1.8.*",
 				"1.9.*, 1.10.*, 1.11.*", "1.12.*", "2.0.*", "2.1.*", "2.2.*", "2.3.*", "2.4.*" })
-@Produces({ "application/xml", "application/x-www-form-urlencoded" })
-@Consumes({ "application/xml", "application/x-www-form-urlencoded" })
 public class DeliveryReportStatusResource extends DelegatingCrudResource<DeliveryReportStatus> {
 
 	@Override
@@ -161,8 +156,6 @@ public class DeliveryReportStatusResource extends DelegatingCrudResource<Deliver
 	}
 
 	@Override
-	@Produces({ "application/xml", "application/x-www-form-urlencoded" })
-	@Consumes({ "application/xml", "application/x-www-form-urlencoded" })
 	public DeliveryReportStatus save(DeliveryReportStatus delegate) {
 		SmsReminderResource.SaveDeliveryReportStatus(delegate);
 		return delegate;

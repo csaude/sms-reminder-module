@@ -179,7 +179,7 @@ public class HibernateSmsReminderDAO implements SmsReminderDAO {
 				+ "inner join person_attribute pa on pa.person_id = maxFila.patient_id and pa.person_attribute_type_id = 9 and pa.voided=0 "
 				+ "inner join patient_identifier pid on pid.patient_id = maxFila.patient_id and pid.voided=0 "
 				+ "inner join person_name pn on pn.person_id=maxFila.patient_id and pn.voided=0  "
-				+ "group by maxFila.patient_id ";
+				+ "group by maxFila.patient_id  ";
 
 		final Query query = this.getCurrentSession().createSQLQuery(sql);
 
