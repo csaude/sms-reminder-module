@@ -28,6 +28,7 @@ import org.openmrs.module.smsreminder.api.db.SmsReminderDAO;
 import org.openmrs.module.smsreminder.model.DeliveryReportStatus;
 import org.openmrs.module.smsreminder.model.MensageSent;
 import org.openmrs.module.smsreminder.model.NotificationPatient;
+import org.openmrs.module.smsreminder.utils.MensageStatus;
 import org.openmrs.module.smsreminder.utils.SentType;
 
 /**
@@ -87,11 +88,17 @@ public class HibernateSmsReminderDAO implements SmsReminderDAO {
 
 					if (deliveryReportStatus.getStatus() == 0) {
 
+						sent.setLastStatus(MensageStatus.DELIVERED.getName());
+						sent.setDescription(deliveryReportStatus.getDeliveryReportDescription());
 					}
 					if (deliveryReportStatus.getStatus() == 1) {
+						sent.setLastStatus(MensageStatus.ON_HOLD.getName());
+						sent.setDescription(deliveryReportStatus.getDeliveryReportDescription());
 
 					}
 					if (deliveryReportStatus.getStatus() == 2) {
+						sent.setLastStatus(MensageStatus.NOT_DELIVERY.getName());
+						sent.setDescription(deliveryReportStatus.getDeliveryReportDescription());
 
 					}
 				}
