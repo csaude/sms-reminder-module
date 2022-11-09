@@ -29,7 +29,6 @@
 				<td>Proxima Visita</td>
 				<td>Inicio de TARV</td>
 				<td>Dias Remaneicentes</td>
-				<td>Tipo de Paciente</td>
 			</tr>
 
 			<c:forEach items="${smss}" var="sms">
@@ -42,7 +41,6 @@
 					<td>${sms.nextVisitDate}</td>
 					<td>${sms.artStartDate}</td>
 					<td>${sms.reminderDays}</td>
-					<td>${sms.sentType}</td>
 				</tr>
 			</c:forEach>
 
