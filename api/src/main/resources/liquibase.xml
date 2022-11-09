@@ -16,7 +16,7 @@
 		<comment>
 			Create smsreminder_sent
 		</comment>
-		<createTable tableName="smsreminder_sent">
+		<createTable tableName="smsreminder_mensage_sent">
 			<column autoIncrement="true" name="sent_id" type="int">
 				<constraints nullable="false" primaryKey="true" />
 			</column>
@@ -62,11 +62,11 @@
 			<column name="message" type="varchar(2000)">
 				<constraints nullable="true" />
 			</column>
-			<column name="status" type="varchar(255)">
+			<column name="last_status" type="varchar(255)">
 				<constraints nullable="true" />
 			</column>
 
-			<column name="status_description_reason" type="varchar(255)">
+			<column name="description" type="varchar(255)">
 				<constraints nullable="true" />
 			</column>
 
@@ -79,7 +79,7 @@
 			</column>
 		</createTable>
 
-		<createTable tableName="smsreminder_deliveryreportstatus">
+		<createTable tableName="smsreminder_delivery_report_status">
 
 			<column autoIncrement="true" name="delivery_id" type="int">
 				<constraints nullable="false" primaryKey="true" />

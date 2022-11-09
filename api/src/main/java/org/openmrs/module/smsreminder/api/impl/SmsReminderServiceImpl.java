@@ -23,7 +23,7 @@ import org.openmrs.module.smsreminder.api.SmsReminderService;
 import org.openmrs.module.smsreminder.api.db.SmsReminderDAO;
 import org.openmrs.module.smsreminder.model.DeliveryReportStatus;
 import org.openmrs.module.smsreminder.model.NotificationPatient;
-import org.openmrs.module.smsreminder.model.Sent;
+import org.openmrs.module.smsreminder.model.MensageSent;
 
 /**
  * It is a default implementation of {@link SmsReminderService}.
@@ -52,7 +52,7 @@ public class SmsReminderServiceImpl extends BaseOpenmrsService implements SmsRem
 
 	// service for Sent
 	@Override
-	public Sent saveSent(final Sent sent) {
+	public MensageSent saveSent(final MensageSent sent) {
 		return this.getDao().saveSent(sent);
 	}
 	
@@ -62,7 +62,7 @@ public class SmsReminderServiceImpl extends BaseOpenmrsService implements SmsRem
 	}
 
 	@Override
-	public List<Sent> getAllSent() throws APIException {
+	public List<MensageSent> getAllSent() throws APIException {
 		return this.getDao().getAllSent();
 	}
 

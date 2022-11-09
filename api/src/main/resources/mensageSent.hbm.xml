@@ -4,7 +4,7 @@
     "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
 
 <hibernate-mapping package="org.openmrs.module.smsreminder.model">
-	<class name="org.openmrs.module.smsreminder.model.Sent" table="smsreminder_sent" batch-size="25">
+	<class name="org.openmrs.module.smsreminder.model.MensageSent" table="smsreminder_mensage_sent" batch-size="25">
 		<id name="sentId" type="int" column="sent_id" unsaved-value="0" >
 			<generator class="native" />
 		</id>
@@ -21,8 +21,8 @@
 		<property name="dateCreated" type="java.util.Date" column="date_created" not-null="false" length="100" />
 		<property name="reminderDays" type="java.lang.Integer" column="reminder_days" not-null="true" length="5"/>
 		<property name="message" type="java.lang.String" column="message" not-null="false" length="1000"/>
-		<property name="status" type="java.lang.String" column="status" not-null="false"  length="1000"/>
-		<property name="statusDescriptionReason" type="java.lang.String" column="status_description_reason" not-null="false"  length="150"/>
+		<property name="lastStatus" type="java.lang.String" column="last_status" not-null="false"  length="1000"/>
+		<property name="description" type="java.lang.String" column="description" not-null="false"  length="1000"/>
 		<property name="uuid" type="java.lang.String" column="uuid" not-null="false"  length="150"/>
 		<many-to-one name="patient" class="org.openmrs.Patient" not-null="false" column="patient_id"/>
 	</class>

@@ -10,7 +10,7 @@ import org.openmrs.module.smsreminder.SmsReminderUtils;
 import org.openmrs.module.smsreminder.api.SmsReminderService;
 import org.openmrs.module.smsreminder.model.DeliveryReportStatus;
 import org.openmrs.module.smsreminder.model.NotificationPatient;
-import org.openmrs.module.smsreminder.model.Sent;
+import org.openmrs.module.smsreminder.model.MensageSent;
 
 
 public class SmsReminderResource {
@@ -47,13 +47,13 @@ public class SmsReminderResource {
 
 	}
 
-	public static List<Sent> getAllSmsSent() {
+	public static List<MensageSent> getAllSmsSent() {
 		final SmsReminderService smsReminderService = SmsReminderUtils.getService();
 		return smsReminderService.getAllSent();
 	}
 
 	public static void saveSent(final NotificationPatient notificationPatient) {
-		final Sent sent = new Sent();
+		final MensageSent sent = new MensageSent();
 
 		final PatientService patientService = Context.getPatientService();
 		final SmsReminderService smsReminderService = SmsReminderUtils.getService();

@@ -2,10 +2,14 @@ package org.openmrs.module.smsreminder.model;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 import org.openmrs.BaseOpenmrsData;
 
 
-
+@Entity
+@Table(name = "smsreminder_delivery_report_status")
 public class DeliveryReportStatus extends BaseOpenmrsData {
 
 	private static final long serialVersionUID = 1L;

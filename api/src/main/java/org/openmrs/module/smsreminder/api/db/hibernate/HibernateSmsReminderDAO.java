@@ -26,8 +26,8 @@ import org.hibernate.SessionFactory;
 import org.openmrs.api.db.DAOException;
 import org.openmrs.module.smsreminder.api.db.SmsReminderDAO;
 import org.openmrs.module.smsreminder.model.DeliveryReportStatus;
+import org.openmrs.module.smsreminder.model.MensageSent;
 import org.openmrs.module.smsreminder.model.NotificationPatient;
-import org.openmrs.module.smsreminder.model.Sent;
 import org.openmrs.module.smsreminder.utils.SentType;
 
 /**
@@ -66,7 +66,7 @@ public class HibernateSmsReminderDAO implements SmsReminderDAO {
 	}
 
 	@Override
-	public Sent saveSent(final Sent sent) {
+	public MensageSent saveSent(final MensageSent sent) {
 		getCurrentSession().saveOrUpdate(sent);
 		return sent;
 	}
@@ -79,27 +79,21 @@ public class HibernateSmsReminderDAO implements SmsReminderDAO {
 
 			q.setParameter("PartnerMsgId", deliveryReportStatus.getPartnerMsgId());
 
-			Sent sent = (Sent) q.uniqueResult();
+			MensageSent sent = (MensageSent) q.uniqueResult();
 
 			if (sent != null) {
 
 				if (deliveryReportStatus.getStatus() != null) {
 
 					if (deliveryReportStatus.getStatus() == 0) {
-						sent.setStatus("ENTREGUE");
-						sent.setStatusDescriptionReason(deliveryReportStatus.getDeliveryReportDescription());
 						sent.setMsgId(deliveryReportStatus.getMsgId());
 
 					}
 					if (deliveryReportStatus.getStatus() == 1) {
-						sent.setStatus("EM ESPERA");
-						sent.setStatusDescriptionReason(deliveryReportStatus.getDeliveryReportDescription());
 						sent.setMsgId(deliveryReportStatus.getMsgId());
 
 					}
 					if (deliveryReportStatus.getStatus() == 2) {
-						sent.setStatus("NAO ENTREGUE");
-						sent.setStatusDescriptionReason(deliveryReportStatus.getDeliveryReportDescription());
 						sent.setMsgId(deliveryReportStatus.getMsgId());
 
 					}
@@ -117,8 +111,8 @@ public class HibernateSmsReminderDAO implements SmsReminderDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Sent> getAllSent() throws DAOException {
-		final Criteria c = this.sessionFactory.getCurrentSession().createCriteria(Sent.class);
+	public List<MensageSent> getAllSent() throws DAOException {
+		final Criteria c = this.sessionFactory.getCurrentSession().createCriteria(MensageSent.class);
 
 		return c.list();
 	}

@@ -19,7 +19,7 @@ import org.openmrs.api.db.DAOException;
 import org.openmrs.module.smsreminder.api.SmsReminderService;
 import org.openmrs.module.smsreminder.model.DeliveryReportStatus;
 import org.openmrs.module.smsreminder.model.NotificationPatient;
-import org.openmrs.module.smsreminder.model.Sent;
+import org.openmrs.module.smsreminder.model.MensageSent;
 
 /**
  * Database methods for {@link SmsReminderService}.
@@ -30,9 +30,9 @@ public interface SmsReminderDAO {
 	 * Add DAO methods here
 	 */
 
-	public Sent saveSent(Sent sent);
+	public MensageSent saveSent(MensageSent sent);
 
-	public List<Sent> getAllSent() throws DAOException;
+	public List<MensageSent> getAllSent() throws DAOException;
 
 	public List<NotificationPatient> getNotificationPatientByDiasRemanescente() throws DAOException;
 

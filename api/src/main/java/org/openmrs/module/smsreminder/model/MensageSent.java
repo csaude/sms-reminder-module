@@ -3,17 +3,19 @@ package org.openmrs.module.smsreminder.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 import org.openmrs.BaseOpenmrsData;
 import org.openmrs.Patient;
 
-/**
- * Created by Nelson.Mahumane on 03-09-2015.
- */
-public class Sent extends BaseOpenmrsData implements Serializable {
+@Entity
+@Table(name = "smsreminder_mensage_sent")
+public class MensageSent extends BaseOpenmrsData implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private Integer sentId;
-	private  Integer msgId;
+	private Integer msgId;
 	private String PartnerMsgId;
 	private String nid;
 	private String fullName;
@@ -24,12 +26,11 @@ public class Sent extends BaseOpenmrsData implements Serializable {
 	private Date nextVisitDate;
 	private Date dateCreated;
 	private String message;
-	private String status;
-	private String statusDescriptionReason;
+	private String lastStatus;
+	private String description;
 	private Patient patient;
 	private Integer reminderDays;
 	private String uuid;
-
 
 	public String getUuid() {
 		return uuid;
@@ -73,14 +74,6 @@ public class Sent extends BaseOpenmrsData implements Serializable {
 		this.message = message;
 	}
 
-	public String getStatus() {
-		return this.status;
-	}
-
-	public void setStatus(final String status) {
-		this.status = status;
-	}
-
 	@Override
 	public Date getDateCreated() {
 		return this.dateCreated;
@@ -104,20 +97,18 @@ public class Sent extends BaseOpenmrsData implements Serializable {
 		if (this == o) {
 			return true;
 		}
-		if (!(o instanceof Sent)) {
+		if (!(o instanceof MensageSent)) {
 			return false;
 		}
 		if (!super.equals(o)) {
 			return false;
 		}
 
-		final Sent sent = (Sent) o;
+		final MensageSent sent = (MensageSent) o;
 
 		return this.sentId.equals(sent.sentId);
 
 	}
-
-
 
 	public String getPhoneNumber() {
 		return phoneNumber;
@@ -138,16 +129,6 @@ public class Sent extends BaseOpenmrsData implements Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-
-	public String getStatusDescriptionReason() {
-		return statusDescriptionReason;
-	}
-
-	public void setStatusDescriptionReason(String statusDescriptionReason) {
-		this.statusDescriptionReason = statusDescriptionReason;
-	}
-
-
 
 	public String getNid() {
 		return nid;
@@ -189,8 +170,6 @@ public class Sent extends BaseOpenmrsData implements Serializable {
 		this.nextVisitDate = nextVisitDate;
 	}
 
-
-
 	public String getPartnerMsgId() {
 		return PartnerMsgId;
 	}
@@ -207,6 +186,20 @@ public class Sent extends BaseOpenmrsData implements Serializable {
 		this.msgId = msgId;
 	}
 
+	public String getLastStatus() {
+		return lastStatus;
+	}
 
+	public void setLastStatus(String lastStatus) {
+		this.lastStatus = lastStatus;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
 }
