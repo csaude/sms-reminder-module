@@ -124,7 +124,7 @@ public class HibernateSmsReminderDAO implements SmsReminderDAO {
 		return c.list();
 	}
 
-	public List<NotificationPatient> getNotificationPatientByDiasRemanescente() throws DAOException {
+	public List<NotificationPatient> getNotificationPatient() throws DAOException {
 
 		final String sql = QuerysUtils.loadQuery(NOTIFICATION);
 
@@ -150,9 +150,12 @@ public class HibernateSmsReminderDAO implements SmsReminderDAO {
 			notificationPatient.setReminderDays((Integer) object[8]);
 			notificationPatient.setSentType(SentType.NOVO_INICIO);
 			notificationPatient.setPatientId((Integer) object[9]);
-			;
 
-			notificationPatients.add(notificationPatient);
+			if (notificationPatient.getReminderDays() == 15 || notificationPatient.getReminderDays() == 7
+					|| notificationPatient.getReminderDays() == 3) {
+
+				notificationPatients.add(notificationPatient);
+			}
 		}
 
 		return notificationPatients;

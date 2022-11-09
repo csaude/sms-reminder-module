@@ -69,7 +69,7 @@ public class SmsReminderServiceImpl extends BaseOpenmrsService implements SmsRem
 
 	@Override
 	public List<NotificationPatient> getNotificationPatient() {
-		return this.getDao().getNotificationPatientByDiasRemanescente();
+		return this.getDao().getNotificationPatient();
 	}
 
 	@Override

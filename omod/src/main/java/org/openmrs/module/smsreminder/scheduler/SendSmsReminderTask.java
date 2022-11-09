@@ -28,8 +28,7 @@ public class SendSmsReminderTask extends AbstractTask {
 	public void execute() {
 
 		if (!smsReminderService.getNotificationPatient().isEmpty()) {
-			for (NotificationPatient notificationPatient : smsReminderService
-					.getNotificationPatient()) {
+			for (NotificationPatient notificationPatient : smsReminderService.getNotificationPatient()) {
 
 				String mensage = "Sr ".concat(notificationPatient.getFullName()).concat(" Tem um Encontro Marcado na ")
 						.concat(locationService.getLocation(Integer.valueOf(gpUs.getPropertyValue())).getName())

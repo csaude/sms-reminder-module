@@ -34,7 +34,7 @@ public interface SmsReminderDAO {
 
 	public List<MensageSent> getAllSent() throws DAOException;
 
-	public List<NotificationPatient> getNotificationPatientByDiasRemanescente() throws DAOException;
+	public List<NotificationPatient> getNotificationPatient() throws DAOException;
 
 	public List<NotificationPatient> searchFollowUpPatient();
 
