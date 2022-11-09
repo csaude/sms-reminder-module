@@ -29,7 +29,7 @@
 				<td>Telefone</td>
 				<td>Ultima Visita</td>
 				<td>Proxima Visita</td>
-				<td>Estado do Envio</td>
+				<td>Ultimo Estado</td>
 				<td>Descricao</td>
 
 			</tr>
