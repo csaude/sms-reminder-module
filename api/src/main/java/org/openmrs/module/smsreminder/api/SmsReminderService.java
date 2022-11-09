@@ -38,13 +38,13 @@ public interface SmsReminderService extends OpenmrsService {
 
 
 	@Transactional
-	public MensageSent saveSent(MensageSent sent);
+	public MensageSent saveMensageSent(MensageSent sent);
 	@Transactional
 	public DeliveryReportStatus saveDeliveryReportStatus(DeliveryReportStatus deliveryReportStatus);
 	@Transactional
-	public List<MensageSent> getAllSent() throws APIException;
+	public List<MensageSent> getAllSmsSent() throws APIException;
 	@Transactional
-	public List<NotificationPatient> getNotificationPatientByDiasRemanescente() throws APIException;
+	public List<NotificationPatient> getNotificationPatient() throws APIException;
 	@Transactional
 	public List<NotificationPatient> searchFollowUpPatient();
 

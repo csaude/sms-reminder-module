@@ -52,7 +52,7 @@ public class SmsReminderServiceImpl extends BaseOpenmrsService implements SmsRem
 
 	// service for Sent
 	@Override
-	public MensageSent saveSent(final MensageSent sent) {
+	public MensageSent saveMensageSent(final MensageSent sent) {
 		return this.getDao().saveSent(sent);
 	}
 	
@@ -62,13 +62,13 @@ public class SmsReminderServiceImpl extends BaseOpenmrsService implements SmsRem
 	}
 
 	@Override
-	public List<MensageSent> getAllSent() throws APIException {
+	public List<MensageSent> getAllSmsSent() throws APIException {
 		return this.getDao().getAllSent();
 	}
 
 
 	@Override
-	public List<NotificationPatient> getNotificationPatientByDiasRemanescente() {
+	public List<NotificationPatient> getNotificationPatient() {
 		return this.getDao().getNotificationPatientByDiasRemanescente();
 	}
 

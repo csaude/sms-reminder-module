@@ -27,9 +27,9 @@ public class SendSmsReminderTask extends AbstractTask {
 	@Override
 	public void execute() {
 
-		if (!smsReminderService.getNotificationPatientByDiasRemanescente().isEmpty()) {
+		if (!smsReminderService.getNotificationPatient().isEmpty()) {
 			for (NotificationPatient notificationPatient : smsReminderService
-					.getNotificationPatientByDiasRemanescente()) {
+					.getNotificationPatient()) {
 
 				String mensage = "Sr ".concat(notificationPatient.getFullName()).concat(" Tem um Encontro Marcado na ")
 						.concat(locationService.getLocation(Integer.valueOf(gpUs.getPropertyValue())).getName())
@@ -57,7 +57,7 @@ public class SendSmsReminderTask extends AbstractTask {
 						mensageSent.setDateCreated(Calendar.getInstance().getTime());
 						mensageSent.setReminderDays(notificationPatient.getReminderDays());
 
-						smsReminderService.saveSent(mensageSent);
+						smsReminderService.saveMensageSent(mensageSent);
 
 					}
 				} catch (Throwable e) {

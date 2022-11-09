@@ -34,7 +34,7 @@ public class SmsReminderResource {
 
 		final List<NotificationPatient> notificationPatients = new ArrayList<NotificationPatient>();
 
-		for (NotificationPatient n : smsReminderService.getNotificationPatientByDiasRemanescente()) {
+		for (NotificationPatient n : smsReminderService.getNotificationPatient()) {
 
 //			if (n.getReminderDays() == 15 || n.getReminderDays() == 7 || n.getReminderDays() == 3) {
 				if(n.getReminderDays()==7) {
@@ -49,7 +49,7 @@ public class SmsReminderResource {
 
 	public static List<MensageSent> getAllSmsSent() {
 		final SmsReminderService smsReminderService = SmsReminderUtils.getService();
-		return smsReminderService.getAllSent();
+		return smsReminderService.getAllSmsSent();
 	}
 
 	public static void saveSent(final NotificationPatient notificationPatient) {
@@ -72,7 +72,7 @@ public class SmsReminderResource {
 		sent.setReminderDays(notificationPatient.getReminderDays());
 		sent.setMsgId(notificationPatient.getMsgId());
 		sent.setPartnerMsgId(notificationPatient.getPartnerMsgId());
-		smsReminderService.saveSent(sent);
+		smsReminderService.saveMensageSent(sent);
 	    }
 	}
 
