@@ -1,8 +1,6 @@
 package org.openmrs.module.smsreminder.scheduler;
 
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 import java.util.UUID;
 
 import org.openmrs.GlobalProperty;
@@ -12,16 +10,15 @@ import org.openmrs.api.PatientService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.smsreminder.SmsReminderUtils;
 import org.openmrs.module.smsreminder.api.SmsReminderService;
+import org.openmrs.module.smsreminder.model.MensageSent;
 import org.openmrs.module.smsreminder.model.NotificationPatient;
 import org.openmrs.module.smsreminder.utils.DatasUtil;
-import org.openmrs.module.smsreminder.utils.SmsReminderResource;
-import org.openmrs.module.smsreminder.webservice.Teste;
+import org.openmrs.module.smsreminder.webservice.Consumer;
 import org.openmrs.scheduler.tasks.AbstractTask;
 
 public class SendSmsReminderTask extends AbstractTask {
 
 	final AdministrationService administrationService = Context.getAdministrationService();
-	final List<NotificationPatient> notificationPatients = new ArrayList<NotificationPatient>();
 	final GlobalProperty gpUs = administrationService.getGlobalPropertyObject("smsreminder.us");
 	final SmsReminderService smsReminderService = SmsReminderUtils.getService();
 	final PatientService patientService = Context.getPatientService();
@@ -29,10 +26,10 @@ public class SendSmsReminderTask extends AbstractTask {
 
 	@Override
 	public void execute() {
-		notificationPatients.addAll(SmsReminderResource.getAllNotificationPatient());
 
-		if (!notificationPatients.isEmpty()) {
-			for (NotificationPatient notificationPatient : notificationPatients) {
+		if (!smsReminderService.getNotificationPatientByDiasRemanescente().isEmpty()) {
+			for (NotificationPatient notificationPatient : smsReminderService
+					.getNotificationPatientByDiasRemanescente()) {
 
 				String mensage = "Sr ".concat(notificationPatient.getFullName()).concat(" Tem um Encontro Marcado na ")
 						.concat(locationService.getLocation(Integer.valueOf(gpUs.getPropertyValue())).getName())
@@ -40,14 +37,27 @@ public class SendSmsReminderTask extends AbstractTask {
 
 				try {
 					String[] result = notificationPatient.getPhoneNumber().split(",");
+
 					for (String s : result) {
+
 						String partnerMsgId = UUID.randomUUID().toString();
 
-						Teste.sendMensage(mensage, "258" + s, partnerMsgId);
-						notificationPatient.setPartnerMsgId(partnerMsgId);
-						notificationPatient.setMensage(mensage);
-						notificationPatient.setDateCreated(Calendar.getInstance().getTime());
-						SmsReminderResource.saveSent(notificationPatient);
+						Consumer.sendMensage(mensage, "258" + s, partnerMsgId);
+
+						MensageSent mensageSent = new MensageSent();
+
+						mensageSent.setNid(notificationPatient.getNid());
+						mensageSent.setFullName(notificationPatient.getFullName());
+						mensageSent.setLastVisitDate(notificationPatient.getLastVisitDate());
+						mensageSent.setNextVisitDate(notificationPatient.getNextVisitDate());
+						mensageSent.setMessage(mensage);
+						mensageSent.setPartnerMsgId(partnerMsgId);
+						mensageSent.setPhoneNumber(notificationPatient.getPhoneNumber());
+						mensageSent.setPatient(patientService.getPatient(notificationPatient.getPatientId()));
+						mensageSent.setDateCreated(Calendar.getInstance().getTime());
+						mensageSent.setReminderDays(notificationPatient.getReminderDays());
+
+						smsReminderService.saveSent(mensageSent);
 
 					}
 				} catch (Throwable e) {
