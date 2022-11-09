@@ -1,4 +1,5 @@
 package org.openmrs.module.smsreminder.web.resource;
+
 import org.openmrs.module.smsreminder.SmsReminderUtils;
 import org.openmrs.module.smsreminder.api.SmsReminderService;
 import org.openmrs.module.smsreminder.model.DeliveryReportStatus;
@@ -10,8 +11,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
+
 @Controller
-@RequestMapping("/rest/" + RestConstants.VERSION_1 + "sms/deliveryreportstatus")
+@RequestMapping("/rest/" + RestConstants.VERSION_1 + "smsreminder/deliveryreportstatus")
 public class DeliveryReportResource extends MainResourceController {
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.OK)
