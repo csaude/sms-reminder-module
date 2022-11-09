@@ -16,9 +16,7 @@ public class Consumer {
 	public static final String USER_PROPERTY_NAME = "smsrimender.user";
 	static Properties props = OpenmrsUtil.getRuntimeProperties(null);
 
-
 	public static ScheduleResult sendMensage(String mensage, String number, String partnerMsgId) throws Throwable {
-
 
 		RemoteUsenditSoap remoteUsendit = new RemoteUsendit().getRemoteUsenditSoap();
 		ArrayOfSms smsbulk = new ArrayOfSms();
@@ -38,7 +36,5 @@ public class Consumer {
 				props.getProperty(PASSWORD_PROPERTY_NAME), "Info MZ", null, smsbulk);
 		return result;
 	}
-	public static void main(String[] args) throws Throwable {
-		sendMensage("TES", "258840665903", "Info MZ");
-	}
+
 }
