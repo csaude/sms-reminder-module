@@ -42,7 +42,6 @@ public class HibernateSmsReminderDAO implements SmsReminderDAO {
 	private static String NOTIFICATION = "QUERY/NOTIFICATION.sql";
 	private static String LTFU = "QUERY/LTFU.sql";
 
-
 	/**
 	 * @return the sessionFactory
 	 */
@@ -88,19 +87,19 @@ public class HibernateSmsReminderDAO implements SmsReminderDAO {
 
 			if (sent != null) {
 
-				if (deliveryReportStatus.getStatus() != null) {
+				if (deliveryReportStatus.getDeliveryReportStatus() != null) {
 
-					if (deliveryReportStatus.getStatus() == 0) {
+					if (deliveryReportStatus.getDeliveryReportStatus() == 0) {
 
 						sent.setLastStatus(MensageStatus.DELIVERED.getName());
 						sent.setDescription(deliveryReportStatus.getDeliveryReportDescription());
 					}
-					if (deliveryReportStatus.getStatus() == 1) {
+					if (deliveryReportStatus.getDeliveryReportStatus() == 1) {
 						sent.setLastStatus(MensageStatus.ON_HOLD.getName());
 						sent.setDescription(deliveryReportStatus.getDeliveryReportDescription());
 
 					}
-					if (deliveryReportStatus.getStatus() == 2) {
+					if (deliveryReportStatus.getDeliveryReportStatus() == 2) {
 						sent.setLastStatus(MensageStatus.NOT_DELIVERY.getName());
 						sent.setDescription(deliveryReportStatus.getDeliveryReportDescription());
 

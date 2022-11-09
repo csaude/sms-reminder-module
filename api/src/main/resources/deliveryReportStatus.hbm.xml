@@ -13,7 +13,7 @@
 		<property name="deliveryReportDescription" type="java.lang.String" column="delivery_report_description" not-null="false" length="5"/>
 		<property name="deliveryReportReasonCode" type="java.lang.String" column="delivery_report_reason_code" length="15" />
 		<property name="deliveryReportUpdateDatetime" type="java.util.Date" column="delivery_report_update_datetime" />
-		<property name="status" type="java.lang.Integer" column="delivery_report_status" not-null="false" length="100" />
+		<property name="deliveryReportStatus" type="java.lang.Integer" column="delivery_report_status" not-null="false" length="100" />
 		<property name="messageSentDatetime" type="java.util.Date" column="message_sent_datetime" not-null="false" length="5"/>
 		<property name="nrSms" type="java.lang.Integer" column="nr_sms" not-null="false" length="150"/>
 		<property name="partnerMsgId" type="java.lang.String" column="partner_msg_id" not-null="false"  length="150"/>

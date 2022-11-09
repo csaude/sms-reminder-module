@@ -19,7 +19,7 @@ public class DeliveryReportStatus extends BaseOpenmrsData {
 	private String deliveryReportDescription;
 	private String deliveryReportReasonCode;
 	private Date deliveryReportUpdateDatetime;
-	private Integer status;
+	private Integer deliveryReportStatus;
 	private Date messageSentDatetime;
 	private Integer nrSms;
 	private String partnerMsgId;
@@ -97,13 +97,7 @@ public class DeliveryReportStatus extends BaseOpenmrsData {
 		this.partnerMsgId = partnerMsgId;
 	}
 
-	public Integer getStatus() {
-		return status;
-	}
 
-	public void setStatus(Integer status) {
-		this.status = status;
-	}
 
 	public boolean equals(Object obj) {
 		if (this == obj) {
@@ -137,6 +131,14 @@ public class DeliveryReportStatus extends BaseOpenmrsData {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public Integer getDeliveryReportStatus() {
+		return deliveryReportStatus;
+	}
+
+	public void setDeliveryReportStatus(Integer deliveryReportStatus) {
+		this.deliveryReportStatus = deliveryReportStatus;
 	}
 
 }
