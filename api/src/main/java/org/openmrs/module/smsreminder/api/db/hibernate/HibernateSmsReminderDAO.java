@@ -86,15 +86,12 @@ public class HibernateSmsReminderDAO implements SmsReminderDAO {
 				if (deliveryReportStatus.getStatus() != null) {
 
 					if (deliveryReportStatus.getStatus() == 0) {
-						sent.setMsgId(deliveryReportStatus.getMsgId());
 
 					}
 					if (deliveryReportStatus.getStatus() == 1) {
-						sent.setMsgId(deliveryReportStatus.getMsgId());
 
 					}
 					if (deliveryReportStatus.getStatus() == 2) {
-						sent.setMsgId(deliveryReportStatus.getMsgId());
 
 					}
 				}
@@ -121,7 +118,8 @@ public class HibernateSmsReminderDAO implements SmsReminderDAO {
 		final String sql = "select  " + "date(inicioTARV.data_inicio), " + "pid.identifier AS nid, "
 				+ "CONCAT(ifnull(pn.given_name,''),' ',ifnull(pn.middle_name,''),' ',ifnull(pn.family_name,''))  AS nome_completo, "
 				+ "pa.value AS telemovel," + "p.gender AS sexo, " + "maxFila.encounter_type as visita, "
-				+ "date(maxFila.encounter_datetime) as ultima_visita, " + "date(obsProximo.value_datetime) as proximo_visita, "
+				+ "date(maxFila.encounter_datetime) as ultima_visita, "
+				+ "date(obsProximo.value_datetime) as proximo_visita, "
 				+ "(to_days(curdate()) - to_days(obsProximo.value_datetime)) AS dias_remanescente, maxFila.patient_id "
 				+ "from ( " + "select p.patient_id AS patient_id,min(e.encounter_datetime) AS data_inicio "
 				+ "from ((patient p " + "join encounter e on((p.patient_id = e.patient_id))) "
