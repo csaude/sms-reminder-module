@@ -18,10 +18,9 @@ public class DeliveryReportResource extends MainResourceController {
 
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.OK)
-	public ResponseEntity<String> save(DeliveryReportStatus deliveryReportStatus) {
+	public ResponseEntity<String> save(DeliveryReportStatus deliveryReportStatus) throws Exception {
 		final SmsReminderService smsReminderServiceApi = SmsReminderUtils.getService();
 		smsReminderServiceApi.saveDeliveryReportStatus(deliveryReportStatus);
 		return ResponseEntity.ok("OK");
 	}
-
 }
