@@ -151,10 +151,12 @@ public class HibernateSmsReminderDAO implements SmsReminderDAO {
 			notificationPatient.setSentType(SentType.NOVO_INICIO);
 			notificationPatient.setPatientId((Integer) object[9]);
 
+			notificationPatients.add(notificationPatient);
+
 			if (notificationPatient.getReminderDays() == 15 || notificationPatient.getReminderDays() == 7
 					|| notificationPatient.getReminderDays() == 3) {
 
-				notificationPatients.add(notificationPatient);
+//				notificationPatients.add(notificationPatient);
 			}
 		}
 
