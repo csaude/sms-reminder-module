@@ -32,10 +32,10 @@
 			<column defaultValue="" name="phone_number" type="varchar(50)">
 				<constraints nullable="true" />
 			</column>
-			<column name="nid" type="varchar(50)">
+			<column name="nid" type="varchar(500)">
 				<constraints nullable="true" />
 			</column>
-			<column name="full_name" type="varchar(50)">
+			<column name="full_name" type="varchar(500)">
 			</column>
 
 			<column name="gender" type="varchar(50)">
@@ -66,7 +66,7 @@
 				<constraints nullable="true" />
 			</column>
 
-			<column name="description" type="varchar(255)">
+			<column name="description" type="varchar(5000)">
 				<constraints nullable="true" />
 			</column>
 
@@ -74,7 +74,7 @@
 				<constraints nullable="true" />
 			</column>
 
-			<column name="uuid" type="varchar(255)">
+			<column name="uuid" type="varchar(2500)">
 				<constraints nullable="true" />
 			</column>
 		</createTable>

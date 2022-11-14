@@ -13,7 +13,7 @@ import org.openmrs.module.smsreminder.api.SmsReminderService;
 import org.openmrs.module.smsreminder.model.MensageSent;
 import org.openmrs.module.smsreminder.model.NotificationPatient;
 import org.openmrs.module.smsreminder.utils.DatasUtil;
-import org.openmrs.module.smsreminder.webservice.Consumer;
+import org.openmrs.module.smsreminder.webservice.Teste;
 import org.openmrs.scheduler.tasks.AbstractTask;
 
 public class SendSmsReminderTask extends AbstractTask {
@@ -41,7 +41,7 @@ public class SendSmsReminderTask extends AbstractTask {
 
 						String partnerMsgId = UUID.randomUUID().toString();
 
-						Consumer.sendMensage(mensage, "258" + s, partnerMsgId);
+						Teste.sendMensage(mensage, "258" + s, partnerMsgId);
 
 						MensageSent mensageSent = new MensageSent();
 
