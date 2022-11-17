@@ -22,8 +22,8 @@ import org.openmrs.api.impl.BaseOpenmrsService;
 import org.openmrs.module.smsreminder.api.SmsReminderService;
 import org.openmrs.module.smsreminder.api.db.SmsReminderDAO;
 import org.openmrs.module.smsreminder.model.DeliveryReportStatus;
-import org.openmrs.module.smsreminder.model.NotificationPatient;
 import org.openmrs.module.smsreminder.model.MensageSent;
+import org.openmrs.module.smsreminder.model.NotificationPatient;
 
 /**
  * It is a default implementation of {@link SmsReminderService}.
@@ -68,8 +68,8 @@ public class SmsReminderServiceImpl extends BaseOpenmrsService implements SmsRem
 
 
 	@Override
-	public List<NotificationPatient> getNotificationPatient() {
-		return this.getDao().getNotificationPatient();
+	public List<NotificationPatient> getNotificationPatients() {
+		return this.getDao().getNotificationPatients();
 	}
 
 	@Override

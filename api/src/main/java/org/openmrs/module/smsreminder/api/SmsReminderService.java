@@ -44,7 +44,7 @@ public interface SmsReminderService extends OpenmrsService {
 	@Transactional
 	public List<MensageSent> getAllSmsSent() throws APIException;
 	@Transactional
-	public List<NotificationPatient> getNotificationPatient() throws APIException;
+	public List<NotificationPatient> getNotificationPatients() throws APIException;
 	@Transactional
 	public List<NotificationPatient> searchFollowUpPatient();
 

@@ -18,8 +18,8 @@ import java.util.List;
 import org.openmrs.api.db.DAOException;
 import org.openmrs.module.smsreminder.api.SmsReminderService;
 import org.openmrs.module.smsreminder.model.DeliveryReportStatus;
-import org.openmrs.module.smsreminder.model.NotificationPatient;
 import org.openmrs.module.smsreminder.model.MensageSent;
+import org.openmrs.module.smsreminder.model.NotificationPatient;
 
 /**
  * Database methods for {@link SmsReminderService}.
@@ -34,7 +34,7 @@ public interface SmsReminderDAO {
 
 	public List<MensageSent> getAllSent() throws DAOException;
 
-	public List<NotificationPatient> getNotificationPatient() throws DAOException;
+	public List<NotificationPatient> getNotificationPatients() throws DAOException;
 
 	public List<NotificationPatient> searchFollowUpPatient();
 
