@@ -23,4 +23,6 @@ public class DeliveryReportResource extends MainResourceController {
 		smsReminderServiceApi.saveDeliveryReportStatus(deliveryReportStatus);
 		return ResponseEntity.ok("OK");
 	}
+	
+	
 }
