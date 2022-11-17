@@ -79,7 +79,7 @@ public class HibernateSmsReminderDAO implements SmsReminderDAO {
 	public DeliveryReportStatus saveDeliveryReportStatus(DeliveryReportStatus deliveryReportStatus) {
 		try {
 			Query q = sessionFactory.getCurrentSession()
-					.createQuery("FROM Sent s WHERE s.PartnerMsgId = :PartnerMsgId ");
+					.createQuery("FROM MensageSent s WHERE s.PartnerMsgId = :PartnerMsgId Where s.lastStatus is null ");
 
 			q.setParameter("PartnerMsgId", deliveryReportStatus.getPartnerMsgId());
 

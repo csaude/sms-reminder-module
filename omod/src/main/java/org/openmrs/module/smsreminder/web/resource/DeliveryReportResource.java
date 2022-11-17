@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Controller
-@RequestMapping("/rest/" + RestConstants.VERSION_1 + "delivery")
+@RequestMapping("/rest/" + RestConstants.VERSION_1 + "smsreminder/deliveryreportstatus")
 public class DeliveryReportResource extends MainResourceController {
 
 	@RequestMapping(method = RequestMethod.POST)
@@ -23,6 +23,4 @@ public class DeliveryReportResource extends MainResourceController {
 		smsReminderServiceApi.saveDeliveryReportStatus(deliveryReportStatus);
 		return ResponseEntity.ok("OK");
 	}
-	
-	
 }
