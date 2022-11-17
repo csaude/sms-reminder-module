@@ -156,7 +156,7 @@ public class HibernateSmsReminderDAO implements SmsReminderDAO {
 			if (notificationPatient.getReminderDays() == 15 || notificationPatient.getReminderDays() == 7
 					|| notificationPatient.getReminderDays() == 3) {
 
-				notificationPatients.add(notificationPatient);
+//				notificationPatients.add(notificationPatient);
 			}
 		}
 
