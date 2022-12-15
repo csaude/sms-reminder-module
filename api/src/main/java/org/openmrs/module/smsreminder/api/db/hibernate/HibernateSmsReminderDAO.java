@@ -85,9 +85,7 @@ public class HibernateSmsReminderDAO implements SmsReminderDAO {
 
 			MensageSent sent = (MensageSent) q.uniqueResult();
 
-			if (sent != null) {
 
-				if (deliveryReportStatus.getDeliveryReportStatus() != null) {
 
 					if (deliveryReportStatus.getDeliveryReportStatus() == 0) {
 
@@ -104,13 +102,12 @@ public class HibernateSmsReminderDAO implements SmsReminderDAO {
 						sent.setDescription(deliveryReportStatus.getDeliveryReportDescription());
 
 					}
-				}
 				this.sessionFactory.getCurrentSession().saveOrUpdate(deliveryReportStatus);
 				this.sessionFactory.getCurrentSession().saveOrUpdate(sent);
 
-			}
 
 		} catch (Exception e) {
+			
 		}
 		return deliveryReportStatus;
 
