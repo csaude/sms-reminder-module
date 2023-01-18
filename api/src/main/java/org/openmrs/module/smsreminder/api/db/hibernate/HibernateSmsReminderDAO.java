@@ -85,29 +85,26 @@ public class HibernateSmsReminderDAO implements SmsReminderDAO {
 
 			MensageSent sent = (MensageSent) q.uniqueResult();
 
+			if (deliveryReportStatus.getDeliveryReportStatus() == 0) {
 
+				sent.setLastStatus(MensageStatus.DELIVERED.getName());
+				sent.setDateLastStatus(deliveryReportStatus.getDeliveryReportUpdateDatetime());
+			}
+			if (deliveryReportStatus.getDeliveryReportStatus() == 1) {
+				sent.setLastStatus(MensageStatus.ON_HOLD.getName());
+				sent.setDateLastStatus(deliveryReportStatus.getDeliveryReportUpdateDatetime());
 
-					if (deliveryReportStatus.getDeliveryReportStatus() == 0) {
+			}
+			if (deliveryReportStatus.getDeliveryReportStatus() == 2) {
+				sent.setLastStatus(MensageStatus.NOT_DELIVERY.getName());
+				sent.setDateLastStatus(deliveryReportStatus.getDeliveryReportUpdateDatetime());
 
-						sent.setLastStatus(MensageStatus.DELIVERED.getName());
-						sent.setDescription(deliveryReportStatus.getDeliveryReportDescription());
-					}
-					if (deliveryReportStatus.getDeliveryReportStatus() == 1) {
-						sent.setLastStatus(MensageStatus.ON_HOLD.getName());
-						sent.setDescription(deliveryReportStatus.getDeliveryReportDescription());
-
-					}
-					if (deliveryReportStatus.getDeliveryReportStatus() == 2) {
-						sent.setLastStatus(MensageStatus.NOT_DELIVERY.getName());
-						sent.setDescription(deliveryReportStatus.getDeliveryReportDescription());
-
-					}
-				this.sessionFactory.getCurrentSession().saveOrUpdate(deliveryReportStatus);
-				this.sessionFactory.getCurrentSession().saveOrUpdate(sent);
-
+			}
+			this.sessionFactory.getCurrentSession().saveOrUpdate(deliveryReportStatus);
+			this.sessionFactory.getCurrentSession().saveOrUpdate(sent);
 
 		} catch (Exception e) {
-			
+
 		}
 		return deliveryReportStatus;
 

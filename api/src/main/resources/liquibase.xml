@@ -14,10 +14,10 @@
 			</not>
 		</preConditions>
 		<comment>
-			Create smsreminder_sent
+			Create smsreminder_mensage_sent
 		</comment>
 		<createTable tableName="smsreminder_mensage_sent">
-			<column autoIncrement="true" name="sent_id" type="int">
+			<column autoIncrement="true" name="mensage_sent_id" type="int">
 				<constraints nullable="false" primaryKey="true" />
 			</column>
 
@@ -66,7 +66,7 @@
 				<constraints nullable="true" />
 			</column>
 
-			<column name="description" type="varchar(5000)">
+			<column name="date_last_status" type="DATETIME">
 				<constraints nullable="true" />
 			</column>
 
@@ -78,7 +78,38 @@
 				<constraints nullable="true" />
 			</column>
 		</createTable>
+		<sql>
+			INSERT INTO global_property
+			(property, property_value,
+			description, uuid, datatype, datatype_config, preferred_handler,
+			handler_config)
+			VALUES('smsreminder.us','221','Specifies the
+			location',UUID(),NULL,NULL,NULL,NULL);
 
+			INSERT INTO global_property
+			(property, property_value, description, uuid, datatype,
+			datatype_config, preferred_handler, handler_config)
+			VALUES('smsreminder.reference_date',cast(CURRENT_DATE() AS
+			CHAR(10)),'Specifies the date of new
+			enrolled',UUID(),NULL,NULL,NULL,NULL);
+
+		</sql>
+		<modifySql dbms="mssql">
+			<replace replace="CHAR(38)"
+				with="UNIQUEIDENTIFIER NOT NULL DEFAULT NEWSEQUENTIALID()" />
+		</modifySql>
+	</changeSet>
+	
+	<changeSet author="emaposse" id="20230118-0730">
+		<preConditions onFail="MARK_RAN">
+			<not>
+				<tableExists tableName="smsreminder_delivery_report_status" />
+			</not>
+		</preConditions>
+		<comment>
+			Create table smsreminder_delivery_report_status
+		</comment>
+		
 		<createTable tableName="smsreminder_delivery_report_status">
 
 			<column autoIncrement="true" name="delivery_id" type="int">
@@ -122,25 +153,11 @@
 			</column>
 
 		</createTable>
-		<sql>
-			INSERT INTO global_property
-			(property, property_value,
-			description, uuid, datatype, datatype_config, preferred_handler,
-			handler_config)
-			VALUES('smsreminder.us','221','Specifies the
-			location',UUID(),NULL,NULL,NULL,NULL);
-
-			INSERT INTO global_property
-			(property, property_value, description, uuid, datatype,
-			datatype_config, preferred_handler, handler_config)
-			VALUES('smsreminder.reference_date',cast(CURRENT_DATE() AS
-			CHAR(10)),'Specifies the date of new
-			enrolled',UUID(),NULL,NULL,NULL,NULL);
-
-		</sql>
-		<modifySql dbms="mssql">
+			<modifySql dbms="mssql">
 			<replace replace="CHAR(38)"
 				with="UNIQUEIDENTIFIER NOT NULL DEFAULT NEWSEQUENTIALID()" />
 		</modifySql>
 	</changeSet>
+	
+	
 </databaseChangeLog>

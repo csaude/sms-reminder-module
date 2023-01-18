@@ -14,7 +14,7 @@ import org.openmrs.Patient;
 public class MensageSent extends BaseOpenmrsData implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	private Integer sentId;
+	private Integer mensageSentId;
 	private Integer msgId;
 	private String PartnerMsgId;
 	private String nid;
@@ -27,7 +27,7 @@ public class MensageSent extends BaseOpenmrsData implements Serializable {
 	private Date dateCreated;
 	private String message;
 	private String lastStatus;
-	private String description;
+	private Date dateLastStatus;
 	private Patient patient;
 	private Integer reminderDays;
 	private String uuid;
@@ -41,11 +41,11 @@ public class MensageSent extends BaseOpenmrsData implements Serializable {
 	}
 
 	public Integer getSentId() {
-		return this.sentId;
+		return this.mensageSentId;
 	}
 
-	public void setSentId(final Integer sentId) {
-		this.sentId = sentId;
+	public void setSentId(final Integer mensageSentId) {
+		this.mensageSentId = mensageSentId;
 	}
 
 	@Override
@@ -106,7 +106,7 @@ public class MensageSent extends BaseOpenmrsData implements Serializable {
 
 		final MensageSent sent = (MensageSent) o;
 
-		return this.sentId.equals(sent.sentId);
+		return this.mensageSentId.equals(sent.mensageSentId);
 
 	}
 
@@ -194,12 +194,23 @@ public class MensageSent extends BaseOpenmrsData implements Serializable {
 		this.lastStatus = lastStatus;
 	}
 
-	public String getDescription() {
-		return description;
+	public Date getDateLastStatus() {
+		return dateLastStatus;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setDateLastStatus(Date dateLastStatus) {
+		this.dateLastStatus = dateLastStatus;
 	}
+
+	public Integer getMensageSentId() {
+		return mensageSentId;
+	}
+
+	public void setMensageSentId(Integer mensageSentId) {
+		this.mensageSentId = mensageSentId;
+	}
+
+
+
 
 }

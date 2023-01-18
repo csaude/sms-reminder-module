@@ -5,10 +5,10 @@
 
 <hibernate-mapping package="org.openmrs.module.smsreminder.model">
 	<class name="org.openmrs.module.smsreminder.model.MensageSent" table="smsreminder_mensage_sent" batch-size="25">
-		<id name="sentId" type="int" column="sent_id" unsaved-value="0" >
+		<id name="mensageSentId" type="int" column="mensage_sent_id" unsaved-value="0" >
 			<generator class="native" />
 		</id>
-		<discriminator column="sent_id" insert="false" />
+		<discriminator column="mensage_sent_id" insert="false" />
 		<property name="msgId" type="java.lang.Integer" column="msg_id" not-null="false" length="200000"/>
 		<property name="phoneNumber" type="java.lang.String" column="phone_number" length="200" />
 		<property name="PartnerMsgId" type="java.lang.String" column="partner_msg_Id" length="1000" />
@@ -22,7 +22,7 @@
 		<property name="reminderDays" type="java.lang.Integer" column="reminder_days" not-null="true" length="5"/>
 		<property name="message" type="java.lang.String" column="message" not-null="false" length="1000"/>
 		<property name="lastStatus" type="java.lang.String" column="last_status" not-null="false"  length="1000"/>
-		<property name="description" type="java.lang.String" column="description" not-null="false"  length="1000"/>
+		<property name="dateLastStatus"  type="java.util.Date" column="date_last_status" not-null="false" />
 		<property name="uuid" type="java.lang.String" column="uuid" not-null="false"  length="1000"/>
 		<many-to-one name="patient" class="org.openmrs.Patient" not-null="false" column="patient_id"/>
 	</class>

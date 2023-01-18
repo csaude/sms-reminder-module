@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 import org.openmrs.BaseOpenmrsData;
-
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "smsreminder_delivery_report_status")
@@ -18,8 +18,10 @@ public class DeliveryReportStatus extends BaseOpenmrsData {
 	private String uuid;
 	private String deliveryReportDescription;
 	private String deliveryReportReasonCode;
+	@DateTimeFormat(pattern = "dd-MM-yyyy")
 	private Date deliveryReportUpdateDatetime;
 	private Integer deliveryReportStatus;
+	@DateTimeFormat(pattern = "dd-MM-yyyy")
 	private Date messageSentDatetime;
 	private Integer nrSms;
 	private String partnerMsgId;
@@ -96,8 +98,6 @@ public class DeliveryReportStatus extends BaseOpenmrsData {
 	public void setPartnerMsgId(String partnerMsgId) {
 		this.partnerMsgId = partnerMsgId;
 	}
-
-
 
 	public boolean equals(Object obj) {
 		if (this == obj) {

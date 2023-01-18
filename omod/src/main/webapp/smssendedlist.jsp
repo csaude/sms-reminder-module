@@ -24,13 +24,11 @@
 
 				<td>NID</td>
 				<td>Nome Completo</td>
-				<td>Sexo</td>
-				<td>Data do Alerta</td>
 				<td>Telefone</td>
 				<td>Ultima Visita</td>
 				<td>Proxima Visita</td>
 				<td>Ultimo Estado</td>
-				<td>Descricao</td>
+				<td>Data do Estado</td>
 
 			</tr>
 
@@ -38,14 +36,11 @@
 				<tr>
 					<td>${sms.nid}</td>
 					<td>${sms.fullName}</td>
-					<td>${sms.gender}</td>
-					<td><fmt:formatDate pattern = "yyyy-MM-dd" value = "${sms.alertDate}" /></td>
 					<td>${sms.phoneNumber}</td>
 					<td><fmt:formatDate pattern = "yyyy-MM-dd" value = "${sms.lastVisitDate}" /></td>
 					<td><fmt:formatDate pattern = "yyyy-MM-dd" value = "${sms.nextVisitDate}" /></td>
-					<td>${sms.status}</td>
-					<td>${sms.statusDescriptionReason}</td>
-
+					<td>${sms.lastStatus}</td>
+					<td><fmt:formatDate pattern = "yyyy-MM-dd" value = "${sms.dateLastStatus}" /></td>
 				</tr>
 			</c:forEach>
 
