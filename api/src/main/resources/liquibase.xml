@@ -10,7 +10,7 @@
 	<changeSet author="emaposse" id="20200402-1806">
 		<preConditions onFail="MARK_RAN">
 			<not>
-				<tableExists tableName="smsreminder_sent" />
+				<tableExists tableName="smsreminder_mensage_sent" />
 			</not>
 		</preConditions>
 		<comment>
