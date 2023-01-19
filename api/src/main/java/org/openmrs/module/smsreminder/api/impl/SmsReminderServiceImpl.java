@@ -24,7 +24,7 @@ import org.openmrs.module.smsreminder.api.db.SmsReminderDAO;
 import org.openmrs.module.smsreminder.model.DeliveryReportStatus;
 import org.openmrs.module.smsreminder.model.MessageSent;
 import org.openmrs.module.smsreminder.model.NotificationPatient;
-import org.openmrs.module.smsreminder.utils.MensageStatus;
+import org.openmrs.module.smsreminder.utils.MessageStatus;
 
 /**
  * It is a default implementation of {@link SmsReminderService}.
@@ -67,19 +67,19 @@ public class SmsReminderServiceImpl extends BaseOpenmrsService implements SmsRem
 
 				if (deliveryReportStatus.getDeliveryReportStatus() == 0) {
 
-					deliveryReportStatus.setStatusDescription(MensageStatus.DELIVERED.getName());
-					mensageSent.setLastStatus(MensageStatus.DELIVERED.getName());
+					deliveryReportStatus.setStatusDescription(MessageStatus.DELIVERED.getName());
+					mensageSent.setLastStatus(MessageStatus.DELIVERED.getName());
 					mensageSent.setLastDateStatus(deliveryReportStatus.getDeliveryReportUpdateDatetime());
 				}
 				if (deliveryReportStatus.getDeliveryReportStatus() == 1) {
-					deliveryReportStatus.setStatusDescription(MensageStatus.ON_HOLD.getName());
-					mensageSent.setLastStatus(MensageStatus.ON_HOLD.getName());
+					deliveryReportStatus.setStatusDescription(MessageStatus.ON_HOLD.getName());
+					mensageSent.setLastStatus(MessageStatus.ON_HOLD.getName());
 					mensageSent.setLastDateStatus(deliveryReportStatus.getDeliveryReportUpdateDatetime());
 
 				}
 				if (deliveryReportStatus.getDeliveryReportStatus() == 2) {
-					deliveryReportStatus.setStatusDescription(MensageStatus.NOT_DELIVERY.getName());
-					mensageSent.setLastStatus(MensageStatus.NOT_DELIVERY.getName());
+					deliveryReportStatus.setStatusDescription(MessageStatus.NOT_DELIVERY.getName());
+					mensageSent.setLastStatus(MessageStatus.NOT_DELIVERY.getName());
 					mensageSent.setLastDateStatus(deliveryReportStatus.getDeliveryReportUpdateDatetime());
 				}
 			}
