@@ -10,7 +10,7 @@ import org.openmrs.api.PatientService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.smsreminder.SmsReminderUtils;
 import org.openmrs.module.smsreminder.api.SmsReminderService;
-import org.openmrs.module.smsreminder.model.MensageSent;
+import org.openmrs.module.smsreminder.model.MessageSent;
 import org.openmrs.module.smsreminder.model.NotificationPatient;
 import org.openmrs.module.smsreminder.utils.DatasUtil;
 import org.openmrs.module.smsreminder.webservice.Teste;
@@ -27,8 +27,8 @@ public class SendSmsReminderTask extends AbstractTask {
 	@Override
 	public void execute() {
 
-		if (!smsReminderService.getNotificationPatients().isEmpty()) {
-			for (NotificationPatient notificationPatient : smsReminderService.getNotificationPatients()) {
+		if (!smsReminderService.getAllNotificationPatient().isEmpty()) {
+			for (NotificationPatient notificationPatient : smsReminderService.getAllNotificationPatient()) {
 
 				String mensage = "Sr ".concat(notificationPatient.getFullName()).concat(" Tem um Encontro Marcado na ")
 						.concat(locationService.getLocation(Integer.valueOf(gpUs.getPropertyValue())).getName())
@@ -43,7 +43,7 @@ public class SendSmsReminderTask extends AbstractTask {
 
 						Teste.sendMensage(mensage, "258" + s, partnerMsgId);
 
-						MensageSent mensageSent = new MensageSent();
+						MessageSent mensageSent = new MessageSent();
 
 						mensageSent.setNid(notificationPatient.getNid());
 						mensageSent.setFullName(notificationPatient.getFullName());

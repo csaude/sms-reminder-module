@@ -18,7 +18,7 @@ public class SMSReminderSendSMSController {
 	public ModelAndView patientListSender() {
 		final SmsReminderService smsReminderService = SmsReminderUtils.getService();
 		final ModelAndView modelAndView = new ModelAndView();
-		modelAndView.addObject("smss", smsReminderService.getNotificationPatients());
+		modelAndView.addObject("smss", smsReminderService.getAllNotificationPatient());
 
 		return modelAndView;
 	}

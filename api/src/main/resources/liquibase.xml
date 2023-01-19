@@ -10,14 +10,14 @@
 	<changeSet author="emaposse" id="20200402-1806">
 		<preConditions onFail="MARK_RAN">
 			<not>
-				<tableExists tableName="smsreminder_sent" />
+				<tableExists tableName="smsreminder_message_sent" />
 			</not>
 		</preConditions>
 		<comment>
-			Create smsreminder_mensage_sent
+			Create smsreminder_message_sent
 		</comment>
-		<createTable tableName="smsreminder_mensage_sent">
-			<column autoIncrement="true" name="mensage_sent_id" type="int">
+		<createTable tableName="smsreminder_message_sent">
+			<column autoIncrement="true" name="message_sent_id" type="int">
 				<constraints nullable="false" primaryKey="true" />
 			</column>
 
@@ -62,7 +62,7 @@
 				<constraints nullable="true" />
 			</column>
 
-			<column name="date_last_status" type="DATETIME">
+			<column name="last_date_status" type="DATETIME">
 				<constraints nullable="true" />
 			</column>
 

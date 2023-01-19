@@ -21,7 +21,7 @@ public class SMSReminderSentSMSController {
 
 		final ModelAndView modelAndView = new ModelAndView();
 
-		modelAndView.addObject("smss", smsReminderService.getAllSmsSent());
+		modelAndView.addObject("smss", smsReminderService.getAllMessageSent());
 		return modelAndView;
 	}
 

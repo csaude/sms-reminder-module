@@ -18,7 +18,7 @@ import java.util.List;
 import org.openmrs.api.db.DAOException;
 import org.openmrs.module.smsreminder.api.SmsReminderService;
 import org.openmrs.module.smsreminder.model.DeliveryReportStatus;
-import org.openmrs.module.smsreminder.model.MensageSent;
+import org.openmrs.module.smsreminder.model.MessageSent;
 import org.openmrs.module.smsreminder.model.NotificationPatient;
 
 /**
@@ -30,21 +30,16 @@ public interface SmsReminderDAO {
 	 * Add DAO methods here
 	 */
 
-	public MensageSent saveSent(MensageSent sent);
+	public MessageSent saveMensageSent(MessageSent messageSent);
 
-	public List<MensageSent> getAllSent() throws DAOException;
+	public List<MessageSent> getAllMessageSent() throws DAOException;
 
-	public List<NotificationPatient> getNotificationPatients() throws DAOException;
+	public List<NotificationPatient> getAllNotificationPatient() throws DAOException;
 
-	public List<NotificationPatient> searchFollowUpPatient();
+	public List<NotificationPatient> findPatientsForLostFollowup();
 
-	public DeliveryReportStatus searchDeliveryMensage(String uuid);
-	
-	
 	public DeliveryReportStatus saveDeliveryReportStatus(DeliveryReportStatus deliveryReportStatus);
-	
-	public MensageSent findMensageSentToBeUpdate(DeliveryReportStatus deliveryReportStatus) ;
 
-
+	public MessageSent findMessageSentToBeUpdate(DeliveryReportStatus deliveryReportStatus);
 
 }

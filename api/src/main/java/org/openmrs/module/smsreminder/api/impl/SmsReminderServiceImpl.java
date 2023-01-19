@@ -22,7 +22,7 @@ import org.openmrs.api.impl.BaseOpenmrsService;
 import org.openmrs.module.smsreminder.api.SmsReminderService;
 import org.openmrs.module.smsreminder.api.db.SmsReminderDAO;
 import org.openmrs.module.smsreminder.model.DeliveryReportStatus;
-import org.openmrs.module.smsreminder.model.MensageSent;
+import org.openmrs.module.smsreminder.model.MessageSent;
 import org.openmrs.module.smsreminder.model.NotificationPatient;
 import org.openmrs.module.smsreminder.utils.MensageStatus;
 
@@ -50,14 +50,14 @@ public class SmsReminderServiceImpl extends BaseOpenmrsService implements SmsRem
 	}
 
 	@Override
-	public MensageSent saveMensageSent(final MensageSent sent) {
-		return this.getDao().saveSent(sent);
+	public MessageSent saveMensageSent(final MessageSent messageSent) {
+		return this.getDao().saveMensageSent(messageSent);
 	}
 
 	@Override
 	public DeliveryReportStatus saveDeliveryReportStatus(DeliveryReportStatus deliveryReportStatus) {
 
-		MensageSent mensageSent = this.getDao().findMensageSentToBeUpdate(deliveryReportStatus);
+		MessageSent mensageSent = this.getDao().findMessageSentToBeUpdate(deliveryReportStatus);
 
 		if (mensageSent != null) {
 			
@@ -69,38 +69,38 @@ public class SmsReminderServiceImpl extends BaseOpenmrsService implements SmsRem
 
 					deliveryReportStatus.setStatusDescription(MensageStatus.DELIVERED.getName());
 					mensageSent.setLastStatus(MensageStatus.DELIVERED.getName());
-					mensageSent.setDateLastStatus(deliveryReportStatus.getDeliveryReportUpdateDatetime());
+					mensageSent.setLastDateStatus(deliveryReportStatus.getDeliveryReportUpdateDatetime());
 				}
 				if (deliveryReportStatus.getDeliveryReportStatus() == 1) {
 					deliveryReportStatus.setStatusDescription(MensageStatus.ON_HOLD.getName());
 					mensageSent.setLastStatus(MensageStatus.ON_HOLD.getName());
-					mensageSent.setDateLastStatus(deliveryReportStatus.getDeliveryReportUpdateDatetime());
+					mensageSent.setLastDateStatus(deliveryReportStatus.getDeliveryReportUpdateDatetime());
 
 				}
 				if (deliveryReportStatus.getDeliveryReportStatus() == 2) {
 					deliveryReportStatus.setStatusDescription(MensageStatus.NOT_DELIVERY.getName());
 					mensageSent.setLastStatus(MensageStatus.NOT_DELIVERY.getName());
-					mensageSent.setDateLastStatus(deliveryReportStatus.getDeliveryReportUpdateDatetime());
+					mensageSent.setLastDateStatus(deliveryReportStatus.getDeliveryReportUpdateDatetime());
 				}
 			}
 		}
-		this.getDao().saveSent(mensageSent);
+		this.getDao().saveMensageSent(mensageSent);
 		return this.getDao().saveDeliveryReportStatus(deliveryReportStatus);
 	}
 
 	@Override
-	public List<MensageSent> getAllSmsSent() throws APIException {
-		return this.getDao().getAllSent();
+	public List<MessageSent> getAllMessageSent() throws APIException {
+		return this.getDao().getAllMessageSent();
 	}
 
 	@Override
-	public List<NotificationPatient> getNotificationPatients() {
-		return this.getDao().getNotificationPatients();
+	public List<NotificationPatient> getAllNotificationPatient() {
+		return this.getDao().getAllNotificationPatient();
 	}
 
 	@Override
-	public List<NotificationPatient> searchFollowUpPatient() {
-		return this.getDao().searchFollowUpPatient();
+	public List<NotificationPatient> findPatientsForLostFollowup() {
+		return this.getDao().findPatientsForLostFollowup();
 	}
 
 }

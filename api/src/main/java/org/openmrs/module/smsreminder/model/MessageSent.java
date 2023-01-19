@@ -10,11 +10,11 @@ import org.openmrs.BaseOpenmrsData;
 import org.openmrs.Patient;
 
 @Entity
-@Table(name = "smsreminder_mensage_sent")
-public class MensageSent extends BaseOpenmrsData implements Serializable {
+@Table(name = "smsreminder_message_sent")
+public class MessageSent extends BaseOpenmrsData implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	private Integer mensageSentId;
+	private Integer messageSentId;
 	private Integer msgId;
 	private String PartnerMsgId;
 	private String nid;
@@ -27,27 +27,18 @@ public class MensageSent extends BaseOpenmrsData implements Serializable {
 	private Date dateCreated;
 	private String message;
 	private String lastStatus;
-	private Date dateLastStatus;
+	private Date lastDateStatus;
 	private Patient patient;
 	private Integer reminderDays;
 
-
-	public Integer getSentId() {
-		return this.mensageSentId;
-	}
-
-	public void setSentId(final Integer mensageSentId) {
-		this.mensageSentId = mensageSentId;
-	}
-
 	@Override
 	public Integer getId() {
-		return this.getSentId();
+		return this.getMessageSentId();
 	}
 
 	@Override
 	public void setId(final Integer id) {
-		this.setSentId(id);
+		this.setMessageSentId(id);
 	}
 
 	public Date getAlertDate() {
@@ -89,16 +80,16 @@ public class MensageSent extends BaseOpenmrsData implements Serializable {
 		if (this == o) {
 			return true;
 		}
-		if (!(o instanceof MensageSent)) {
+		if (!(o instanceof MessageSent)) {
 			return false;
 		}
 		if (!super.equals(o)) {
 			return false;
 		}
 
-		final MensageSent sent = (MensageSent) o;
+		final MessageSent sent = (MessageSent) o;
 
-		return this.mensageSentId.equals(sent.mensageSentId);
+		return this.messageSentId.equals(sent.messageSentId);
 
 	}
 
@@ -186,23 +177,20 @@ public class MensageSent extends BaseOpenmrsData implements Serializable {
 		this.lastStatus = lastStatus;
 	}
 
-	public Date getDateLastStatus() {
-		return dateLastStatus;
+	public Integer getMessageSentId() {
+		return messageSentId;
 	}
 
-	public void setDateLastStatus(Date dateLastStatus) {
-		this.dateLastStatus = dateLastStatus;
+	public void setMessageSentId(Integer messageSentId) {
+		this.messageSentId = messageSentId;
 	}
 
-	public Integer getMensageSentId() {
-		return mensageSentId;
+	public Date getLastDateStatus() {
+		return lastDateStatus;
 	}
 
-	public void setMensageSentId(Integer mensageSentId) {
-		this.mensageSentId = mensageSentId;
+	public void setLastDateStatus(Date lastDateStatus) {
+		this.lastDateStatus = lastDateStatus;
 	}
-
-
-
 
 }

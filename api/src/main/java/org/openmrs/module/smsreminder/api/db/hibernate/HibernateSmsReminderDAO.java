@@ -26,7 +26,7 @@ import org.hibernate.SessionFactory;
 import org.openmrs.api.db.DAOException;
 import org.openmrs.module.smsreminder.api.db.SmsReminderDAO;
 import org.openmrs.module.smsreminder.model.DeliveryReportStatus;
-import org.openmrs.module.smsreminder.model.MensageSent;
+import org.openmrs.module.smsreminder.model.MessageSent;
 import org.openmrs.module.smsreminder.model.NotificationPatient;
 import org.openmrs.module.smsreminder.utils.QuerysUtils;
 import org.openmrs.module.smsreminder.utils.SentType;
@@ -69,16 +69,16 @@ public class HibernateSmsReminderDAO implements SmsReminderDAO {
 	}
 
 	@Override
-	public MensageSent saveSent(final MensageSent sent) {
-		getCurrentSession().saveOrUpdate(sent);
-		return sent;
+	public MessageSent saveMensageSent(final MessageSent messageSent) {
+		getCurrentSession().saveOrUpdate(messageSent);
+		return messageSent;
 	}
 
-	public MensageSent findMensageSentToBeUpdate(DeliveryReportStatus deliveryReportStatus) {
+	public MessageSent findMessageSentToBeUpdate(DeliveryReportStatus deliveryReportStatus) {
 		Query q = sessionFactory.getCurrentSession()
 				.createQuery("FROM MensageSent s WHERE s.PartnerMsgId = :PartnerMsgId ");
 		q.setParameter("PartnerMsgId", deliveryReportStatus.getPartnerMsgId());
-		MensageSent mensageSent = (MensageSent) q.uniqueResult();
+		MessageSent mensageSent = (MessageSent) q.uniqueResult();
 
 		return mensageSent;
 
@@ -93,13 +93,13 @@ public class HibernateSmsReminderDAO implements SmsReminderDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<MensageSent> getAllSent() throws DAOException {
-		final Criteria c = this.sessionFactory.getCurrentSession().createCriteria(MensageSent.class);
+	public List<MessageSent> getAllMessageSent() throws DAOException {
+		final Criteria c = this.sessionFactory.getCurrentSession().createCriteria(MessageSent.class);
 
 		return c.list();
 	}
 
-	public List<NotificationPatient> getNotificationPatients() throws DAOException {
+	public List<NotificationPatient> getAllNotificationPatient() throws DAOException {
 
 		final String sql = QuerysUtils.loadQuery(NOTIFICATION);
 
@@ -141,7 +141,7 @@ public class HibernateSmsReminderDAO implements SmsReminderDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<NotificationPatient> searchFollowUpPatient() {
+	public List<NotificationPatient> findPatientsForLostFollowup() {
 
 		final String sql = QuerysUtils.loadQuery(LTFU);
 		final Query query = this.getCurrentSession().createSQLQuery(sql);
@@ -163,11 +163,6 @@ public class HibernateSmsReminderDAO implements SmsReminderDAO {
 		}
 
 		return notificationPatients;
-	}
-
-	@Override
-	public DeliveryReportStatus searchDeliveryMensage(String uuid) {
-		return (DeliveryReportStatus) this.sessionFactory.getCurrentSession().get(DeliveryReportStatus.class, uuid);
 	}
 
 }
