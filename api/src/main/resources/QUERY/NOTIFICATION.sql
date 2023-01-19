@@ -3,7 +3,7 @@ select   date(inicioTARV.data_inicio),  pid.identifier AS nid,
 				pa.value AS telemovel, p.gender AS sexo,  maxFila.encounter_type as visita, 
 				date(maxFila.encounter_datetime) as ultima_visita,  date(obsProximo.value_datetime) as proximo_visita, 
 				(to_days(curdate()) - to_days(obsProximo.value_datetime)) AS dias_remanescente, maxFila.patient_id 
-				from (  select p.patient_id AS patient_id,min(e.encounter_datetime) AS data_inicio 
+				from (select p.patient_id AS patient_id,min(e.encounter_datetime) AS data_inicio 
 				from ((patient p  join encounter e on((p.patient_id = e.patient_id))) 
 				join obs o on((o.encounter_id = e.encounter_id)))  where ((e.voided = 0) 
 				and (o.voided = 0)  and (p.voided = 0)  and (e.encounter_type in (18,6,9)) 

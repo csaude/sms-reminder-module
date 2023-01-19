@@ -55,6 +55,7 @@ public class SendSmsReminderTask extends AbstractTask {
 						mensageSent.setPatient(patientService.getPatient(notificationPatient.getPatientId()));
 						mensageSent.setDateCreated(Calendar.getInstance().getTime());
 						mensageSent.setReminderDays(notificationPatient.getReminderDays());
+						mensageSent.setGender(notificationPatient.getGender());
 
 						smsReminderService.saveMensageSent(mensageSent);
 
