@@ -12,7 +12,7 @@ public class NotificationPatient extends BaseOpenmrsData implements Serializable
 	private  Integer msgId;
 	private String PartnerMsgId;
 	private String phoneNumber;
-	private String mensage;
+	private String message;
 	private Integer reminderDays;
 	private String nid;
 	private Integer visitType;;
@@ -31,12 +31,12 @@ public class NotificationPatient extends BaseOpenmrsData implements Serializable
 		this.phoneNumber = phoneNumber;
 	}
 
-	public String getMensage() {
-		return mensage;
+	public String getMessage() {
+		return message;
 	}
 
-	public void setMensage(String mensage) {
-		this.mensage = mensage;
+	public void setMessage(String mensage) {
+		this.message = mensage;
 	}
 
 	@Override
