@@ -11,7 +11,6 @@
 		<discriminator column="mensage_sent_id" insert="false" />
 		<property name="msgId" type="java.lang.Integer" column="msg_id" not-null="false" length="200000"/>
 		<property name="phoneNumber" type="java.lang.String" column="phone_number" length="200" />
-		<property name="PartnerMsgId" type="java.lang.String" column="partner_msg_Id" length="1000" />
 		<property name="nid" type="java.lang.String" column="nid" length="500" />
 		<property name="fullName" type="java.lang.String" column="full_name" length="500" />
 		<property name="gender" type="java.lang.String" column="gender" length="1" />
@@ -23,7 +22,7 @@
 		<property name="message" type="java.lang.String" column="message" not-null="false" length="1000"/>
 		<property name="lastStatus" type="java.lang.String" column="last_status" not-null="false"  length="1000"/>
 		<property name="dateLastStatus"  type="java.util.Date" column="date_last_status" not-null="false" />
-		<property name="uuid" type="java.lang.String" column="uuid" not-null="false"  length="1000"/>
 		<many-to-one name="patient" class="org.openmrs.Patient" not-null="false" column="patient_id"/>
+		<property name="PartnerMsgId" type="java.lang.String" column="partner_msg_Id" length="1000" />
 	</class>
 </hibernate-mapping>

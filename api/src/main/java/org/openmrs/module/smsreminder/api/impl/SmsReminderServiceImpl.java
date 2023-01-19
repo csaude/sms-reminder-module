@@ -24,6 +24,7 @@ import org.openmrs.module.smsreminder.api.db.SmsReminderDAO;
 import org.openmrs.module.smsreminder.model.DeliveryReportStatus;
 import org.openmrs.module.smsreminder.model.MensageSent;
 import org.openmrs.module.smsreminder.model.NotificationPatient;
+import org.openmrs.module.smsreminder.utils.MensageStatus;
 
 /**
  * It is a default implementation of {@link SmsReminderService}.
@@ -33,7 +34,6 @@ public class SmsReminderServiceImpl extends BaseOpenmrsService implements SmsRem
 	protected final Log log = LogFactory.getLog(this.getClass());
 
 	private SmsReminderDAO dao;
-	
 
 	/**
 	 * @return the dao
@@ -43,21 +43,48 @@ public class SmsReminderServiceImpl extends BaseOpenmrsService implements SmsRem
 	}
 
 	/**
-	 * @param dao
-	 *            the dao to set
+	 * @param dao the dao to set
 	 */
 	public void setDao(final SmsReminderDAO dao) {
 		this.dao = dao;
 	}
 
-	// service for Sent
 	@Override
 	public MensageSent saveMensageSent(final MensageSent sent) {
 		return this.getDao().saveSent(sent);
 	}
-	
+
 	@Override
 	public DeliveryReportStatus saveDeliveryReportStatus(DeliveryReportStatus deliveryReportStatus) {
+
+		MensageSent mensageSent = this.getDao().findMensageSentToBeUpdate(deliveryReportStatus);
+
+		if (mensageSent != null) {
+			
+			deliveryReportStatus.setPatientId(mensageSent.getPatient().getPatientId());
+
+			if (deliveryReportStatus.getDeliveryReportStatus() != null) {
+
+				if (deliveryReportStatus.getDeliveryReportStatus() == 0) {
+
+					deliveryReportStatus.setStatusDescription(MensageStatus.DELIVERED.getName());
+					mensageSent.setLastStatus(MensageStatus.DELIVERED.getName());
+					mensageSent.setDateLastStatus(deliveryReportStatus.getDeliveryReportUpdateDatetime());
+				}
+				if (deliveryReportStatus.getDeliveryReportStatus() == 1) {
+					deliveryReportStatus.setStatusDescription(MensageStatus.ON_HOLD.getName());
+					mensageSent.setLastStatus(MensageStatus.ON_HOLD.getName());
+					mensageSent.setDateLastStatus(deliveryReportStatus.getDeliveryReportUpdateDatetime());
+
+				}
+				if (deliveryReportStatus.getDeliveryReportStatus() == 2) {
+					deliveryReportStatus.setStatusDescription(MensageStatus.NOT_DELIVERY.getName());
+					mensageSent.setLastStatus(MensageStatus.NOT_DELIVERY.getName());
+					mensageSent.setDateLastStatus(deliveryReportStatus.getDeliveryReportUpdateDatetime());
+				}
+			}
+		}
+		this.getDao().saveSent(mensageSent);
 		return this.getDao().saveDeliveryReportStatus(deliveryReportStatus);
 	}
 
@@ -65,7 +92,6 @@ public class SmsReminderServiceImpl extends BaseOpenmrsService implements SmsRem
 	public List<MensageSent> getAllSmsSent() throws APIException {
 		return this.getDao().getAllSent();
 	}
-
 
 	@Override
 	public List<NotificationPatient> getNotificationPatients() {

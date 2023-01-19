@@ -28,7 +28,6 @@ import org.openmrs.module.smsreminder.api.db.SmsReminderDAO;
 import org.openmrs.module.smsreminder.model.DeliveryReportStatus;
 import org.openmrs.module.smsreminder.model.MensageSent;
 import org.openmrs.module.smsreminder.model.NotificationPatient;
-import org.openmrs.module.smsreminder.utils.MensageStatus;
 import org.openmrs.module.smsreminder.utils.QuerysUtils;
 import org.openmrs.module.smsreminder.utils.SentType;
 
@@ -75,37 +74,19 @@ public class HibernateSmsReminderDAO implements SmsReminderDAO {
 		return sent;
 	}
 
+	public MensageSent findMensageSentToBeUpdate(DeliveryReportStatus deliveryReportStatus) {
+		Query q = sessionFactory.getCurrentSession()
+				.createQuery("FROM MensageSent s WHERE s.PartnerMsgId = :PartnerMsgId ");
+		q.setParameter("PartnerMsgId", deliveryReportStatus.getPartnerMsgId());
+		MensageSent mensageSent = (MensageSent) q.uniqueResult();
+
+		return mensageSent;
+
+	}
+
 	@Override
 	public DeliveryReportStatus saveDeliveryReportStatus(DeliveryReportStatus deliveryReportStatus) {
-		try {
-			Query q = sessionFactory.getCurrentSession()
-					.createQuery("FROM MensageSent s WHERE s.PartnerMsgId = :PartnerMsgId ");
-
-			q.setParameter("PartnerMsgId", deliveryReportStatus.getPartnerMsgId());
-
-			MensageSent sent = (MensageSent) q.uniqueResult();
-
-			if (deliveryReportStatus.getDeliveryReportStatus() == 0) {
-
-				sent.setLastStatus(MensageStatus.DELIVERED.getName());
-				sent.setDateLastStatus(deliveryReportStatus.getDeliveryReportUpdateDatetime());
-			}
-			if (deliveryReportStatus.getDeliveryReportStatus() == 1) {
-				sent.setLastStatus(MensageStatus.ON_HOLD.getName());
-				sent.setDateLastStatus(deliveryReportStatus.getDeliveryReportUpdateDatetime());
-
-			}
-			if (deliveryReportStatus.getDeliveryReportStatus() == 2) {
-				sent.setLastStatus(MensageStatus.NOT_DELIVERY.getName());
-				sent.setDateLastStatus(deliveryReportStatus.getDeliveryReportUpdateDatetime());
-
-			}
-			this.sessionFactory.getCurrentSession().saveOrUpdate(deliveryReportStatus);
-			this.sessionFactory.getCurrentSession().saveOrUpdate(sent);
-
-		} catch (Exception e) {
-
-		}
+		this.sessionFactory.getCurrentSession().saveOrUpdate(deliveryReportStatus);
 		return deliveryReportStatus;
 
 	}

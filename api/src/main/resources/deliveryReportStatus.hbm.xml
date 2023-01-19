@@ -8,12 +8,17 @@
 	<class
 		name="org.openmrs.module.smsreminder.model.DeliveryReportStatus"
 		table="smsreminder_delivery_report_status" batch-size="25">
-		<id name="id" type="int" column="delivery_id" unsaved-value="0">
+		
+		<id name="deliveryReportStatusId" type="int"
+			column="delivery_report_status_id" unsaved-value="0">
 			<generator class="native" />
 		</id>
-		<discriminator column="id" insert="false" />
+		<discriminator column="delivery_report_status_id"
+			insert="false" />
+		
 		<property name="msgId" type="java.lang.Integer"
 			column="msg_id" not-null="false" length="100" />
+		
 		<property name="deliveryReportDescription"
 			type="java.lang.String" column="delivery_report_description"
 			not-null="false" length="250" />
@@ -25,6 +30,10 @@
 		<property name="deliveryReportStatus"
 			type="java.lang.Integer" column="delivery_report_status"
 			not-null="false" length="100" />
+
+		<property name="statusDescription" type="java.lang.String"
+			column="status_description" />
+
 		<property name="messageSentDatetime" type="java.util.Date"
 			column="message_sent_datetime" />
 		<property name="nrSms" type="java.lang.Integer"
@@ -35,5 +44,9 @@
 			not-null="false" length="150" />
 		<property name="dateCreated" type="java.util.Date"
 			column="date_created" not-null="true" length="100" />
+		<property name="patientId"
+			type="java.lang.Integer" column="patient_id"
+			not-null="false" />
+			
 	</class>
 </hibernate-mapping>

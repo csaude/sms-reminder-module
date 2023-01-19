@@ -25,10 +25,6 @@
 				<constraints nullable="true" />
 			</column>
 
-			<column name="partner_msg_Id" type="varchar(500)">
-				<constraints nullable="true" />
-			</column>
-
 			<column defaultValue="" name="phone_number" type="varchar(50)">
 				<constraints nullable="true" />
 			</column>
@@ -73,24 +69,24 @@
 			<column name="patient_id" type="int">
 				<constraints nullable="true" />
 			</column>
-
-			<column name="uuid" type="varchar(2500)">
+			
+			<column name="partner_msg_Id" type="varchar(500)">
 				<constraints nullable="true" />
 			</column>
+
 		</createTable>
 		<sql>
 			INSERT INTO global_property
 			(property, property_value,
 			description, uuid, datatype, datatype_config, preferred_handler,
 			handler_config)
-			VALUES('smsreminder.us','221','Specifies the
+			VALUES('smsreminder.location_id','','Specifies the
 			location',UUID(),NULL,NULL,NULL,NULL);
 
 			INSERT INTO global_property
 			(property, property_value, description, uuid, datatype,
 			datatype_config, preferred_handler, handler_config)
-			VALUES('smsreminder.reference_date',cast(CURRENT_DATE() AS
-			CHAR(10)),'Specifies the date of new
+			VALUES('smsreminder.reference_date',NULL,'Specifies the date of new
 			enrolled',UUID(),NULL,NULL,NULL,NULL);
 
 		</sql>
@@ -99,20 +95,22 @@
 				with="UNIQUEIDENTIFIER NOT NULL DEFAULT NEWSEQUENTIALID()" />
 		</modifySql>
 	</changeSet>
-	
+
 	<changeSet author="emaposse" id="20230118-0730">
 		<preConditions onFail="MARK_RAN">
 			<not>
-				<tableExists tableName="smsreminder_delivery_report_status" />
+				<tableExists
+					tableName="smsreminder_delivery_report_status" />
 			</not>
 		</preConditions>
 		<comment>
 			Create table smsreminder_delivery_report_status
 		</comment>
-		
-		<createTable tableName="smsreminder_delivery_report_status">
 
-			<column autoIncrement="true" name="delivery_id" type="int">
+		<createTable
+			tableName="smsreminder_delivery_report_status">
+
+			<column autoIncrement="true" name="delivery_report_status_id" type="int">
 				<constraints nullable="false" primaryKey="true" />
 			</column>
 
@@ -134,6 +132,11 @@
 			<column name="delivery_report_status" type="int">
 				<constraints nullable="true" />
 			</column>
+
+			<column name="status_description" type="varchar(255)">
+				<constraints nullable="true" />
+			</column>
+
 			<column name="message_sent_datetime" type="DATETIME">
 				<constraints nullable="true" />
 			</column>
@@ -147,17 +150,21 @@
 			<column name="uuid" type="varchar(255)">
 				<constraints nullable="true" />
 			</column>
-
+			
+			<column name="patient_id" type="int">
+				<constraints nullable="true" />
+			</column>
+			
 			<column name="date_created" type="DATETIME">
 				<constraints nullable="true" />
 			</column>
 
 		</createTable>
-			<modifySql dbms="mssql">
+		<modifySql dbms="mssql">
 			<replace replace="CHAR(38)"
 				with="UNIQUEIDENTIFIER NOT NULL DEFAULT NEWSEQUENTIALID()" />
 		</modifySql>
 	</changeSet>
-	
-	
+
+
 </databaseChangeLog>

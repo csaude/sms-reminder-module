@@ -42,6 +42,9 @@ public interface SmsReminderDAO {
 	
 	
 	public DeliveryReportStatus saveDeliveryReportStatus(DeliveryReportStatus deliveryReportStatus);
+	
+	public MensageSent findMensageSentToBeUpdate(DeliveryReportStatus deliveryReportStatus) ;
+
 
 
 }
