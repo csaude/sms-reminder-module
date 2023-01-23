@@ -14,24 +14,25 @@
 
 		<legend>Tipos de Notificação:</legend>
 
-		<div>
+		<div  align="center">
 			<select >
 				<option value="Levantamentos">
-				
+				Levantamentos
 				</option>
 				<option value="Consultas">
-				
+				Consultas
 				</option>
+				
 				<option value="Faltosos">
+				Faltosos
 				</option>
 				
 				<option value="Abandonos">
+				Abandonos
 				</option>
 			    
 			</select>
 		</div>
-
-
 	</fieldset>
 
 </form>
