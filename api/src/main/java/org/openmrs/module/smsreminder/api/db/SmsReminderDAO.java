@@ -15,11 +15,13 @@ package org.openmrs.module.smsreminder.api.db;
 
 import java.util.List;
 
+import org.openmrs.api.APIException;
 import org.openmrs.api.db.DAOException;
 import org.openmrs.module.smsreminder.api.SmsReminderService;
 import org.openmrs.module.smsreminder.model.DeliveryReportStatus;
 import org.openmrs.module.smsreminder.model.MessageSent;
 import org.openmrs.module.smsreminder.model.NotificationPatient;
+import org.openmrs.module.smsreminder.model.NotificationType;
 
 /**
  * Database methods for {@link SmsReminderService}.
@@ -41,5 +43,11 @@ public interface SmsReminderDAO {
 	public DeliveryReportStatus saveDeliveryReportStatus(DeliveryReportStatus deliveryReportStatus);
 
 	public MessageSent findMessageSentToBeUpdate(DeliveryReportStatus deliveryReportStatus);
+	
+	public NotificationType saveNotificationType(NotificationType notificationType);
+	
+	public List<NotificationType> getAllNotificationType() throws APIException;
+
+
 
 }

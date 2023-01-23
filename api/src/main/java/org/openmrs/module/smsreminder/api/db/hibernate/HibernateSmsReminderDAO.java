@@ -23,11 +23,13 @@ import org.apache.commons.logging.LogFactory;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
+import org.openmrs.api.APIException;
 import org.openmrs.api.db.DAOException;
 import org.openmrs.module.smsreminder.api.db.SmsReminderDAO;
 import org.openmrs.module.smsreminder.model.DeliveryReportStatus;
 import org.openmrs.module.smsreminder.model.MessageSent;
 import org.openmrs.module.smsreminder.model.NotificationPatient;
+import org.openmrs.module.smsreminder.model.NotificationType;
 import org.openmrs.module.smsreminder.utils.QuerysUtils;
 import org.openmrs.module.smsreminder.utils.SentType;
 
@@ -163,6 +165,18 @@ public class HibernateSmsReminderDAO implements SmsReminderDAO {
 		}
 
 		return notificationPatients;
+	}
+
+	@Override
+	public NotificationType saveNotificationType(NotificationType notificationType) {
+		this.sessionFactory.getCurrentSession().saveOrUpdate(notificationType);
+		return notificationType;
+	}
+
+	@Override
+	public List<NotificationType> getAllNotificationType() throws APIException {
+		final Criteria c = this.sessionFactory.getCurrentSession().createCriteria(NotificationType.class);
+		return c.list();
 	}
 
 }

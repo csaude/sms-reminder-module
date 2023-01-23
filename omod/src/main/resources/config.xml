@@ -41,6 +41,7 @@
 	<mappingFiles>
 		deliveryReportStatus.hbm.xml
 		mensageSent.hbm.xml
+		notificationType.hbm.xml
 	</mappingFiles>
 
 

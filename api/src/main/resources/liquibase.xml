@@ -69,7 +69,7 @@
 			<column name="patient_id" type="int">
 				<constraints nullable="true" />
 			</column>
-			
+
 			<column name="partner_msg_Id" type="varchar(500)">
 				<constraints nullable="true" />
 			</column>
@@ -110,7 +110,8 @@
 		<createTable
 			tableName="smsreminder_delivery_report_status">
 
-			<column autoIncrement="true" name="delivery_report_status_id" type="int">
+			<column autoIncrement="true" name="delivery_report_status_id"
+				type="int">
 				<constraints nullable="false" primaryKey="true" />
 			</column>
 
@@ -150,11 +151,11 @@
 			<column name="uuid" type="varchar(255)">
 				<constraints nullable="true" />
 			</column>
-			
+
 			<column name="patient_id" type="int">
 				<constraints nullable="true" />
 			</column>
-			
+
 			<column name="date_created" type="DATETIME">
 				<constraints nullable="true" />
 			</column>
@@ -167,4 +168,35 @@
 	</changeSet>
 
 
+	<changeSet author="emaposse" id="20230123-0750">
+		<preConditions onFail="MARK_RAN">
+			<not>
+				<tableExists tableName="smsreminder_notification_type" />
+			</not>
+		</preConditions>
+		<comment>
+			Create table smsreminder_notification_type
+		</comment>
+
+		<createTable tableName="smsreminder_notification_type">
+
+			<column autoIncrement="true" name="notification_type_id"
+				type="int">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+
+			<column name="name" type="varchar(255)">
+				<constraints nullable="true" />
+			</column>
+
+			<column name="number_of_days" type="int">
+				<constraints nullable="true" />
+			</column>
+
+		</createTable>
+		<modifySql dbms="mssql">
+			<replace replace="CHAR(38)"
+				with="UNIQUEIDENTIFIER NOT NULL DEFAULT NEWSEQUENTIALID()" />
+		</modifySql>
+	</changeSet>
 </databaseChangeLog>

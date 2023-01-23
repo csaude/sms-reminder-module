@@ -24,6 +24,7 @@ import org.openmrs.module.smsreminder.api.db.SmsReminderDAO;
 import org.openmrs.module.smsreminder.model.DeliveryReportStatus;
 import org.openmrs.module.smsreminder.model.MessageSent;
 import org.openmrs.module.smsreminder.model.NotificationPatient;
+import org.openmrs.module.smsreminder.model.NotificationType;
 import org.openmrs.module.smsreminder.utils.MessageStatus;
 
 /**
@@ -102,5 +103,16 @@ public class SmsReminderServiceImpl extends BaseOpenmrsService implements SmsRem
 	public List<NotificationPatient> findPatientsForLostFollowup() {
 		return this.getDao().findPatientsForLostFollowup();
 	}
+
+	@Override
+	public NotificationType saveNotificationType(NotificationType notificationType) {
+		return this.getDao().saveNotificationType(notificationType);
+	}
+
+	@Override
+	public List<NotificationType> getAllNotificationType() throws APIException {
+		return this.getDao().getAllNotificationType();
+	}
+	
 
 }

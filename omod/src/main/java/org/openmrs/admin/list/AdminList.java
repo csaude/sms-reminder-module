@@ -44,9 +44,9 @@ public class AdminList extends AdministrationSectionExt {
 	 */
 	public Map<String, String> getLinks() {
 		LinkedHashMap<String, String> map = new LinkedHashMap<String, String>();
+		map.put("/module/smsreminder/sms_notification_type_settings.form", "Configuração de Tipo de Notificação");
 		map.put("/module/smsreminder/smssenderlist.form", "Lista de SMS Por Enviar");
 		map.put("/module/smsreminder/smssendedlist.form", "Lista de SMS Enviadas");
-
 		return map;
 	}
 
