@@ -3,7 +3,7 @@
 
 
 <openmrs:htmlInclude
-	file="${pageContext.request.contextPath}/moduleResources/disa/smsreminder/disa.css" />
+	file="${pageContext.request.contextPath}/moduleResources/smsreminder/smsreminder/smsreminder.css" />
 <openmrs:htmlInclude
 	file="/scripts/jquery/dataTables/css/dataTables_jui.css" />
 
