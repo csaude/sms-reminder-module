@@ -1,6 +1,6 @@
 <%@ include file="/WEB-INF/template/include.jsp"%>
 <%@ include file="/WEB-INF/template/header.jsp"%>
-
+<openmrs:htmlInclude file="${pageContext.request.contextPath}/moduleResources/smsreminder/css/smsreminder.css"/>
 <form method="GET">
 	<fieldset>
 		<legend><openmrs:message code="smsreminder.config" /></legend>		
@@ -29,7 +29,7 @@
 			</label>
 			<input path="numberOfDays"  size="5" id="numberOfDays" />
 			<input type="submit" value='<spring:message code="smsreminder.add"/>'
-				name="addType" id="btn-addPatient" />
+				name="addType" id="btn-add" />
 		</div>	
 		
 	<c:if test="${not empty notificationTypeList}">
