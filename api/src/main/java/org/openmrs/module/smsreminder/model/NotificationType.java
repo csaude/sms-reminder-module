@@ -5,12 +5,22 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.openmrs.BaseOpenmrsData;
-
 
 @Entity
 @Table(name = "smsreminder_notification_type")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class NotificationType extends BaseOpenmrsData implements Serializable {
+
+	public NotificationType(Integer notificationTypeId, String name, int numberOfDays) {
+		this.notificationTypeId = notificationTypeId;
+		this.name = name;
+		this.numberOfDays = numberOfDays;
+	}
+
+	public NotificationType() {
+	}
 
 	private static final long serialVersionUID = 1L;
 	private Integer notificationTypeId;

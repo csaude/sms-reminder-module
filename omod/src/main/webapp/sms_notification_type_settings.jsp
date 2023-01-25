@@ -1,15 +1,84 @@
 <%@ include file="/WEB-INF/template/include.jsp"%>
 <%@ include file="/WEB-INF/template/header.jsp"%>
 <openmrs:htmlInclude file="${pageContext.request.contextPath}/moduleResources/smsreminder/css/smsreminder.css"/>
-<form method="GET">
-	<fieldset>
-		<legend><openmrs:message code="smsreminder.config" /></legend>		
+    
+    <script type="text/javascript">	
+	
+        function addRow(){
+        	
+            var table = document.getElementById("resultsTable");
+
+	    	var tdSelect = document.getElementById("types").value;
+            var tdInput = document.getElementById("numberOfDays").value;
+            
+            var tr = table.insertRow();
+            tr.style.backgroundColor = '#1aac9b';
+
+            var td = tr.insertCell();
+            td.innerHTML= tdSelect;
+            
+
+            td = tr.insertCell();
+            td.innerHTML= tdInput;
+            
+            td = tr.insertCell();
+            td.innerHTML= '<input type="button" id="btnEdit" value="editar" onclick="deleteRow(this)" /> <input type="button" id="btnDelete" value="delete" onclick="deleteRow(this)" />';
+        }
+       
+        function deleteRow(ele){
+            var table = document.getElementById('resultsTable');
+            var rowCount = table.rows.length;
+            if(rowCount <= 1){
+                alert("There is no row available to delete!");
+                return;
+            }
+            if(ele){
+                ele.parentNode.parentNode.remove();
+            }else{
+                table.deleteRow(rowCount-1);
+            }
+        }
+        
+        
+        function save(){
+        	var table = document.getElementById("resultsTable");
+        	const notificationTypes= [];
+
+        	for (var i = 1; row = table.rows[i]; i++) {
+
+        	var type = document.getElementById("resultsTable").rows[i].cells[0].innerHTML;
+        	var days = document.getElementById("resultsTable").rows[i].cells[1].innerHTML;
+        	
+        	var notificationType = {"name":type,"numberOfDays":days};
+        	
+        	notificationTypes[i-1]  = notificationType;
+
+        	}
+			console.log(JSON.stringify({
+        		notificationTypes 
+	        }));
+			
+            jQuery.ajax({
+                url:"/openmrs/module/smsreminder/addNotificationType.form",
+    			type : "POST",
+    			data : JSON.stringify({
+            		notificationTypes}),
+    			contentType : "application/json",
+    			dataType : "json",
+    			success : function(data) {
+                    console.log(data);              
+    			}
+    		});
+           }
+    </script>
+    
+<form method="POST">
 	<div class="searchFields">
 		<div align="center">
 			<label for="typeNotification">
 				<openmrs:message code="smsreminder.typeNotification" /><span class="required">*</span>:
 			</label>
-			<select >
+			<select id="types">
 				<option value="Levantamentos">
 					<openmrs:message code="smsreminder.pickup" />
 				</option>
@@ -28,14 +97,14 @@
 				<openmrs:message code="smsreminder.numberOfDays" /><span class="required">*</span>:
 			</label>
 			<input path="numberOfDays"  size="5" id="numberOfDays" />
-			<input type="submit" value='<spring:message code="smsreminder.add"/>'
-				name="addType" id="btn-add" />
+		     <input type="button" onClick="addRow()" value="<spring:message code="smsreminder.add"/>"/>
+				
 		</div>	
-		
-	<c:if test="${not empty notificationTypeList}">
+		</br>
+	
 	<div align="center">
-		<div class="box">
-			<table  id="resultsTable" style="width:100%; font-size:12px;">
+	   <body>
+			<table  id="resultsTable" style="width:50%; font-size:12px;" border="1" cellpadding="5" >
 				<thead>
 					<tr>
 						<th><spring:message code="smsreminder.typeNotification"/></th>
@@ -43,18 +112,10 @@
 						<th><spring:message code="smsreminder.action"/></th>
 					</tr>
 				</thead>
-				<tbody>
-
-				</tbody>
 			</table>
-			<br/>
-		</div>
+			</br>
+		     <input type="button" onClick="save()" value="<spring:message code="smsreminder.save"/>"/>
+		</body>
 	</div>
-</c:if>
-	<c:if test="${empty notificationTypeList}">
-		<div id="openmrs_msg">
-			<b> <spring:message code="smsreminder.no.load.form" /></b>
-		</div>
-	</c:if>
-	</fieldset>
+	
 </form>
