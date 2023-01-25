@@ -32,10 +32,9 @@ public class SMSReminderNotificationTypeSettingsController {
 
 		final SmsReminderService smsReminderService = SmsReminderUtils.getService();
 		for (NotificationTypeDTO notificationType : notificationTypes.getNotificationTypes()) {
-	     	NotificationType type = new NotificationType();
+			NotificationType type = new NotificationType();
 			type.setName(notificationType.getName());
 			type.setNumberOfDays(Integer.parseInt(notificationType.getNumberOfDays()));
-
 			smsReminderService.saveNotificationType(type);
 		}
 		return "ok";

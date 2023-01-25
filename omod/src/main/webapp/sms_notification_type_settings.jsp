@@ -120,3 +120,26 @@
 	</div>
 	
 </form>
+<c:if test="${not empty notificationTypes}">
+
+	<div align="center">
+	   <body>
+			<table  id="finalResult" style="width:50%; font-size:12px;" border="1" cellpadding="5" >
+				<thead>
+					<tr>
+						<th><spring:message code="smsreminder.typeNotification"/></th>
+						<th><spring:message code="smsreminder.numberOfDays"/></th>
+					</tr>
+				</thead>
+				
+			<c:forEach items="${notificationTypes}" var="notificationTypes">
+				<tr>
+					<td>${notificationTypes.name}</td>
+					<td>${notificationTypes.numberOfDays}</td>
+				</tr>
+			</c:forEach>				
+			</table>
+		</body>
+	</div>
+	</c:if>
+	

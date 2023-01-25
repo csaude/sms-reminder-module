@@ -47,9 +47,7 @@ public class AdminList extends AdministrationSectionExt {
 		map.put("/module/smsreminder/sms_notification_type_settings.form", "Configuração de Tipo de Notificação");
 		map.put("/module/smsreminder/smssenderlist.form", "Lista de SMS Por Enviar");
 		map.put("/module/smsreminder/smssendedlist.form", "Lista de SMS Enviadas");
-		map.put("/module/smsreminder/addNotificationTypes.form", "Listat Tipo de Notificação");
-
-
+		map.put("/module/smsreminder/addNotificationTypes.form", "Lista Tipo de Notificação");
 		return map;
 	}
 

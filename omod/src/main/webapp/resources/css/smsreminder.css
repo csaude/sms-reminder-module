@@ -8,6 +8,11 @@
 	width: 100%;
 }
 
+#finalResult {
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+	border-collapse: collapse;
+	width: 100%;
+}
 
 #header {
 	border: 1px solid cadetblue;
@@ -35,21 +40,21 @@
 #dvData th {
 	background-color: cadetblue;
 	color: white;
-	padding: 6px; 
-}
-#btnEdit{
-	color: #fff;
-	background: #1aac9b;
-	
+	padding: 6px;
 }
 
-#btnDelete{
+#btnEdit {
 	color: #fff;
 	background: #1aac9b;
-	
 }
+
+#btnDelete {
+	color: #fff;
+	background: #1aac9b;
+}
+
 #position {
-		
+	
 }
 
 #btnGravar {
@@ -57,6 +62,4 @@
 	background: #1aac9b;
 	padding: 4px;
 	text-align: right;
-	
-  
 }
