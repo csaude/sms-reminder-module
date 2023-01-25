@@ -70,6 +70,7 @@
     			}
     		});
            }
+        table.innerHTML="";
     </script>
     
 <form method="POST">
