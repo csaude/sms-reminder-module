@@ -36,7 +36,7 @@ public class AdminList extends AdministrationSectionExt {
 	 * @see AdministrationSectionExt#getTitle()
 	 */
 	public String getTitle() {
-		return "smsrimender.title";
+		return "smsreminder.title";
 	}
 
 	/**
@@ -44,10 +44,10 @@ public class AdminList extends AdministrationSectionExt {
 	 */
 	public Map<String, String> getLinks() {
 		LinkedHashMap<String, String> map = new LinkedHashMap<String, String>();
-		map.put("/module/smsreminder/sms_notification_type_settings.form", "Configuração de Tipo de Notificação");
-		map.put("/module/smsreminder/smssenderlist.form", "Lista de SMS Por Enviar");
-		map.put("/module/smsreminder/smssendedlist.form", "Lista de SMS Enviadas");
-		map.put("/module/smsreminder/addNotificationTypes.form", "Lista Tipo de Notificação");
+		map.put("/module/smsreminder/sms_notification_type_settings.form", "smsreminder.typeNontifcationSettings");
+		map.put("/module/smsreminder/smssenderlist.form", "smsreminder.sender");
+		map.put("/module/smsreminder/smssendedlist.form", "smsreminder.sended");
+		map.put("/module/smsreminder/addNotificationTypes.form", "smsreminder.typeNotificationList");
 		return map;
 	}
 

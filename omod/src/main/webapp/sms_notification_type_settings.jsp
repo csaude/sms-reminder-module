@@ -1,8 +1,9 @@
 <%@ include file="/WEB-INF/template/include.jsp"%>
 <%@ include file="/WEB-INF/template/header.jsp"%>
-<openmrs:htmlInclude file="${pageContext.request.contextPath}/moduleResources/smsreminder/css/smsreminder.css"/>
-    
-    <script type="text/javascript">	
+<openmrs:htmlInclude
+	file="${pageContext.request.contextPath}/moduleResources/smsreminder/css/smsreminder.css" />
+
+<script type="text/javascript">	
 	
         function addRow(){
         	
@@ -22,7 +23,32 @@
             td.innerHTML= tdInput;
             
             td = tr.insertCell();
-            td.innerHTML= '<input type="button" id="btnEdit" value="editar" onclick="deleteRow(this)" /> <input type="button" id="btnDelete" value="delete" onclick="deleteRow(this)" />';
+            td.innerHTML= '<input type="button" id="btnEdit" value="editar" onclick="editRow(this)" /> <input type="button" id="btnDelete" value="delete" onclick="deleteRow(this)" />';
+            
+            clean();
+        }
+        
+        function clean() {
+            var days = document.getElementById("numberOfDays");
+            var types = document.getElementById("types");
+
+            if (days.value !="") {
+            	days.value = "";
+            }
+            if (types.value !="") {
+            	types.value = "";
+            }
+        }
+        
+        function editRow(ele) {
+        	
+            var table = document.getElementById("resultsTable");
+            var days = document.getElementById("numberOfDays");
+            var types = document.getElementById("types");
+
+            types.value=ele.parentNode.parentNode.childNodes[0].innerHTML
+            days.value=ele.parentNode.parentNode.childNodes[1].innerHTML
+        
         }
        
         function deleteRow(ele){
@@ -69,20 +95,18 @@
                     console.log(data);              
     			}
     		});
+        	for (var i = 1; row = table.rows[i]; i++) {
+            	table.deleteRow(i);
            }
-        var rowCount = table.rows.length;
-        for (var x=rowCount-1; x>0; x--) {
-        	table.deleteRow(x);
-        }
-    </script>
-    
+        }  
+        </script>
+
 <form method="POST">
 	<div class="searchFields">
 		<div align="center">
-			<label for="typeNotification">
-				<openmrs:message code="smsreminder.typeNotification" /><span class="required">*</span>:
-			</label>
-			<select id="types">
+			<label for="typeNotification"> <openmrs:message
+					code="smsreminder.typeNotification" /><span class="required">*</span>:
+			</label> <select id="types">
 				<option value="Levantamentos">
 					<openmrs:message code="smsreminder.pickup" />
 				</option>
@@ -95,54 +119,54 @@
 				<option value="Abandonos">
 					<openmrs:message code="smsreminder.abandoned" />
 				</option>
-			</select>
-			
-			<label for="numberOfDays">
-				<openmrs:message code="smsreminder.numberOfDays" /><span class="required">*</span>:
-			</label>
-			<input path="numberOfDays"  size="5" id="numberOfDays" />
-		     <input type="button" onClick="addRow()" value="<spring:message code="smsreminder.add"/>"/>
-				
-		</div>	
+			</select> <label for="numberOfDays"> <openmrs:message
+					code="smsreminder.numberOfDays" /><span class="required">*</span>:
+			</label> <input path="numberOfDays" size="5" id="numberOfDays" /> <input
+				type="button" onClick="addRow()"
+				value="<spring:message code="smsreminder.add"/>" />
+
+		</div>
 		</br>
-	
-	<div align="center">
-	   <body>
-			<table  id="resultsTable" style="width:50%; font-size:12px;" border="1" cellpadding="5" >
-				<thead>
-					<tr>
-						<th><spring:message code="smsreminder.typeNotification"/></th>
-						<th><spring:message code="smsreminder.numberOfDays"/></th>
-						<th><spring:message code="smsreminder.action"/></th>
-					</tr>
-				</thead>
-			</table>
-			</br>
-		     <input type="button" onClick="save()" value="<spring:message code="smsreminder.save"/>"/>
-		</body>
-	</div>
-	
+
+		<div align="center">
+			<body>
+				<table id="resultsTable" style="width: 50%; font-size: 12px;"
+					border="1" cellpadding="5">
+					<thead>
+						<tr>
+							<th><spring:message code="smsreminder.typeNotification" /></th>
+							<th><spring:message code="smsreminder.numberOfDays" /></th>
+							<th><spring:message code="smsreminder.action" /></th>
+						</tr>
+					</thead>
+				</table>
+				</br>
+				<input type="button" onClick="save()"
+					value="<spring:message code="smsreminder.save"/>" />
+			</body>
+		</div>
 </form>
 <c:if test="${not empty notificationTypes}">
 
 	<div align="center">
-	   <body>
-			<table  id="finalResult" style="width:50%; font-size:12px;" border="1" cellpadding="5" >
+		<body>
+			<table id="finalResult" style="width: 50%; font-size: 12px;"
+				border="1" cellpadding="5">
 				<thead>
 					<tr>
-						<th><spring:message code="smsreminder.typeNotification"/></th>
-						<th><spring:message code="smsreminder.numberOfDays"/></th>
+						<th><spring:message code="smsreminder.typeNotification" /></th>
+						<th><spring:message code="smsreminder.numberOfDays" /></th>
 					</tr>
 				</thead>
-				
-			<c:forEach items="${notificationTypes}" var="notificationTypes">
-				<tr>
-					<td>${notificationTypes.name}</td>
-					<td>${notificationTypes.numberOfDays}</td>
-				</tr>
-			</c:forEach>				
+
+				<c:forEach items="${notificationTypes}" var="notificationTypes">
+					<tr>
+						<td>${notificationTypes.name}</td>
+						<td>${notificationTypes.numberOfDays}</td>
+					</tr>
+				</c:forEach>
 			</table>
 		</body>
 	</div>
-	</c:if>
-	
+</c:if>
+
