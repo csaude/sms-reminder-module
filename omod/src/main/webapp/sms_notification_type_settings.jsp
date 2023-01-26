@@ -70,7 +70,10 @@
     			}
     		});
            }
-        table.innerHTML="";
+        var rowCount = table.rows.length;
+        for (var x=rowCount-1; x>0; x--) {
+        	table.deleteRow(x);
+        }
     </script>
     
 <form method="POST">

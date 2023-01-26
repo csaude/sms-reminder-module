@@ -12,6 +12,7 @@ import org.openmrs.module.smsreminder.SmsReminderUtils;
 import org.openmrs.module.smsreminder.api.SmsReminderService;
 import org.openmrs.module.smsreminder.model.MessageSent;
 import org.openmrs.module.smsreminder.model.NotificationPatient;
+import org.openmrs.module.smsreminder.model.NotificationType;
 import org.openmrs.module.smsreminder.utils.DatasUtil;
 import org.openmrs.module.smsreminder.webservice.Consumer;
 import org.openmrs.scheduler.tasks.AbstractTask;
@@ -24,48 +25,54 @@ public class SendSmsReminderTask extends AbstractTask {
 	final PatientService patientService = Context.getPatientService();
 	final LocationService locationService = Context.getLocationService();
 
+	//Actualmente esse agendamento so envia mensagens para pacientes que tem levantamento marcado
 	@Override
 	public void execute() {
 
 		if (!smsReminderService.getAllNotificationPatient().isEmpty()) {
+			
 			for (NotificationPatient notificationPatient : smsReminderService.getAllNotificationPatient()) {
 
-				String mensage = "Sr ".concat(notificationPatient.getFullName()).concat(" Tem um Encontro Marcado na ")
-						.concat(locationService.getLocation(Integer.valueOf(gpUs.getPropertyValue())).getName())
-						.concat(" no dia ").concat(DatasUtil.formatarDataPt(notificationPatient.getNextVisitDate()));
+				for (NotificationType notificationType : smsReminderService.getAllNotificationType()) {
+					
+					if (notificationPatient.getReminderDays() == notificationType.getNumberOfDays()
+							&& notificationType.getName().equals("LEVANTAMENTOS")) {
+						
+						String mensage = "Sr ".concat(notificationPatient.getFullName())
+								.concat(" Tem um Encontro Marcado na ")
+								.concat(locationService.getLocation(Integer.valueOf(gpUs.getPropertyValue())).getName())
+								.concat(" no dia ")
+								.concat(DatasUtil.formatarDataPt(notificationPatient.getNextVisitDate()));
 
-				try {
-					String[] result = notificationPatient.getPhoneNumber().split(",");
+						try {
+							String[] result = notificationPatient.getPhoneNumber().split(",");
 
-					for (String s : result) {
+							for (String s : result) {
 
-						String partnerMsgId = UUID.randomUUID().toString();
+								String partnerMsgId = UUID.randomUUID().toString();
 
-						Consumer.sendMensage(mensage, "258" + s, partnerMsgId);
-
-						MessageSent mensageSent = new MessageSent();
-
-						mensageSent.setNid(notificationPatient.getNid());
-						mensageSent.setFullName(notificationPatient.getFullName());
-						mensageSent.setLastVisitDate(notificationPatient.getLastVisitDate());
-						mensageSent.setNextVisitDate(notificationPatient.getNextVisitDate());
-						mensageSent.setMessage(mensage);
-						mensageSent.setPartnerMsgId(partnerMsgId);
-						mensageSent.setPhoneNumber(notificationPatient.getPhoneNumber());
-						mensageSent.setPatient(patientService.getPatient(notificationPatient.getPatientId()));
-						mensageSent.setDateCreated(Calendar.getInstance().getTime());
-						mensageSent.setReminderDays(notificationPatient.getReminderDays());
-						mensageSent.setGender(notificationPatient.getGender());
-
-						smsReminderService.saveMensageSent(mensageSent);
+								Consumer.sendMensage(mensage, "258" + s, partnerMsgId);
+								MessageSent mensageSent = new MessageSent();
+								mensageSent.setNid(notificationPatient.getNid());
+								mensageSent.setFullName(notificationPatient.getFullName());
+								mensageSent.setLastVisitDate(notificationPatient.getLastVisitDate());
+								mensageSent.setNextVisitDate(notificationPatient.getNextVisitDate());
+								mensageSent.setMessage(mensage);
+								mensageSent.setPartnerMsgId(partnerMsgId);
+								mensageSent.setPhoneNumber(notificationPatient.getPhoneNumber());
+								mensageSent.setPatient(patientService.getPatient(notificationPatient.getPatientId()));
+								mensageSent.setDateCreated(Calendar.getInstance().getTime());
+								mensageSent.setReminderDays(notificationPatient.getReminderDays());
+								mensageSent.setGender(notificationPatient.getGender());
+								smsReminderService.saveMensageSent(mensageSent);
+							}
+						} catch (Throwable e) {
+							e.printStackTrace();
+						}
 
 					}
-				} catch (Throwable e) {
-					e.printStackTrace();
 				}
-
 			}
 		}
 	}
-
 }
