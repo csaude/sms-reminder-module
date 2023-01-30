@@ -35,7 +35,7 @@ public class SendSmsReminderTask extends AbstractTask {
 
 				for (NotificationType notificationType : smsReminderService.getAllNotificationType()) {
 
-					if (notificationPatient.getReminderDays() == notificationType.getNumberOfDays()) {
+					if (notificationPatient.getReminderDays().intValue() == notificationType.getNumberOfDays()) {
 
 						String mensage = "Sr ".concat(notificationPatient.getFullName())
 								.concat(" Tem um Encontro Marcado na ")
