@@ -28,6 +28,7 @@ import org.openmrs.api.db.DAOException;
 import org.openmrs.module.smsreminder.api.db.SmsReminderDAO;
 import org.openmrs.module.smsreminder.model.DeliveryReportStatus;
 import org.openmrs.module.smsreminder.model.MessageSent;
+import org.openmrs.module.smsreminder.model.MessageToBeSent;
 import org.openmrs.module.smsreminder.model.NotificationPatient;
 import org.openmrs.module.smsreminder.model.NotificationType;
 import org.openmrs.module.smsreminder.utils.QuerysUtils;
@@ -86,6 +87,8 @@ public class HibernateSmsReminderDAO implements SmsReminderDAO {
 
 	}
 
+
+
 	@Override
 	public DeliveryReportStatus saveDeliveryReportStatus(DeliveryReportStatus deliveryReportStatus) {
 		this.sessionFactory.getCurrentSession().saveOrUpdate(deliveryReportStatus);
@@ -130,11 +133,7 @@ public class HibernateSmsReminderDAO implements SmsReminderDAO {
 
 			notificationPatients.add(notificationPatient);
 
-			if (notificationPatient.getReminderDays() == 15 || notificationPatient.getReminderDays() == 7
-					|| notificationPatient.getReminderDays() == 3) {
 
-//				notificationPatients.add(notificationPatient);
-			}
 		}
 
 		return notificationPatients;
@@ -173,10 +172,33 @@ public class HibernateSmsReminderDAO implements SmsReminderDAO {
 		return notificationType;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<NotificationType> getAllNotificationType() throws APIException {
 		final Criteria c = this.sessionFactory.getCurrentSession().createCriteria(NotificationType.class);
 		return c.list();
+	}
+
+	@Override
+	public NotificationType findNotificationTypeById(Integer notificationTypeId) throws APIException {
+
+		Query q = sessionFactory.getCurrentSession()
+				.createQuery("FROM NotificationType s WHERE s.notificationTypeId = :notificationTypeId ");
+		q.setParameter("notificationTypeId", notificationTypeId);
+		NotificationType notificationType = (NotificationType) q.uniqueResult();
+
+		return notificationType;
+	}
+
+	@Override
+	public void deleteNotificationType(NotificationType notificationType) {
+		getSessionFactory().getCurrentSession().delete(notificationType);
+	}
+
+	@Override
+	public MessageToBeSent saveMensageToBeSent(MessageToBeSent messageToBeSent) {
+		this.sessionFactory.getCurrentSession().saveOrUpdate(messageToBeSent);
+		return messageToBeSent;
 	}
 
 }

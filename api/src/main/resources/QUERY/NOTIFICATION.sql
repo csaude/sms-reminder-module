@@ -11,7 +11,7 @@ select   date(inicioTARV.data_inicio),  pid.identifier AS nid,
 				and (e.encounter_datetime >= (select global_property.property_value 
 				from global_property where (global_property.property = 'smsreminder.reference_date'))) 
 				and (e.location_id = (select cast(global_property.property_value as unsigned) 
-				from global_property where (global_property.property = 'smsreminder.us')))) 
+				from global_property where (global_property.property = 'smsreminder.location_id')))) 
 				group by p.patient_id  union 
 				select p.patient_id AS patient_id,min(o.value_datetime) AS data_inicio  from ((patient p 
 				join encounter e on((p.patient_id = e.patient_id))) 
@@ -21,7 +21,7 @@ select   date(inicioTARV.data_inicio),  pid.identifier AS nid,
 				and (o.value_datetime >= (select global_property.property_value 
 				from global_property where (global_property.property = 'smsreminder.reference_date'))) 
 				and (e.location_id = (select cast(global_property.property_value as unsigned) 
-				from global_property where (global_property.property = 'smsreminder.us')))) 
+				from global_property where (global_property.property = 'smsreminder.location_id')))) 
 				group by p.patient_id  union 
 				select pg.patient_id AS patient_id,pg.date_enrolled AS data_inicio from (patient p 
 				join patient_program pg on((p.patient_id = pg.patient_id)))  where ((pg.voided = 0) 
@@ -29,7 +29,7 @@ select   date(inicioTARV.data_inicio),  pid.identifier AS nid,
 				and (pg.date_enrolled >= (select global_property.property_value 
 				from global_property where (global_property.property = 'smsreminder.reference_date'))) 
 				and (pg.location_id = (select cast(global_property.property_value as unsigned) 
-				from global_property where (global_property.property = 'smsreminder.us'))))  )inicioTARV 
+				from global_property where (global_property.property = 'smsreminder.location_id'))))  )inicioTARV 
 				inner join  (  select patient.patient_id AS patient_id, 
 				encounter.encounter_datetime AS encounter_datetime from obs 
 				join encounter on obs.encounter_id = encounter.encounter_id 
@@ -53,4 +53,4 @@ select   date(inicioTARV.data_inicio),  pid.identifier AS nid,
 				inner join person_attribute pa on pa.person_id = maxFila.patient_id and pa.person_attribute_type_id = 9 and pa.voided=0 
 				inner join patient_identifier pid on pid.patient_id = maxFila.patient_id and pid.voided=0 
 				inner join person_name pn on pn.person_id=maxFila.patient_id and pn.voided=0  
-				group by maxFila.patient_id limit 1 ;
+				group by maxFila.patient_id;

@@ -21,6 +21,7 @@ import org.openmrs.module.smsreminder.model.DeliveryReportStatus;
 import org.openmrs.module.smsreminder.model.NotificationPatient;
 import org.openmrs.module.smsreminder.model.NotificationType;
 import org.openmrs.module.smsreminder.model.MessageSent;
+import org.openmrs.module.smsreminder.model.MessageToBeSent;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -48,10 +49,17 @@ public interface SmsReminderService extends OpenmrsService {
 	public List<NotificationPatient> getAllNotificationPatient() throws APIException;
 	@Transactional
 	public List<NotificationPatient> findPatientsForLostFollowup();
-	
+	@Transactional
 	public NotificationType saveNotificationType(NotificationType notificationType);
-	
+	@Transactional
 	public List<NotificationType> getAllNotificationType() throws APIException;
+	@Transactional
+	public NotificationType findNotificationTypeById(Integer notificationTypeId) throws APIException;
+
+	public void deleteNotificationType(NotificationType notificationType);
+	
+	public MessageToBeSent saveMensageToBeSent(MessageToBeSent messageToBeSent);
+
 
 
 

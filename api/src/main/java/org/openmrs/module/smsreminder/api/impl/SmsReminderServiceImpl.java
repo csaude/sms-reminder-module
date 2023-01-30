@@ -13,6 +13,7 @@
  */
 package org.openmrs.module.smsreminder.api.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
@@ -23,6 +24,7 @@ import org.openmrs.module.smsreminder.api.SmsReminderService;
 import org.openmrs.module.smsreminder.api.db.SmsReminderDAO;
 import org.openmrs.module.smsreminder.model.DeliveryReportStatus;
 import org.openmrs.module.smsreminder.model.MessageSent;
+import org.openmrs.module.smsreminder.model.MessageToBeSent;
 import org.openmrs.module.smsreminder.model.NotificationPatient;
 import org.openmrs.module.smsreminder.model.NotificationType;
 import org.openmrs.module.smsreminder.utils.MessageStatus;
@@ -61,7 +63,7 @@ public class SmsReminderServiceImpl extends BaseOpenmrsService implements SmsRem
 		MessageSent mensageSent = this.getDao().findMessageSentToBeUpdate(deliveryReportStatus);
 
 		if (mensageSent != null) {
-			
+
 			deliveryReportStatus.setPatientId(mensageSent.getPatient().getPatientId());
 
 			if (deliveryReportStatus.getDeliveryReportStatus() != null) {
@@ -96,7 +98,17 @@ public class SmsReminderServiceImpl extends BaseOpenmrsService implements SmsRem
 
 	@Override
 	public List<NotificationPatient> getAllNotificationPatient() {
-		return this.getDao().getAllNotificationPatient();
+		List<NotificationPatient> notificationPatients = new ArrayList<>();
+
+		for (NotificationPatient notificationPatient : this.getDao().getAllNotificationPatient()) {
+
+			for (NotificationType notificationType : this.getDao().getAllNotificationType()) {
+				if (notificationPatient.getReminderDays().intValue() == notificationType.getNumberOfDays()) {
+					notificationPatients.add(notificationPatient);
+				}
+			}
+		}
+		return notificationPatients;
 	}
 
 	@Override
@@ -113,6 +125,20 @@ public class SmsReminderServiceImpl extends BaseOpenmrsService implements SmsRem
 	public List<NotificationType> getAllNotificationType() throws APIException {
 		return this.getDao().getAllNotificationType();
 	}
-	
+
+	@Override
+	public NotificationType findNotificationTypeById(Integer notificationTypeId) throws APIException {
+		return this.getDao().findNotificationTypeById(notificationTypeId);
+	}
+
+	@Override
+	public void deleteNotificationType(NotificationType notificationType) {
+		this.getDao().deleteNotificationType(notificationType);
+	}
+
+	@Override
+	public MessageToBeSent saveMensageToBeSent(MessageToBeSent messageToBeSent) {
+		return this.getDao().saveMensageToBeSent(messageToBeSent);
+	}
 
 }

@@ -20,6 +20,7 @@ import org.openmrs.api.db.DAOException;
 import org.openmrs.module.smsreminder.api.SmsReminderService;
 import org.openmrs.module.smsreminder.model.DeliveryReportStatus;
 import org.openmrs.module.smsreminder.model.MessageSent;
+import org.openmrs.module.smsreminder.model.MessageToBeSent;
 import org.openmrs.module.smsreminder.model.NotificationPatient;
 import org.openmrs.module.smsreminder.model.NotificationType;
 
@@ -47,6 +48,17 @@ public interface SmsReminderDAO {
 	public NotificationType saveNotificationType(NotificationType notificationType);
 	
 	public List<NotificationType> getAllNotificationType() throws APIException;
+	
+	public NotificationType findNotificationTypeById(Integer notificationTypeId) throws APIException;
+	
+	public void deleteNotificationType(NotificationType notificationType);
+	
+	public MessageToBeSent saveMensageToBeSent(MessageToBeSent messageToBeSent);
+
+	
+
+
+
 
 
 

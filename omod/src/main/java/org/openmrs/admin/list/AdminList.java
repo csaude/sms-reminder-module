@@ -47,7 +47,6 @@ public class AdminList extends AdministrationSectionExt {
 		map.put("/module/smsreminder/sms_notification_type_settings.form", "smsreminder.typeNontifcationSettings");
 		map.put("/module/smsreminder/smssenderlist.form", "smsreminder.sender");
 		map.put("/module/smsreminder/smssendedlist.form", "smsreminder.sended");
-		map.put("/module/smsreminder/addNotificationTypes.form", "smsreminder.typeNotificationList");
 		return map;
 	}
 

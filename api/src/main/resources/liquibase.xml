@@ -199,4 +199,63 @@
 				with="UNIQUEIDENTIFIER NOT NULL DEFAULT NEWSEQUENTIALID()" />
 		</modifySql>
 	</changeSet>
+
+	<changeSet author="emaposse" id="20200402-3001">
+		<preConditions onFail="MARK_RAN">
+			<not>
+				<tableExists tableName="smsreminder_message_to_be_sent" />
+			</not>
+		</preConditions>
+		<comment>
+			Create smsreminder_message_to_be_sent
+		</comment>
+		<createTable tableName="smsreminder_message_to_be_sent">
+
+			<column autoIncrement="true" name="message_to_be_sent_id"
+				type="int">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+
+			<column name="patient_id" type="int">
+				<constraints nullable="true" />
+			</column>
+
+			<column defaultValue="" name="phone_number" type="varchar(50)">
+				<constraints nullable="true" />
+			</column>
+
+			<column name="nid" type="varchar(500)">
+				<constraints nullable="true" />
+			</column>
+
+			<column name="full_name" type="varchar(500)">
+			</column>
+
+			<column name="gender" type="varchar(50)">
+				<constraints nullable="true" />
+			</column>
+
+			<column name="message" type="varchar(2000)">
+				<constraints nullable="true" />
+			</column>
+
+			<column name="reminder_days" type="int">
+				<constraints nullable="true" />
+			</column>
+
+			<column name="last_visit_date" type="DATETIME">
+				<constraints nullable="true" />
+			</column>
+
+			<column name="next_visit_date" type="DATETIME">
+				<constraints nullable="true" />
+			</column>
+
+			<column name="was_sent" type="boolean">
+				<constraints nullable="true" />
+			</column>
+
+		</createTable>
+	</changeSet>
+
 </databaseChangeLog>
