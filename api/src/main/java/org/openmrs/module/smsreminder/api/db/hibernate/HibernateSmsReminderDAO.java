@@ -178,6 +178,12 @@ public class HibernateSmsReminderDAO implements SmsReminderDAO {
 		final Criteria c = this.sessionFactory.getCurrentSession().createCriteria(NotificationType.class);
 		return c.list();
 	}
+	
+	public List<MessageToBeSent> getAllMessageToBeSent() throws APIException {
+		final Criteria c = this.sessionFactory.getCurrentSession().createCriteria(MessageToBeSent.class);
+		return c.list();
+	}
+
 
 	@Override
 	public NotificationType findNotificationTypeById(Integer notificationTypeId) throws APIException {

@@ -141,4 +141,9 @@ public class SmsReminderServiceImpl extends BaseOpenmrsService implements SmsRem
 		return this.getDao().saveMensageToBeSent(messageToBeSent);
 	}
 
+	@Override
+	public List<MessageToBeSent> getAllMessageToBeSent() throws APIException {
+		return this.getDao().getAllMessageToBeSent();
+	}
+
 }

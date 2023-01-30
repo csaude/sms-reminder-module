@@ -8,16 +8,16 @@
 	file="/scripts/jquery/dataTables/css/dataTables_jui.css" />
 <openmrs:htmlInclude
 	file="/scripts/jquery/dataTables/js/jquery.dataTables.min.js" />
-
-
+		<openmrs:htmlInclude
+	file="${pageContext.request.contextPath}/moduleResources/smsreminder/css/smsreminder.css" />
 
 <h2>
-	<openmrs:message code="LISTA DE SMS POR ENVIAR PARA PACIENTES" />
+	<openmrs:message code="Lista De SMS Por Enviar Para Pacientes" />
 </h2>
 <form method="post">
 
 	<div class="row">
-		<table border="1" class="display" width="100%" cellpadding="2"
+		<table id="resultsTable" border="1" class="display" width="100%" cellpadding="2"
 			cellspacing="0" style="font-size: 13px;">
 
 			<tr>

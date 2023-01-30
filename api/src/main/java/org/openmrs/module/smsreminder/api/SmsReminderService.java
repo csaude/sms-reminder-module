@@ -55,10 +55,13 @@ public interface SmsReminderService extends OpenmrsService {
 	public List<NotificationType> getAllNotificationType() throws APIException;
 	@Transactional
 	public NotificationType findNotificationTypeById(Integer notificationTypeId) throws APIException;
-
+	@Transactional
 	public void deleteNotificationType(NotificationType notificationType);
-	
+	@Transactional
 	public MessageToBeSent saveMensageToBeSent(MessageToBeSent messageToBeSent);
+	@Transactional
+	public List<MessageToBeSent> getAllMessageToBeSent() throws APIException;
+
 
 
 

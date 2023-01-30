@@ -54,6 +54,9 @@ public interface SmsReminderDAO {
 	public void deleteNotificationType(NotificationType notificationType);
 	
 	public MessageToBeSent saveMensageToBeSent(MessageToBeSent messageToBeSent);
+	
+	public List<MessageToBeSent> getAllMessageToBeSent() throws APIException;
+
 
 	
 
