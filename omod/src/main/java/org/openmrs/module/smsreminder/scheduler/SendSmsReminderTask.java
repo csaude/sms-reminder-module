@@ -45,33 +45,33 @@ public class SendSmsReminderTask extends AbstractTask {
 						createMessageToBeSent(notificationPatient, mensage);
 
 					}
-					for (MessageToBeSent messageToBeSent : smsReminderService.getAllMessageToBeSent()) {
+				}
 
-						String partnerMsgId = UUID.randomUUID().toString();
+				for (MessageToBeSent messageToBeSent : smsReminderService.getAllMessageToBeSent()) {
 
-						try {
-							Consumer.sendMensage(messageToBeSent.getMessage(), messageToBeSent.getPhoneNumber(),
-									partnerMsgId);
+					String partnerMsgId = UUID.randomUUID().toString();
 
-							MessageSent mensageSent = new MessageSent();
-							mensageSent.setNid(messageToBeSent.getNid());
-							mensageSent.setFullName(messageToBeSent.getFullName());
-							mensageSent.setLastVisitDate(messageToBeSent.getLastVisitDate());
-							mensageSent.setNextVisitDate(messageToBeSent.getNextVisitDate());
-							mensageSent.setMessage(messageToBeSent.getMessage());
-							mensageSent.setPartnerMsgId(partnerMsgId);
-							mensageSent.setPhoneNumber(messageToBeSent.getPhoneNumber());
-							mensageSent.setPatient(patientService.getPatient(messageToBeSent.getPatientId()));
-							mensageSent.setDateCreated(Calendar.getInstance().getTime());
-							mensageSent.setReminderDays(messageToBeSent.getReminderDays());
-							mensageSent.setGender(messageToBeSent.getGender());
+					try {
+						Consumer.sendMensage(messageToBeSent.getMessage(), messageToBeSent.getPhoneNumber(),
+								partnerMsgId);
 
-							smsReminderService.saveMensageSent(mensageSent);
+						MessageSent mensageSent = new MessageSent();
+						mensageSent.setNid(messageToBeSent.getNid());
+						mensageSent.setFullName(messageToBeSent.getFullName());
+						mensageSent.setLastVisitDate(messageToBeSent.getLastVisitDate());
+						mensageSent.setNextVisitDate(messageToBeSent.getNextVisitDate());
+						mensageSent.setMessage(messageToBeSent.getMessage());
+						mensageSent.setPartnerMsgId(partnerMsgId);
+						mensageSent.setPhoneNumber(messageToBeSent.getPhoneNumber());
+						mensageSent.setPatient(patientService.getPatient(messageToBeSent.getPatientId()));
+						mensageSent.setDateCreated(Calendar.getInstance().getTime());
+						mensageSent.setReminderDays(messageToBeSent.getReminderDays());
+						mensageSent.setGender(messageToBeSent.getGender());
 
-						} catch (Throwable e) {
-							e.printStackTrace();
-						}
+						smsReminderService.saveMensageSent(mensageSent);
 
+					} catch (Throwable e) {
+						e.printStackTrace();
 					}
 
 				}
@@ -80,7 +80,6 @@ public class SendSmsReminderTask extends AbstractTask {
 	}
 
 	public void createMessageToBeSent(NotificationPatient notificationPatient, String mensage) {
-
 		MessageToBeSent messageToBeSent = new MessageToBeSent();
 		messageToBeSent.setNid(notificationPatient.getNid());
 		messageToBeSent.setFullName(notificationPatient.getFullName());
