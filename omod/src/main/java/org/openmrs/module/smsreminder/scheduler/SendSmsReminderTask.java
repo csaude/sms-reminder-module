@@ -46,7 +46,7 @@ public class SendSmsReminderTask extends AbstractTask {
 
 					}
 				}
-
+			}
 				for (MessageToBeSent messageToBeSent : smsReminderService.getAllMessageToBeSent()) {
 
 					String partnerMsgId = UUID.randomUUID().toString();
@@ -73,8 +73,6 @@ public class SendSmsReminderTask extends AbstractTask {
 					} catch (Throwable e) {
 						e.printStackTrace();
 					}
-
-				}
 			}
 		}
 	}

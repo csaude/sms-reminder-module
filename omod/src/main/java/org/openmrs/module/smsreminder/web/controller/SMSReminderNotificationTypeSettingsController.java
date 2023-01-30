@@ -61,8 +61,6 @@ public class SMSReminderNotificationTypeSettingsController {
 	}
 
 	public void checkIfNotExist(List<NotificationTypeDTO> notificationTypeDTOs) {
-		final SmsReminderService smsReminderService = SmsReminderUtils.getService();
-		List<NotificationType> notificationTypesTobeDelete = smsReminderService.getAllNotificationType();
 
 	}
 }
