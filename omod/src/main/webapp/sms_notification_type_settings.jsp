@@ -111,10 +111,16 @@
 //         	document.getElementById("resultsTable").getElementsByTagName('tbody')[0].innerHTML = '';
 
         }  
+        
+    	$j(document).ready(function() {
+    		$j('#resultsTable').dataTable({
+    			"iDisplayLength" : 10
+    		});
+    	})
         </script>
 
 <form method="POST">
-	<div class="searchFields">
+	<div class="addnotification">
 		<div align="center">
 			<label for="typeNotification"> <openmrs:message
 					code="smsreminder.typeNotification" /><span class="required">*</span>:

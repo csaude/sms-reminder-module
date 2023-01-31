@@ -44,25 +44,19 @@ public interface SmsReminderDAO {
 	public DeliveryReportStatus saveDeliveryReportStatus(DeliveryReportStatus deliveryReportStatus);
 
 	public MessageSent findMessageSentToBeUpdate(DeliveryReportStatus deliveryReportStatus);
-	
+
 	public NotificationType saveNotificationType(NotificationType notificationType);
-	
+
 	public List<NotificationType> getAllNotificationType() throws APIException;
-	
+
 	public NotificationType findNotificationTypeById(Integer notificationTypeId) throws APIException;
-	
+
 	public void deleteNotificationType(NotificationType notificationType);
-	
+
 	public MessageToBeSent saveMensageToBeSent(MessageToBeSent messageToBeSent);
-	
+
 	public List<MessageToBeSent> getAllMessageToBeSent() throws APIException;
 
-
-	
-
-
-
-
-
+	public void deleteMessageToBeSent(MessageToBeSent messageToBeSent);
 
 }

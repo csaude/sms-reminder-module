@@ -87,8 +87,6 @@ public class HibernateSmsReminderDAO implements SmsReminderDAO {
 
 	}
 
-
-
 	@Override
 	public DeliveryReportStatus saveDeliveryReportStatus(DeliveryReportStatus deliveryReportStatus) {
 		this.sessionFactory.getCurrentSession().saveOrUpdate(deliveryReportStatus);
@@ -132,7 +130,6 @@ public class HibernateSmsReminderDAO implements SmsReminderDAO {
 			notificationPatient.setPatientId((Integer) object[9]);
 
 			notificationPatients.add(notificationPatient);
-
 
 		}
 
@@ -178,12 +175,11 @@ public class HibernateSmsReminderDAO implements SmsReminderDAO {
 		final Criteria c = this.sessionFactory.getCurrentSession().createCriteria(NotificationType.class);
 		return c.list();
 	}
-	
+
 	public List<MessageToBeSent> getAllMessageToBeSent() throws APIException {
 		final Criteria c = this.sessionFactory.getCurrentSession().createCriteria(MessageToBeSent.class);
 		return c.list();
 	}
-
 
 	@Override
 	public NotificationType findNotificationTypeById(Integer notificationTypeId) throws APIException {
@@ -205,6 +201,12 @@ public class HibernateSmsReminderDAO implements SmsReminderDAO {
 	public MessageToBeSent saveMensageToBeSent(MessageToBeSent messageToBeSent) {
 		this.sessionFactory.getCurrentSession().saveOrUpdate(messageToBeSent);
 		return messageToBeSent;
+	}
+
+	@Override
+	public void deleteMessageToBeSent(MessageToBeSent messageToBeSent) {
+		getSessionFactory().getCurrentSession().delete(messageToBeSent);
+
 	}
 
 }

@@ -38,32 +38,40 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public interface SmsReminderService extends OpenmrsService {
 
-
 	@Transactional
 	public MessageSent saveMensageSent(MessageSent messageSent);
+
 	@Transactional
 	public DeliveryReportStatus saveDeliveryReportStatus(DeliveryReportStatus deliveryReportStatus);
+
 	@Transactional
 	public List<MessageSent> getAllMessageSent() throws APIException;
+
 	@Transactional
 	public List<NotificationPatient> getAllNotificationPatient() throws APIException;
+
 	@Transactional
 	public List<NotificationPatient> findPatientsForLostFollowup();
+
 	@Transactional
 	public NotificationType saveNotificationType(NotificationType notificationType);
+
 	@Transactional
 	public List<NotificationType> getAllNotificationType() throws APIException;
+
 	@Transactional
 	public NotificationType findNotificationTypeById(Integer notificationTypeId) throws APIException;
+
 	@Transactional
 	public void deleteNotificationType(NotificationType notificationType);
+
 	@Transactional
 	public MessageToBeSent saveMensageToBeSent(MessageToBeSent messageToBeSent);
+
 	@Transactional
 	public List<MessageToBeSent> getAllMessageToBeSent() throws APIException;
 
-
-
-
+	@Transactional
+	public void deleteMessageToBeSent(MessageToBeSent messageToBeSent);
 
 }

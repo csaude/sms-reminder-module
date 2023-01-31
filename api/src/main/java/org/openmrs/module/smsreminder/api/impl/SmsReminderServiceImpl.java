@@ -146,4 +146,11 @@ public class SmsReminderServiceImpl extends BaseOpenmrsService implements SmsRem
 		return this.getDao().getAllMessageToBeSent();
 	}
 
+	@Override
+	public void deleteMessageToBeSent(MessageToBeSent messageToBeSent) {
+		this.getDao().deleteMessageToBeSent(messageToBeSent);
+	}
+
+
+
 }
