@@ -5,7 +5,6 @@ import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.openmrs.BaseOpenmrsData;
