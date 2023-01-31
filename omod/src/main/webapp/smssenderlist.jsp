@@ -47,7 +47,7 @@
 		</table>
        <br>
 		<div class="row">
-			<input id="subValue" type="submit" value="Exportar para Excel">
+			<input id="btnGravar" type="submit" value="Exportar para Excel">
 		</div>
 	</div>
 	<br>
