@@ -18,6 +18,8 @@ import org.openmrs.module.smsreminder.utils.DatasUtil;
 import org.openmrs.module.smsreminder.webservice.Consumer;
 import org.openmrs.scheduler.tasks.AbstractTask;
 
+import pt.usendit.api.v2.ScheduleResult;
+
 public class SendSmsReminderTask extends AbstractTask {
 
 	final AdministrationService administrationService = Context.getAdministrationService();
@@ -47,34 +49,35 @@ public class SendSmsReminderTask extends AbstractTask {
 					}
 				}
 			}
-				for (MessageToBeSent messageToBeSent : smsReminderService.getAllMessageToBeSent()) {
+			for (MessageToBeSent messageToBeSent : smsReminderService.getAllMessageToBeSent()) {
 
-					String partnerMsgId = UUID.randomUUID().toString();
+				String partnerMsgId = UUID.randomUUID().toString();
 
-					try {
-						Consumer.sendMensage(messageToBeSent.getMessage(), messageToBeSent.getPhoneNumber(),
-								partnerMsgId);
+				try {
+					ScheduleResult stateOfOperation = Consumer.sendMensage(messageToBeSent.getMessage(),
+							messageToBeSent.getPhoneNumber(), partnerMsgId);
 
-						MessageSent mensageSent = new MessageSent();
-						mensageSent.setNid(messageToBeSent.getNid());
-						mensageSent.setFullName(messageToBeSent.getFullName());
-						mensageSent.setLastVisitDate(messageToBeSent.getLastVisitDate());
-						mensageSent.setNextVisitDate(messageToBeSent.getNextVisitDate());
-						mensageSent.setMessage(messageToBeSent.getMessage());
-						mensageSent.setPartnerMsgId(partnerMsgId);
-						mensageSent.setPhoneNumber(messageToBeSent.getPhoneNumber());
-						mensageSent.setPatient(patientService.getPatient(messageToBeSent.getPatientId()));
-						mensageSent.setDateCreated(Calendar.getInstance().getTime());
-						mensageSent.setReminderDays(messageToBeSent.getReminderDays());
-						mensageSent.setGender(messageToBeSent.getGender());
-						smsReminderService.saveMensageSent(mensageSent);
+					MessageSent mensageSent = new MessageSent();
+					mensageSent.setNid(messageToBeSent.getNid());
+					mensageSent.setFullName(messageToBeSent.getFullName());
+					mensageSent.setLastVisitDate(messageToBeSent.getLastVisitDate());
+					mensageSent.setNextVisitDate(messageToBeSent.getNextVisitDate());
+					mensageSent.setMessage(messageToBeSent.getMessage());
+					mensageSent.setPartnerMsgId(partnerMsgId);
+					mensageSent.setPhoneNumber(messageToBeSent.getPhoneNumber());
+					mensageSent.setPatient(patientService.getPatient(messageToBeSent.getPatientId()));
+					mensageSent.setDateCreated(Calendar.getInstance().getTime());
+					mensageSent.setReminderDays(messageToBeSent.getReminderDays());
+					mensageSent.setGender(messageToBeSent.getGender());
+					smsReminderService.saveMensageSent(mensageSent);
 
-					} catch (Throwable e) {
-						e.printStackTrace();
-					}
+					smsReminderService.deleteMessageToBeSent(messageToBeSent);
+
+				} catch (Throwable e) {
+					e.printStackTrace();
+				}
 			}
-				
-				
+
 		}
 	}
 
