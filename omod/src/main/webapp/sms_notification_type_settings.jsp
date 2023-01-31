@@ -108,6 +108,8 @@
         	for (var i = 1; row = table.rows[i]; i++) {
             	table.deleteRow(i);
            }
+        	document.getElementById("resultsTable").getElementsByTagName('tbody')[0].innerHTML = '';
+
         }  
         </script>
 
@@ -150,6 +152,7 @@
 							<th><spring:message code="smsreminder.action" /></th>
 						</tr>
 					</thead>
+				<tbody>
 				<c:forEach items="${notificationTypes}" var="notificationTypes">
 					<tr>
 						<td style="display:none;">${notificationTypes.notificationTypeId}</td>
@@ -161,6 +164,7 @@
 						</td>
 					</tr>
 				</c:forEach>
+			    </tbody>
 				</table>
 				</br>
             	<input type="button" id="btnGravar"  onClick="save()" value="<spring:message code="smsreminder.save"/>" />

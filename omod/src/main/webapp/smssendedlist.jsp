@@ -48,8 +48,8 @@
 		</table>
 
 		<br>
-		<div class="row">
-			<input id="btnGravar" type="submit" value="Exportar para Excel">
+		<div class="row" align="right">
+			<input id="btnExportar" type="button" alt="submit" value="Exportar para Excel" />
 		</div>
 	</div>
 	</div>
