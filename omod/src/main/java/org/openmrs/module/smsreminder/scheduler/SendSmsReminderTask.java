@@ -54,8 +54,8 @@ public class SendSmsReminderTask extends AbstractTask {
 				String partnerMsgId = UUID.randomUUID().toString();
 
 				try {
-					ScheduleResult stateOfOperation = Consumer.sendMensage(messageToBeSent.getMessage(),
-							messageToBeSent.getPhoneNumber(), partnerMsgId);
+					ScheduleResult result = Consumer.sendMensage(messageToBeSent.getMessage(),
+							"258" + messageToBeSent.getPhoneNumber(), partnerMsgId);
 
 					MessageSent mensageSent = new MessageSent();
 					mensageSent.setNid(messageToBeSent.getNid());
@@ -71,8 +71,9 @@ public class SendSmsReminderTask extends AbstractTask {
 					mensageSent.setGender(messageToBeSent.getGender());
 					smsReminderService.saveMensageSent(mensageSent);
 
-					smsReminderService.deleteMessageToBeSent(messageToBeSent);
-
+					if (result.getScheduleStatus().name().equals("SCHEDULE_OK")) {
+						smsReminderService.deleteMessageToBeSent(messageToBeSent);
+					}
 				} catch (Throwable e) {
 					e.printStackTrace();
 				}
