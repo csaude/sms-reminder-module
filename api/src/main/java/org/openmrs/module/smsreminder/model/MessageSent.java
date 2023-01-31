@@ -5,6 +5,8 @@ import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 import org.openmrs.BaseOpenmrsData;
 import org.openmrs.Patient;
@@ -19,6 +21,7 @@ public class MessageSent extends BaseOpenmrsData implements Serializable {
 	private String PartnerMsgId;
 	private String nid;
 	private String fullName;
+	@Size(min =10,max = 10)
 	private String phoneNumber;
 	private String gender;
 	private Date alertDate;

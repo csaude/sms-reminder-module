@@ -1,6 +1,8 @@
 package org.openmrs.module.smsreminder.web.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -37,9 +39,10 @@ public class SMSReminderNotificationTypeSettingsController {
 	String addNotificationTypes(@RequestBody NotificationTypeList notificationTypes) throws Exception {
 		final SmsReminderService smsReminderService = SmsReminderUtils.getService();
 
+		checkIfNotExist(notificationTypes.getNotificationTypes());
+
 		for (NotificationTypeDTO notificationTypeDTO : notificationTypes.getNotificationTypes()) {
 
-			checkIfNotExist(notificationTypes.getNotificationTypes());
 
 			if (notificationTypeDTO.getNotificationTypeId() == null) {
 
@@ -62,5 +65,21 @@ public class SMSReminderNotificationTypeSettingsController {
 
 	public void checkIfNotExist(List<NotificationTypeDTO> notificationTypeDTOs) {
 
+		final SmsReminderService smsReminderService = SmsReminderUtils.getService();
+
+		Map<Integer, Integer> map = new HashMap<>();
+		for (NotificationTypeDTO notificationTypeDTO : notificationTypeDTOs) {
+			if (notificationTypeDTO.getNotificationTypeId() != null) {
+
+				map.put(notificationTypeDTO.getNotificationTypeId(),
+						Integer.parseInt(notificationTypeDTO.getNumberOfDays()));
+			}
+		}
+		for (NotificationType notificationType : smsReminderService.getAllNotificationType()) {
+
+			if (!map.containsKey(notificationType.getNotificationTypeId())) {
+				smsReminderService.deleteNotificationType(notificationType);
+			}
+		}
 	}
 }
