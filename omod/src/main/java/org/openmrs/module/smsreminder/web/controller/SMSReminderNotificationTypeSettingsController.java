@@ -67,17 +67,17 @@ public class SMSReminderNotificationTypeSettingsController {
 
 		final SmsReminderService smsReminderService = SmsReminderUtils.getService();
 
-		Map<Integer, Integer> map = new HashMap<>();
+		Map<Integer, Integer> mapNotificationTypes = new HashMap<>();
 		for (NotificationTypeDTO notificationTypeDTO : notificationTypeDTOs) {
 			if (notificationTypeDTO.getNotificationTypeId() != null) {
 
-				map.put(notificationTypeDTO.getNotificationTypeId(),
+				mapNotificationTypes.put(notificationTypeDTO.getNotificationTypeId(),
 						Integer.parseInt(notificationTypeDTO.getNumberOfDays()));
 			}
 		}
 		for (NotificationType notificationType : smsReminderService.getAllNotificationType()) {
 
-			if (!map.containsKey(notificationType.getNotificationTypeId())) {
+			if (!mapNotificationTypes.containsKey(notificationType.getNotificationTypeId())) {
 				smsReminderService.deleteNotificationType(notificationType);
 			}
 		}

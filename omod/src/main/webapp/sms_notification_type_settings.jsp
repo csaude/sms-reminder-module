@@ -2,7 +2,7 @@
 <%@ include file="/WEB-INF/template/header.jsp"%>
 <openmrs:htmlInclude
 	file="${pageContext.request.contextPath}/moduleResources/smsreminder/css/smsreminder.css" />
-	
+
 
 <script type="text/javascript">	
 	
@@ -105,9 +105,7 @@
                     console.log(data);              
     			}
     		});
-        	for (var i = 1; row = table.rows[i]; i++) {
-            	table.deleteRow(i);
-           }
+    
         	document.getElementById("resultsTable").getElementsByTagName('tbody')[0].innerHTML = '';
 
         }  
@@ -146,30 +144,30 @@
 					border="1" cellpadding="5">
 					<thead>
 						<tr>
-						   <th style="display:none;"><spring:message code="ID" /></th>
+							<th style="display: none;"><spring:message code="ID" /></th>
 							<th><spring:message code="smsreminder.typeNotification" /></th>
 							<th><spring:message code="smsreminder.numberOfDays" /></th>
 							<th><spring:message code="smsreminder.action" /></th>
 						</tr>
 					</thead>
-				<tbody>
-				<c:forEach items="${notificationTypes}" var="notificationTypes">
-					<tr>
-						<td style="display:none;">${notificationTypes.notificationTypeId}</td>
-						<td>${notificationTypes.name}</td>
-						<td>${notificationTypes.numberOfDays}</td>
-						<td>
-						<input type="button" id="btnEdit" value="editar" onclick="editRow(this)" /> 
-						<input type="button" id="btnDelete" value="delete" onclick="deleteRow(this)" />
-						</td>
-					</tr>
-				</c:forEach>
-			    </tbody>
+					<tbody>
+						<c:forEach items="${notificationTypes}" var="notificationTypes">
+							<tr>
+								<td style="display: none;">${notificationTypes.notificationTypeId}</td>
+								<td>${notificationTypes.name}</td>
+								<td>${notificationTypes.numberOfDays}</td>
+								<td><input type="button" id="btnEdit" value="editar"
+									onclick="editRow(this)" /> <input type="button" id="btnDelete"
+									value="delete" onclick="deleteRow(this)" /></td>
+							</tr>
+						</c:forEach>
+					</tbody>
 				</table>
 				</br>
-            	<input type="button" id="btnGravar"  onClick="save()" value="<spring:message code="smsreminder.save"/>" />
+				<input type="button" id="btnGravar" onClick="save()"
+					value="<spring:message code="smsreminder.save"/>" />
 			</body>
-	</form>
+</form>
 </div>
 </br>
 </br>
