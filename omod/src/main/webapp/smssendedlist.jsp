@@ -41,7 +41,7 @@
 					<td><fmt:formatDate pattern = "yyyy-MM-dd" value = "${sms.lastVisitDate}" /></td>
 					<td><fmt:formatDate pattern = "yyyy-MM-dd" value = "${sms.nextVisitDate}" /></td>
 					<td>${sms.lastStatus}</td>
-					<td><fmt:formatDate pattern = "yyyy-MM-dd" value = "${sms.dateLastStatus}" /></td>
+					<td><fmt:formatDate pattern = "yyyy-MM-dd" value = "${sms.lastDateStatus}" /></td>
 				</tr>
 			</c:forEach>
 
