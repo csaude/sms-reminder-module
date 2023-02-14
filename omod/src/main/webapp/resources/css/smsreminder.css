@@ -1,15 +1,3 @@
-display
-
-
-:
-
- 
-
-none
-
-
-;
-}
 #resultsTable {
 	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
 	border-collapse: collapse;
@@ -35,18 +23,26 @@ none
 	font-size: 9pt;
 	border-radius: 5px 5px;
 }
+#addnotification{
+	width: 100%;
+}
+#divTable{
+   width: 100%;
+}
+.submit-btn {
+	display: flex;
+	margin: 10px 15px;
+	gap: 10px;
+	color: #fff;
+	background-color: #1aac9b;
+	
+}
 
 #btnExportar {
-	cursor: pointer;
 	color: #fff;
-    background: #1aac9b;
-    padding: 6px;
-    height: 33px;
-    font-weight: bold;
-    font-size: 9pt;
-    border-radius: 5px 5px;
-    border-width: 1px;
-	margin-left: 15px;
+	background: #1aac9b;
+	text-align: center;
+	
 }
 
 #finalResult {

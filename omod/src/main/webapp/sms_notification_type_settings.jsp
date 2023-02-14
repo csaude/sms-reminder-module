@@ -2,9 +2,10 @@
 <%@ include file="/WEB-INF/template/header.jsp"%>
 <openmrs:htmlInclude
 	file="${pageContext.request.contextPath}/moduleResources/smsreminder/css/smsreminder.css" />
-	
+
 
 <script type="text/javascript">	
+
 	
         function addRow(){
         	
@@ -31,9 +32,21 @@
             
             td = tr.insertCell();
             td.innerHTML= '<input type="button" id="btnEdit" value="editar" onclick="editRow(this)" /> <input type="button" id="btnDelete" value="delete" onclick="deleteRow(this)" />';
-		    console.log(table);
-
+		    
+            console.log(table);
+            GetCellValues();
+            
             clean();
+        }
+        
+        function GetCellValues() {
+        	var arrRows = document.getElementById("TableID").getElementsByTagName("tr");
+        	for(i=0;i<arrRows.length;i++){
+        	  var arrCells = arrRows[i].getElementsByTagName("td");
+        	  for(j=0;j<arrCells.length;j++){
+        	    alert(arrCells[j].innerHTML);
+        	  }
+        	}
         }
         
         function clean() {
@@ -73,6 +86,10 @@
             }
         }
         
+        function checkTypes(){
+            var types = $("types").val();
+            alert(types);
+           }
         
         function save(){
         	var table = document.getElementById("resultsTable");
@@ -111,12 +128,7 @@
 //         	document.getElementById("resultsTable").getElementsByTagName('tbody')[0].innerHTML = '';
 
         }  
-        
-    	$j(document).ready(function() {
-    		$j('#resultsTable').dataTable({
-    			"iDisplayLength" : 10
-    		});
-    	})
+
         </script>
 
 <form method="POST">
@@ -124,7 +136,7 @@
 		<div align="center">
 			<label for="typeNotification"> <openmrs:message
 					code="smsreminder.typeNotification" /><span class="required">*</span>:
-			</label> <select id="types">
+			</label> <select id="types" onchange="checkTypes(this)">
 				<option value="Levantamentos">
 					<openmrs:message code="smsreminder.pickup" />
 				</option>
@@ -146,36 +158,36 @@
 		</div>
 		</br>
 
-		<div align="center">
+		<div id="divTable" align="center" >
 			<body>
 				<table id="resultsTable" style="width: 50%; font-size: 12px;"
 					border="1" cellpadding="5">
 					<thead>
 						<tr>
-						   <th style="display:none;"><spring:message code="ID" /></th>
+							<th style="display: none;"><spring:message code="ID" /></th>
 							<th><spring:message code="smsreminder.typeNotification" /></th>
 							<th><spring:message code="smsreminder.numberOfDays" /></th>
 							<th><spring:message code="smsreminder.action" /></th>
 						</tr>
 					</thead>
-				<tbody>
-				<c:forEach items="${notificationTypes}" var="notificationTypes">
-					<tr>
-						<td style="display:none;">${notificationTypes.notificationTypeId}</td>
-						<td>${notificationTypes.name}</td>
-						<td>${notificationTypes.numberOfDays}</td>
-						<td>
-						<input type="button" id="btnEdit" value="editar" onclick="editRow(this)" /> 
-						<input type="button" id="btnDelete" value="delete" onclick="deleteRow(this)" />
-						</td>
-					</tr>
-				</c:forEach>
-			    </tbody>
+					<tbody>
+						<c:forEach items="${notificationTypes}" var="notificationTypes">
+							<tr>
+								<td style="display: none;">${notificationTypes.notificationTypeId}</td>
+								<td>${notificationTypes.name}</td>
+								<td>${notificationTypes.numberOfDays}</td>
+								<td><input type="button" id="btnEdit" value="editar"
+									onclick="editRow(this)" /> <input type="button" id="btnDelete"
+									value="delete" onclick="deleteRow(this)" /></td>
+							</tr>
+						</c:forEach>
+					</tbody>
 				</table>
 				</br>
-            	<input type="button" id="btnGravar"  onClick="save()" value="<spring:message code="smsreminder.save"/>" />
+				<input type="button" id="btnGravar" onClick="save()"
+					value="<spring:message code="smsreminder.save"/>" />
 			</body>
-	</form>
+</form>
 </div>
 </br>
 </br>

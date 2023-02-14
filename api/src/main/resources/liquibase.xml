@@ -88,6 +88,19 @@
 			datatype_config, preferred_handler, handler_config)
 			VALUES('smsreminder.reference_date',NULL,'Specifies the date of new
 			enrolled',UUID(),NULL,NULL,NULL,NULL);
+			
+			INSERT INTO global_property
+			(property, property_value,
+			description, uuid, datatype, datatype_config, preferred_handler,
+			handler_config)
+			VALUES('smsreminder.prefix','258','Specifies The Country Prefix',UUID(),NULL,NULL,NULL,NULL);
+			
+			INSERT INTO global_property
+			(property, property_value,
+			description, uuid, datatype, datatype_config, preferred_handler,
+			handler_config)
+			VALUES('smsreminder.partial_message',' Tem um Encontro Marcado na ','Specifies Message',UUID(),NULL,NULL,NULL,NULL);
+			
 
 		</sql>
 		<modifySql dbms="mssql">

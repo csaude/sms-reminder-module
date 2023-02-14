@@ -13,7 +13,6 @@ import org.openmrs.module.smsreminder.api.SmsReminderService;
 import org.openmrs.module.smsreminder.model.MessageSent;
 import org.openmrs.module.smsreminder.model.MessageToBeSent;
 import org.openmrs.module.smsreminder.model.NotificationPatient;
-import org.openmrs.module.smsreminder.model.NotificationType;
 import org.openmrs.module.smsreminder.utils.DatasUtil;
 import org.openmrs.module.smsreminder.webservice.Consumer;
 import org.openmrs.scheduler.tasks.AbstractTask;
@@ -24,6 +23,8 @@ public class SendSmsReminderTask extends AbstractTask {
 
 	final AdministrationService administrationService = Context.getAdministrationService();
 	final GlobalProperty gpUs = administrationService.getGlobalPropertyObject("smsreminder.location_id");
+	final GlobalProperty prefix = administrationService.getGlobalPropertyObject("smsreminder.prefix");
+	final GlobalProperty partial_message = administrationService.getGlobalPropertyObject("smsreminder.partial_message");
 	final SmsReminderService smsReminderService = SmsReminderUtils.getService();
 	final PatientService patientService = Context.getPatientService();
 	final LocationService locationService = Context.getLocationService();
@@ -34,28 +35,21 @@ public class SendSmsReminderTask extends AbstractTask {
 		if (!smsReminderService.getAllNotificationPatient().isEmpty()) {
 
 			for (NotificationPatient notificationPatient : smsReminderService.getAllNotificationPatient()) {
+				String mensage = "Sr(a) ".concat(notificationPatient.getFullName())
+						.concat(partial_message.getPropertyValue())
+						.concat(locationService.getLocation(Integer.valueOf(gpUs.getPropertyValue())).getName())
+						.concat(" no dia ").concat(DatasUtil.formatarDataPt(notificationPatient.getNextVisitDate()));
+				createMessageToBeSent(notificationPatient, mensage);
 
-				for (NotificationType notificationType : smsReminderService.getAllNotificationType()) {
-
-					if (notificationPatient.getReminderDays().intValue() == notificationType.getNumberOfDays()) {
-
-						String mensage = "Sr ".concat(notificationPatient.getFullName())
-								.concat(" Tem um Encontro Marcado na ")
-								.concat(locationService.getLocation(Integer.valueOf(gpUs.getPropertyValue())).getName())
-								.concat(" no dia ")
-								.concat(DatasUtil.formatarDataPt(notificationPatient.getNextVisitDate()));
-						createMessageToBeSent(notificationPatient, mensage);
-
-					}
-				}
 			}
+
 			for (MessageToBeSent messageToBeSent : smsReminderService.getAllMessageToBeSent()) {
 
 				String partnerMsgId = UUID.randomUUID().toString();
 
 				try {
 					ScheduleResult result = Consumer.sendMensage(messageToBeSent.getMessage(),
-							"258" + messageToBeSent.getPhoneNumber(), partnerMsgId);
+							prefix.getPropertyValue() + messageToBeSent.getPhoneNumber(), partnerMsgId);
 
 					MessageSent mensageSent = new MessageSent();
 					mensageSent.setNid(messageToBeSent.getNid());

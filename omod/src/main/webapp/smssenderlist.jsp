@@ -10,11 +10,46 @@
 	file="/scripts/jquery/dataTables/js/jquery.dataTables.min.js" />
 		<openmrs:htmlInclude
 	file="${pageContext.request.contextPath}/moduleResources/smsreminder/css/smsreminder.css" />
+	
+	<script type="text/javascript">	
+	function exportTableToExcel(tableID, filename = ''){
+	    var downloadLink;
+	    var dataType = 'application/vnd.ms-excel';
+	    var tableSelect = document.getElementById(tableID);
+	    var tableHTML = tableSelect.outerHTML.replace(/ /g, '%20');
+	    
+	    // Specify file name
+	    filename = filename?filename+'.xls':'excel_data.xls';
+	    
+	    // Create download link element
+	    downloadLink = document.createElement("a");
+	    
+	    document.body.appendChild(downloadLink);
+	    
+	    if(navigator.msSaveOrOpenBlob){
+	        var blob = new Blob(['\ufeff', tableHTML], {
+	            type: dataType
+	        });
+	        navigator.msSaveOrOpenBlob( blob, filename);
+	    }else{
+	        // Create a link to the file
+	        downloadLink.href = 'data:' + dataType + ', ' + tableHTML;
+	    
+	        // Setting the file name
+	        downloadLink.download = filename;
+	        
+	        //triggering the function
+	        downloadLink.click();
+	    }
+	}
+
+	</script>
+
 
 <h2>
 	<openmrs:message code="Lista De SMS Por Enviar Para Pacientes" />
 </h2>
-<form method="post">
+<form>
 
 	<div class="row">
 		<table id="resultsTable" border="1" class="display" width="100%" cellpadding="2"
@@ -47,7 +82,8 @@
 		</table>
        <br>
 		<div class="row" align="right">
-			<input id="btnExportar" type="button" alt="submit" value="Exportar para Excel" />
+			<button type="submit" onclick="exportTableToExcel('resultsTable', 'Message_Sent')" >Exportar</button>
+			
 		</div>
 	</div>
 	<br>

@@ -13,7 +13,6 @@
  */
 package org.openmrs.module.smsreminder.api.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
@@ -98,17 +97,7 @@ public class SmsReminderServiceImpl extends BaseOpenmrsService implements SmsRem
 
 	@Override
 	public List<NotificationPatient> getAllNotificationPatient() {
-		List<NotificationPatient> notificationPatients = new ArrayList<>();
-
-		for (NotificationPatient notificationPatient : this.getDao().getAllNotificationPatient()) {
-
-			for (NotificationType notificationType : this.getDao().getAllNotificationType()) {
-				if (notificationPatient.getReminderDays().intValue() == notificationType.getNumberOfDays()) {
-					notificationPatients.add(notificationPatient);
-				}
-			}
-		}
-		return notificationPatients;
+		return this.getDao().getAllNotificationPatient();
 	}
 
 	@Override
@@ -150,7 +139,5 @@ public class SmsReminderServiceImpl extends BaseOpenmrsService implements SmsRem
 	public void deleteMessageToBeSent(MessageToBeSent messageToBeSent) {
 		this.getDao().deleteMessageToBeSent(messageToBeSent);
 	}
-
-
 
 }
