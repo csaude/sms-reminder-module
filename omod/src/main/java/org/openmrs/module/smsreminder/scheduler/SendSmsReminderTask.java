@@ -63,9 +63,9 @@ public class SendSmsReminderTask extends AbstractTask {
 					mensageSent.setDateCreated(Calendar.getInstance().getTime());
 					mensageSent.setReminderDays(messageToBeSent.getReminderDays());
 					mensageSent.setGender(messageToBeSent.getGender());
-					smsReminderService.saveMensageSent(mensageSent);
 
 					if (result.getScheduleStatus().name().equals("SCHEDULE_OK")) {
+						smsReminderService.saveMensageSent(mensageSent);
 						smsReminderService.deleteMessageToBeSent(messageToBeSent);
 					}
 				} catch (Throwable e) {
