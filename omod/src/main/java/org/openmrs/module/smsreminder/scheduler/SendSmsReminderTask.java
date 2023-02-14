@@ -42,7 +42,9 @@ public class SendSmsReminderTask extends AbstractTask {
 				createMessageToBeSent(notificationPatient, mensage);
 
 			}
+		}
 
+		if (!smsReminderService.getAllMessageToBeSent().isEmpty()) {
 			for (MessageToBeSent messageToBeSent : smsReminderService.getAllMessageToBeSent()) {
 
 				String partnerMsgId = UUID.randomUUID().toString();
