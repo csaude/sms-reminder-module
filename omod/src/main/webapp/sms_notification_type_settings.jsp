@@ -40,7 +40,7 @@
         }
         
         function GetCellValues() {
-        	var arrRows = document.getElementById("TableID").getElementsByTagName("tr");
+        	var arrRows = document.getElementById("resultsTable").getElementsByTagName("tr");
         	for(i=0;i<arrRows.length;i++){
         	  var arrCells = arrRows[i].getElementsByTagName("td");
         	  for(j=0;j<arrCells.length;j++){
