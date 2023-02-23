@@ -1,7 +1,6 @@
 package org.openmrs.module.smsreminder.scheduler;
 
 import java.util.Calendar;
-import java.util.Iterator;
 import java.util.UUID;
 
 import org.openmrs.GlobalProperty;
