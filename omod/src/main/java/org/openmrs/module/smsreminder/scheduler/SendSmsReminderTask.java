@@ -55,7 +55,7 @@ public class SendSmsReminderTask extends AbstractTask {
 
 					for (int i = 0; i < splitNumber.length; i++) {
 
-						if (Validator.cellNumberValidator(splitNumber[i])) {
+						if (Validator.cellNumberValidator(prefix.getPropertyValue() + splitNumber[i])) {
 
 							ScheduleResult result = Consumer.sendMensage(messageToBeSent.getMessage(),
 									prefix.getPropertyValue() + splitNumber[i], partnerMsgId);
