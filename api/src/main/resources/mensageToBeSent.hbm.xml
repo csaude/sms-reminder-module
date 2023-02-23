@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="org.openmrs.module.smsreminder.model">
+	<class name="org.openmrs.module.smsreminder.model.MessageToBeSent" table="smsreminder_message_to_be_sent" batch-size="25">
+		<id name="messageToBeSentId" type="int" column="message_to_be_sent_id" unsaved-value="0" >
+			<generator class="native" />
+		</id>
+		<discriminator column="message_to_be_sent_id" insert="false" />
+		<property name="patientId" type="java.lang.Integer" column="patient_id" not-null="false"/>
+		<property name="phoneNumber" type="java.lang.String" column="phone_number" />
+		<property name="nid" type="java.lang.String" column="nid"  />
+		<property name="fullName" type="java.lang.String" column="full_name"  />
+		<property name="gender" type="java.lang.String" column="gender" length="1" />
+		<property name="message" type="java.lang.String" column="message" not-null="false" />
+		<property name="reminderDays" type="java.lang.Integer" column="reminder_days"  />
+		<property name="lastVisitDate" type="java.util.Date" column="last_visit_date" />
+		<property name="nextVisitDate" type="java.util.Date" column="next_visit_date" />
+		<property name="wasSent" type="java.lang.Boolean" column="was_sent" />
+	</class>
+</hibernate-mapping>

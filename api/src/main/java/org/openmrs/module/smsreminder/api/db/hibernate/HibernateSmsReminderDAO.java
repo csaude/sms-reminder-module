@@ -14,7 +14,6 @@
 package org.openmrs.module.smsreminder.api.db.hibernate;
 
 import java.lang.reflect.Method;
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -24,15 +23,16 @@ import org.apache.commons.logging.LogFactory;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Restrictions;
-import org.openmrs.Patient;
+import org.openmrs.api.APIException;
 import org.openmrs.api.db.DAOException;
 import org.openmrs.module.smsreminder.api.db.SmsReminderDAO;
-import org.openmrs.module.smsreminder.modelo.NotificationFollowUpPatient;
-import org.openmrs.module.smsreminder.modelo.NotificationPatient;
-import org.openmrs.module.smsreminder.modelo.Sent;
-import org.openmrs.module.smsreminder.utils.DatasUtil;
+import org.openmrs.module.smsreminder.model.DeliveryReportStatus;
+import org.openmrs.module.smsreminder.model.MessageSent;
+import org.openmrs.module.smsreminder.model.MessageToBeSent;
+import org.openmrs.module.smsreminder.model.NotificationPatient;
+import org.openmrs.module.smsreminder.model.NotificationType;
+import org.openmrs.module.smsreminder.utils.QuerysUtils;
+import org.openmrs.module.smsreminder.utils.SentType;
 
 /**
  * It is a default implementation of {@link SmsReminderDAO}.
@@ -41,6 +41,8 @@ public class HibernateSmsReminderDAO implements SmsReminderDAO {
 	protected final Log log = LogFactory.getLog(this.getClass());
 
 	private SessionFactory sessionFactory;
+	private static String NOTIFICATION = "QUERY/NOTIFICATION.sql";
+	private static String LTFU = "QUERY/LTFU.sql";
 
 	/**
 	 * @return the sessionFactory
@@ -50,14 +52,12 @@ public class HibernateSmsReminderDAO implements SmsReminderDAO {
 	}
 
 	/**
-	 * @param sessionFactory
-	 *            the sessionFactory to set
+	 * @param sessionFactory the sessionFactory to set
 	 */
 	public void setSessionFactory(final SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
 
-	@SuppressWarnings("unused")
 	private org.hibernate.Session getCurrentSession() {
 		try {
 			return this.sessionFactory.getCurrentSession();
@@ -72,159 +72,141 @@ public class HibernateSmsReminderDAO implements SmsReminderDAO {
 	}
 
 	@Override
-	public Sent saveSent(final Sent sent) {
-		this.sessionFactory.getCurrentSession().saveOrUpdate(sent);
-		return sent;
+	public MessageSent saveMensageSent(final MessageSent messageSent) {
+		getCurrentSession().saveOrUpdate(messageSent);
+		return messageSent;
+	}
+
+	public MessageSent findMessageSentToBeUpdate(DeliveryReportStatus deliveryReportStatus) {
+		Query q = sessionFactory.getCurrentSession()
+				.createQuery("FROM MensageSent s WHERE s.PartnerMsgId = :PartnerMsgId ");
+		q.setParameter("PartnerMsgId", deliveryReportStatus.getPartnerMsgId());
+		MessageSent mensageSent = (MessageSent) q.uniqueResult();
+
+		return mensageSent;
+
 	}
 
 	@Override
-	public void deleteSent(final Sent sent) throws DAOException {
-		this.sessionFactory.getCurrentSession().delete(sent);
+	public DeliveryReportStatus saveDeliveryReportStatus(DeliveryReportStatus deliveryReportStatus) {
+		this.sessionFactory.getCurrentSession().saveOrUpdate(deliveryReportStatus);
+		return deliveryReportStatus;
+
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Sent> getAllSent() throws DAOException {
-		final Criteria c = this.sessionFactory.getCurrentSession().createCriteria(Sent.class);
+	public List<MessageSent> getAllMessageSent() throws DAOException {
+		final Criteria c = this.sessionFactory.getCurrentSession().createCriteria(MessageSent.class);
 
 		return c.list();
 	}
 
-	@Override
-	public Sent getSentById(final Integer id) throws DAOException {
-		return (Sent) this.sessionFactory.getCurrentSession().get(Sent.class, id);
+	public List<NotificationPatient> getAllNotificationPatient() throws DAOException {
+
+		final String sql = QuerysUtils.loadQuery(NOTIFICATION);
+
+		final Query query = this.getCurrentSession().createSQLQuery(sql);
+
+		final List<NotificationPatient> notificationPatients = new ArrayList<NotificationPatient>();
+
+		@SuppressWarnings("unchecked")
+		final List<Object[]> list = query.list();
+
+		for (final Object[] object : list) {
+
+			final NotificationPatient notificationPatient = new NotificationPatient();
+
+			notificationPatient.setArtStartDate((Date) object[0]);
+			notificationPatient.setNid((String) object[1]);
+			notificationPatient.setFullName((String) object[2]);
+			notificationPatient.setPhoneNumber((String) object[3]);
+			notificationPatient.setGender((String) object[4]);
+			notificationPatient.setVisitType((Integer) object[5]);
+			notificationPatient.setLastVisitDate((Date) object[6]);
+			notificationPatient.setNextVisitDate((Date) object[7]);
+			notificationPatient.setReminderDays((Integer) object[8]);
+			notificationPatient.setSentType(SentType.NOVO_INICIO);
+			notificationPatient.setPatientId((Integer) object[9]);
+
+			notificationPatients.add(notificationPatient);
+
+		}
+
+		return notificationPatients;
+
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Sent> getSentByCellNumber(final String cellNumber) throws DAOException {
-		final Criteria c = this.sessionFactory.getCurrentSession().createCriteria(Sent.class, cellNumber);
-		c.addOrder(Order.asc("cellNumber"));
-		return c.list();
-	}
+	public List<NotificationPatient> findPatientsForLostFollowup() {
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Sent> getSentByAlertDate(final Date alertDate) throws DAOException {
-		final Criteria c = this.sessionFactory.getCurrentSession().createCriteria(Sent.class);
-		c.add(Restrictions.eq("alertDate", DatasUtil.formatarMysqlDate(alertDate)));
-		return c.list();
-	}
+		final String sql = QuerysUtils.loadQuery(LTFU);
+		final Query query = this.getCurrentSession().createSQLQuery(sql);
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Sent> getSentByMessage(final String message) throws DAOException {
-		final Criteria c = this.sessionFactory.getCurrentSession().createCriteria(Sent.class, message);
-		return c.list();
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Sent> getSentByStatus(final String status) throws DAOException {
-		final Criteria c = this.sessionFactory.getCurrentSession().createCriteria(Sent.class, status);
-		return c.list();
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Sent> getSentByCreated(final Date created) throws DAOException {
-		final Criteria c = this.sessionFactory.getCurrentSession().createCriteria(Sent.class);
-		c.add(Restrictions.eq("dateCreated", DatasUtil.formatarMysqlDate(created)));
-		return c.list();
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Sent> getSentBetweenCreatedAndStatus(final Date start, final Date end,
-			@SuppressWarnings("rawtypes") final List statuses) throws DAOException {
-		final Criteria c = this.sessionFactory.getCurrentSession().createCriteria(Sent.class);
-		c.add(Restrictions.between("dateCreated", DatasUtil.formatarMysqlDate(start),
-				DatasUtil.formatarMysqlDate(end)));
-		c.add(Restrictions.in("status", statuses));
-		return c.list();
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Sent> getSentByPatient(final Patient patient) throws DAOException {
-		final Criteria c = this.sessionFactory.getCurrentSession().createCriteria(Sent.class);
-		c.add(Restrictions.eq("patient", patient));
-		return c.list();
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<NotificationPatient> getNotificationPatientList() throws DAOException {
-		final Criteria c = this.sessionFactory.getCurrentSession().createCriteria(NotificationPatient.class);
-		return c.list();
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<NotificationPatient> getNotificationPatientByDiasRemanescente(final Integer diasRemanescente)
-			throws DAOException {
-		final Criteria c = this.sessionFactory.getCurrentSession().createCriteria(NotificationPatient.class);
-		c.add(Restrictions.eq("diasRemanescente", diasRemanescente));
-		return c.list();
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<NotificationFollowUpPatient> searchFollowUpPatient() {
-
-		final String sql = "select patient_id, max_frida.encounter_datetime, pa.value, datediff(CURDATE(),o.value_datetime) "
-				+ "from(Select p.patient_id,max(encounter_datetime) encounter_datetime from patient p  "
-				+ "inner join encounter e on e.patient_id=p.patient_id where p.voided=0 and e.voided=0 and e.encounter_type=18  and e.encounter_datetime<=CURDATE() "
-				+ "group by p.patient_id) max_frida  inner join obs o on o.person_id=max_frida.patient_id "
-				+ "inner join person_attribute pa on (pa.person_id = max_frida.patient_id) "
-				+ "inner join (select p.patient_id as p from patient p "
-				+ "inner join encounter e on e.patient_id = p.patient_id "
-				+ "inner join obs o on o.encounter_id = e.encounter_id and o.concept_id=6306 "
-				+ "inner join obs telef on telef.encounter_id=e.encounter_id and telef.concept_id=6309 and telef.value_coded=6307 and telef.voided=0 "
-				+ "where e.encounter_type in (34,35) and e.voided=0 and p.voided=0 and o.voided=0 "
-				+ "and p.patient_id NOT IN(select ultima.patient_id from "
-				+ "(SELECT p.patient_id as patient_id, MAX(e.encounter_datetime) as encounter_datetime "
-				+ "FROM patient p INNER JOIN encounter e ON e.patient_id=p.patient_id "
-				+ "INNER JOIN obs o on o.encounter_id=e.encounter_id and o.concept_id=6306 and o.concept_id is not null  "
-				+ "WHERE e.encounter_type in (34,35) AND o.concept_id is not null and o.value_coded is not null "
-				+ "AND o.voided=0 and e.voided=0 GROUP BY p.patient_id) ultima "
-				+ "inner join obs o on o.person_id=ultima.patient_id and o.obs_datetime=ultima.encounter_datetime and o.concept_id=6306 and o.voided=0 and o.value_coded=1066) "
-				+ ") consitiu on consitiu.p=max_frida.patient_id "
-				+ "where max_frida.encounter_datetime=o.obs_datetime and o.voided=0 and o.concept_id=5096 and pa.person_attribute_type_id = 9 and pa.value is not null and pa.voided = 0 and "
-				+ "patient_id not in (select pg.patient_id from patient p "
-				+ "inner join patient_program pg on p.patient_id=pg.patient_id "
-				+ "inner join patient_state ps on pg.patient_program_id=ps.patient_program_id "
-				+ "where pg.voided=0 and ps.voided=0 and p.voided=0 and "
-				+ "pg.program_id=2 and ps.state in (7,8,9,10) and ps.end_date is null and "
-				+ "ps.start_date<=CURDATE() union select patient_id from "
-				+ "(Select p.patient_id,max(encounter_datetime) encounter_datetime from patient p  "
-				+ "inner join encounter e on e.patient_id=p.patient_id "
-				+ "inner join obs o on o.encounter_id=e.encounter_id "
-				+ "where p.voided=0 and e.voided=0 and e.encounter_type in (6,9) and "
-				+ "o.voided=0 and o.concept_id=1255 and o.value_coded<>1260 and e.encounter_datetime<=CURDATE() "
-				+ "group by p.patient_id) max_mov " + "inner join obs o on o.person_id=max_mov.patient_id "
-				+ "where max_mov.encounter_datetime=o.obs_datetime and o.voided=0 and  "
-				+ "o.concept_id=1410 and datediff(CURDATE(), o.value_datetime)<1) "
-				+ "and datediff(CURDATE(),o.value_datetime) between 1 and 60 ";
-
-		final Query query = this.sessionFactory.getCurrentSession().createSQLQuery(sql);
-
-		final List<NotificationFollowUpPatient> notificationFollowUpPatients = new ArrayList<NotificationFollowUpPatient>();
+		final List<NotificationPatient> notificationPatients = new ArrayList<NotificationPatient>();
 
 		final List<Object[]> list = query.list();
 
 		for (final Object[] object : list) {
 
-			final NotificationFollowUpPatient notificationFollowUpPatient = new NotificationFollowUpPatient();
+			final NotificationPatient notificationPatient = new NotificationPatient();
 
-			notificationFollowUpPatient.setPatientId((Integer) object[0]);
-			notificationFollowUpPatient.setNextFila((Date) object[1]);
-			notificationFollowUpPatient.setPhoneNumber((String) object[2]);
-			notificationFollowUpPatient.setTotalFollowUpDays((BigInteger) object[3]);
+			notificationPatient.setId((Integer) object[0]);
+			notificationPatient.setArtStartDate((Date) object[1]);
+			notificationPatient.setNid((String) object[2]);
+			notificationPatient.setReminderDays((Integer) object[2]);
 
-			notificationFollowUpPatients.add(notificationFollowUpPatient);
+			notificationPatients.add(notificationPatient);
 		}
 
-		return notificationFollowUpPatients;
+		return notificationPatients;
 	}
+
+	@Override
+	public NotificationType saveNotificationType(NotificationType notificationType) {
+		this.sessionFactory.getCurrentSession().saveOrUpdate(notificationType);
+		return notificationType;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<NotificationType> getAllNotificationType() throws APIException {
+		final Criteria c = this.sessionFactory.getCurrentSession().createCriteria(NotificationType.class);
+		return c.list();
+	}
+
+	public List<MessageToBeSent> getAllMessageToBeSent() throws APIException {
+		final Criteria c = this.sessionFactory.getCurrentSession().createCriteria(MessageToBeSent.class);
+		return c.list();
+	}
+
+	@Override
+	public NotificationType findNotificationTypeById(Integer notificationTypeId) throws APIException {
+
+		Query q = sessionFactory.getCurrentSession()
+				.createQuery("FROM NotificationType s WHERE s.notificationTypeId = :notificationTypeId ");
+		q.setParameter("notificationTypeId", notificationTypeId);
+		NotificationType notificationType = (NotificationType) q.uniqueResult();
+
+		return notificationType;
+	}
+
+	@Override
+	public void deleteNotificationType(NotificationType notificationType) {
+		getSessionFactory().getCurrentSession().delete(notificationType);
+	}
+
+	@Override
+	public MessageToBeSent saveMensageToBeSent(MessageToBeSent messageToBeSent) {
+		this.sessionFactory.getCurrentSession().saveOrUpdate(messageToBeSent);
+		return messageToBeSent;
+	}
+
+	@Override
+	public void deleteMessageToBeSent(MessageToBeSent messageToBeSent) {
+		getSessionFactory().getCurrentSession().delete(messageToBeSent);
+
+	}
+
 }

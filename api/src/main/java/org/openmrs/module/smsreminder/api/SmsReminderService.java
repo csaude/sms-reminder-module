@@ -13,16 +13,15 @@
  */
 package org.openmrs.module.smsreminder.api;
 
-import java.util.Date;
 import java.util.List;
 
-import org.openmrs.Patient;
-import org.openmrs.annotation.Authorized;
 import org.openmrs.api.APIException;
 import org.openmrs.api.OpenmrsService;
-import org.openmrs.module.smsreminder.modelo.NotificationFollowUpPatient;
-import org.openmrs.module.smsreminder.modelo.NotificationPatient;
-import org.openmrs.module.smsreminder.modelo.Sent;
+import org.openmrs.module.smsreminder.model.DeliveryReportStatus;
+import org.openmrs.module.smsreminder.model.NotificationPatient;
+import org.openmrs.module.smsreminder.model.NotificationType;
+import org.openmrs.module.smsreminder.model.MessageSent;
+import org.openmrs.module.smsreminder.model.MessageToBeSent;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -39,59 +38,40 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public interface SmsReminderService extends OpenmrsService {
 
-	/*
-	 * Add service methods here
-	 * 
-	 */
-
-	@Authorized({ "Manage sent" })
-	public Sent saveSent(Sent sent);
+	@Transactional
+	public MessageSent saveMensageSent(MessageSent messageSent);
 
 	@Transactional
-	@Authorized({ "view Sent" })
-	public List<Sent> getAllSent() throws APIException;
+	public DeliveryReportStatus saveDeliveryReportStatus(DeliveryReportStatus deliveryReportStatus);
 
 	@Transactional
-	@Authorized({ "view Sent" })
-	public Sent getSentById(Integer id) throws APIException;
+	public List<MessageSent> getAllMessageSent() throws APIException;
 
 	@Transactional
-	@Authorized({ "view Sent" })
-	public List<Sent> getSentByCellNumber(String cellNumber) throws APIException;
-
-	@Authorized({ "view Sent" })
-	public List<Sent> getSentByAlertDate(Date alertDate) throws APIException;
+	public List<NotificationPatient> getAllNotificationPatient() throws APIException;
 
 	@Transactional
-	@Authorized({ "view Sent" })
-	public List<Sent> getSentByMessage(String message) throws APIException;
+	public List<NotificationPatient> findPatientsForLostFollowup();
 
 	@Transactional
-	@Authorized({ "view Sent" })
-	public List<Sent> getSentByStatus(String status) throws APIException;
+	public NotificationType saveNotificationType(NotificationType notificationType);
 
 	@Transactional
-	@Authorized({ "view Sent" })
-	public List<Sent> getSentByCreated(Date created) throws APIException;
-
-	@SuppressWarnings("rawtypes")
-	@Transactional
-	@Authorized({ "view Sent" })
-	public List<Sent> getSentBetweenCreatedAndStatus(Date start, Date end, List status) throws APIException;
+	public List<NotificationType> getAllNotificationType() throws APIException;
 
 	@Transactional
-	@Authorized({ "view Sent" })
-	public List<Sent> getSentByPatient(Patient patient) throws APIException;
+	public NotificationType findNotificationTypeById(Integer notificationTypeId) throws APIException;
 
 	@Transactional
-	@Authorized({ "view NotificationPatient" })
-	public List<NotificationPatient> getNotificationPatientList() throws APIException;
+	public void deleteNotificationType(NotificationType notificationType);
 
 	@Transactional
-	@Authorized({ "view NotificationPatient" })
-	public List<NotificationPatient> getNotificationPatientByDiasRemanescente(Integer days) throws APIException;
+	public MessageToBeSent saveMensageToBeSent(MessageToBeSent messageToBeSent);
 
 	@Transactional
-	public List<NotificationFollowUpPatient> searchFollowUpPatient();
+	public List<MessageToBeSent> getAllMessageToBeSent() throws APIException;
+
+	@Transactional
+	public void deleteMessageToBeSent(MessageToBeSent messageToBeSent);
 
 }

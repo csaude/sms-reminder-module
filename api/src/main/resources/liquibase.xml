@@ -1,19 +1,274 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
 
 
-	<changeSet id="1.0.1" author="Eusebio">
+	<changeSet author="emaposse" id="20200402-1806">
+		<preConditions onFail="MARK_RAN">
+			<not>
+				<tableExists tableName="smsreminder_message_sent" />
+			</not>
+		</preConditions>
+		<comment>
+			Create smsreminder_message_sent
+		</comment>
+		<createTable tableName="smsreminder_message_sent">
+			<column autoIncrement="true" name="message_sent_id" type="int">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
 
-		<validCheckSum>359b735227ecd08421f0524edc8020fe</validCheckSum> <!-- old checksum without specifying date_created -->
-		<validCheckSum>a4b610eb71e47ef228bb0e09e9c55384</validCheckSum> <!-- current checksum with date_created property added -->
+			<column name="msg_id" type="int">
+				<constraints nullable="true" />
+			</column>
 
-		<addColumn schemaName="openmrs" tableName="smsreminder_sent">
-			<column name="sent_type" type="varchar(255)" defaultValue="New_Member" />
-		</addColumn>
+			<column defaultValue="" name="phone_number" type="varchar(50)">
+				<constraints nullable="true" />
+			</column>
+			<column name="nid" type="varchar(500)">
+				<constraints nullable="true" />
+			</column>
+			<column name="full_name" type="varchar(500)">
+			</column>
+
+			<column name="gender" type="varchar(50)">
+				<constraints nullable="true" />
+			</column>
+
+			<column name="last_visit_date" type="DATETIME">
+				<constraints nullable="true" />
+			</column>
+
+			<column name="next_visit_date" type="DATETIME">
+				<constraints nullable="true" />
+			</column>
+
+			<column name="alert_date" type="DATETIME">
+				<constraints nullable="true" />
+			</column>
+			<column name="date_created" type="DATETIME">
+				<constraints nullable="true" />
+			</column>
+			<column name="reminder_days" type="int">
+				<constraints nullable="true" />
+			</column>
+			<column name="message" type="varchar(2000)">
+				<constraints nullable="true" />
+			</column>
+			<column name="last_status" type="varchar(255)">
+				<constraints nullable="true" />
+			</column>
+
+			<column name="last_date_status" type="DATETIME">
+				<constraints nullable="true" />
+			</column>
+
+			<column name="patient_id" type="int">
+				<constraints nullable="true" />
+			</column>
+
+			<column name="partner_msg_Id" type="varchar(500)">
+				<constraints nullable="true" />
+			</column>
+
+		</createTable>
+		<sql>
+			INSERT INTO global_property
+			(property, property_value,
+			description, uuid, datatype, datatype_config, preferred_handler,
+			handler_config)
+			VALUES('smsreminder.location_id','','Specifies the
+			location',UUID(),NULL,NULL,NULL,NULL);
+
+			INSERT INTO global_property
+			(property, property_value, description, uuid, datatype,
+			datatype_config, preferred_handler, handler_config)
+			VALUES('smsreminder.reference_date',NULL,'Specifies the date of new
+			enrolled',UUID(),NULL,NULL,NULL,NULL);
+			
+			INSERT INTO global_property
+			(property, property_value,
+			description, uuid, datatype, datatype_config, preferred_handler,
+			handler_config)
+			VALUES('smsreminder.prefix','258','Specifies The Country Prefix',UUID(),NULL,NULL,NULL,NULL);
+			
+			INSERT INTO global_property
+			(property, property_value,
+			description, uuid, datatype, datatype_config, preferred_handler,
+			handler_config)
+			VALUES('smsreminder.partial_message',' Tem um Encontro Marcado na ','Specifies Message',UUID(),NULL,NULL,NULL,NULL);
+			
+
+		</sql>
+		<modifySql dbms="mssql">
+			<replace replace="CHAR(38)"
+				with="UNIQUEIDENTIFIER NOT NULL DEFAULT NEWSEQUENTIALID()" />
+		</modifySql>
+	</changeSet>
+
+	<changeSet author="emaposse" id="20230118-0730">
+		<preConditions onFail="MARK_RAN">
+			<not>
+				<tableExists
+					tableName="smsreminder_delivery_report_status" />
+			</not>
+		</preConditions>
+		<comment>
+			Create table smsreminder_delivery_report_status
+		</comment>
+
+		<createTable
+			tableName="smsreminder_delivery_report_status">
+
+			<column autoIncrement="true" name="delivery_report_status_id"
+				type="int">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+
+			<column name="msg_id" type="int">
+				<constraints nullable="true" />
+			</column>
+
+			<column name="delivery_report_description" type="varchar(255)">
+				<constraints nullable="true" />
+			</column>
+
+			<column name="delivery_report_reason_code" type="varchar(255)">
+				<constraints nullable="true" />
+			</column>
+
+			<column name="delivery_report_update_datetime" type="DATETIME">
+				<constraints nullable="true" />
+			</column>
+			<column name="delivery_report_status" type="int">
+				<constraints nullable="true" />
+			</column>
+
+			<column name="status_description" type="varchar(255)">
+				<constraints nullable="true" />
+			</column>
+
+			<column name="message_sent_datetime" type="DATETIME">
+				<constraints nullable="true" />
+			</column>
+			<column name="nr_sms" type="int">
+				<constraints nullable="true" />
+			</column>
+			<column name="partner_msg_id" type="varchar(255)">
+				<constraints nullable="true" />
+			</column>
+
+			<column name="uuid" type="varchar(255)">
+				<constraints nullable="true" />
+			</column>
+
+			<column name="patient_id" type="int">
+				<constraints nullable="true" />
+			</column>
+
+			<column name="date_created" type="DATETIME">
+				<constraints nullable="true" />
+			</column>
+
+		</createTable>
+		<modifySql dbms="mssql">
+			<replace replace="CHAR(38)"
+				with="UNIQUEIDENTIFIER NOT NULL DEFAULT NEWSEQUENTIALID()" />
+		</modifySql>
+	</changeSet>
+
+
+	<changeSet author="emaposse" id="20230123-0750">
+		<preConditions onFail="MARK_RAN">
+			<not>
+				<tableExists tableName="smsreminder_notification_type" />
+			</not>
+		</preConditions>
+		<comment>
+			Create table smsreminder_notification_type
+		</comment>
+
+		<createTable tableName="smsreminder_notification_type">
+
+			<column autoIncrement="true" name="notification_type_id"
+				type="int">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+
+			<column name="name" type="varchar(255)">
+				<constraints nullable="true" />
+			</column>
+
+			<column name="number_of_days" type="int">
+				<constraints nullable="true" />
+			</column>
+
+		</createTable>
+		<modifySql dbms="mssql">
+			<replace replace="CHAR(38)"
+				with="UNIQUEIDENTIFIER NOT NULL DEFAULT NEWSEQUENTIALID()" />
+		</modifySql>
+	</changeSet>
+
+	<changeSet author="emaposse" id="20200402-3001">
+		<preConditions onFail="MARK_RAN">
+			<not>
+				<tableExists tableName="smsreminder_message_to_be_sent" />
+			</not>
+		</preConditions>
+		<comment>
+			Create smsreminder_message_to_be_sent
+		</comment>
+		<createTable tableName="smsreminder_message_to_be_sent">
+
+			<column autoIncrement="true" name="message_to_be_sent_id"
+				type="int">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+
+			<column name="patient_id" type="int">
+				<constraints nullable="true" />
+			</column>
+
+			<column defaultValue="" name="phone_number" type="varchar(50)">
+				<constraints nullable="true" />
+			</column>
+
+			<column name="nid" type="varchar(500)">
+				<constraints nullable="true" />
+			</column>
+
+			<column name="full_name" type="varchar(500)">
+			</column>
+
+			<column name="gender" type="varchar(50)">
+				<constraints nullable="true" />
+			</column>
+
+			<column name="message" type="varchar(2000)">
+				<constraints nullable="true" />
+			</column>
+
+			<column name="reminder_days" type="int">
+				<constraints nullable="true" />
+			</column>
+
+			<column name="last_visit_date" type="DATETIME">
+				<constraints nullable="true" />
+			</column>
+
+			<column name="next_visit_date" type="DATETIME">
+				<constraints nullable="true" />
+			</column>
+
+			<column name="was_sent" type="boolean">
+				<constraints nullable="true" />
+			</column>
+
+		</createTable>
 	</changeSet>
 
 </databaseChangeLog>

@@ -3,26 +3,25 @@
     "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
 
-<hibernate-mapping package="org.openmrs.module.smsreminder.modelo">
-	<class name="org.openmrs.module.smsreminder.modelo.NotificationPatient"
-		table="notificacao_fila" batch-size="25">
+<hibernate-mapping package="org.openmrs.module.smsreminder.model">
+	<class name="org.openmrs.module.smsreminder.model.NotificationPatient"
+		table="notification_patient" batch-size="25">
 		<composite-id>
-			<key-property name="identificador" type="java.lang.Integer" column="identificador" length="11"/>
-			<key-property name="tipoVisita" type="java.lang.Integer" column="tipo_visita" length="11"/>
+			<key-property name="patientId" type="java.lang.Integer" column="patient_id" length="11" />
+			<key-property name="visitType" type="java.lang.Integer" column="visit_type" length="11"/>
 		</composite-id>
-		<!--<id name="nid" type="java.lang.String" column="nid" unsaved-value="">
-			<generator class="native" />
-		</id>
-		<discriminator column="nid" insert="false" />-->
-		<property name="telemovel" type="java.lang.String" column="telemovel" length="10" insert="false"/>
-		<property name="diasRemanescente" type="java.lang.Integer" column="dias_remanescente" length="20" insert="false" />
-		<!--<property name="identificador" type="java.lang.Integer" column="identificador" length="11" insert="false" />
-		<property name="tipoVisita" type="java.lang.Integer" column="tipo_visita" length="11" insert="false" />-->
-		<property name="ultimaVisita" type="java.util.Date" column="ultima_visita"  insert="false" />
-		<property name="proximaVisita" type="java.util.Date" column="proxima_visita" insert="false" />
+		<property name="msgId" type="java.lang.Integer" column="msg_id" not-null="true" length="5"/>
+		<property name="PartnerMsgId" type="java.lang.String" column="partner_msg_Id" length="15" />
+		<property name="patientId" type="java.lang.Long" column="patient_id" length="10" insert="false" update="false"/>
+		<property name="phoneNumber" type="java.lang.String" column="phone_number" length="10" insert="false" update="false"/>
+		<property name="mensage" type="java.lang.String" column="mensage" length="10" insert="false"/>
+		<property name="reminderDays" type="java.lang.Integer" column="reminder_days" length="20" insert="false" />
+		<property name="lastVisitDate" type="java.util.Date" column="last_visit_date"  insert="false" />
+		<property name="nextVisitDate" type="java.util.Date" column="next_visit_date" insert="false" />
 		<property name="nid" type="java.lang.String" column="nid" insert="false" />
-		<property name="nome" type="java.lang.String" column="nome_completo" insert="false" />
-		<property name="sexo" type="java.lang.String" column="sexo" insert="false" />
-		<property name="inicioTarv" type="java.util.Date" column="inicio_tarv" insert="false" />
+		<property name="fullName" type="java.lang.String" column="full_name" insert="false" />
+		<property name="gender" type="java.lang.String" column="gender" insert="false" />
+		<property name="artStartDate" type="java.util.Date" column="art_start_date" insert="false" />
+		<property name="sentType" type="java.lang.String" column="sent_type" insert="false" />
 	</class>
 </hibernate-mapping>

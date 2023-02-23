@@ -13,15 +13,16 @@
  */
 package org.openmrs.module.smsreminder.api.db;
 
-import java.util.Date;
 import java.util.List;
 
-import org.openmrs.Patient;
+import org.openmrs.api.APIException;
 import org.openmrs.api.db.DAOException;
 import org.openmrs.module.smsreminder.api.SmsReminderService;
-import org.openmrs.module.smsreminder.modelo.NotificationFollowUpPatient;
-import org.openmrs.module.smsreminder.modelo.NotificationPatient;
-import org.openmrs.module.smsreminder.modelo.Sent;
+import org.openmrs.module.smsreminder.model.DeliveryReportStatus;
+import org.openmrs.module.smsreminder.model.MessageSent;
+import org.openmrs.module.smsreminder.model.MessageToBeSent;
+import org.openmrs.module.smsreminder.model.NotificationPatient;
+import org.openmrs.module.smsreminder.model.NotificationType;
 
 /**
  * Database methods for {@link SmsReminderService}.
@@ -32,31 +33,30 @@ public interface SmsReminderDAO {
 	 * Add DAO methods here
 	 */
 
-	public Sent saveSent(Sent sent);
+	public MessageSent saveMensageSent(MessageSent messageSent);
 
-	public void deleteSent(Sent sent) throws DAOException;
+	public List<MessageSent> getAllMessageSent() throws DAOException;
 
-	public List<Sent> getAllSent() throws DAOException;
+	public List<NotificationPatient> getAllNotificationPatient() throws DAOException;
 
-	public Sent getSentById(Integer id) throws DAOException;
+	public List<NotificationPatient> findPatientsForLostFollowup();
 
-	public List<Sent> getSentByCellNumber(String cellNumber) throws DAOException;
+	public DeliveryReportStatus saveDeliveryReportStatus(DeliveryReportStatus deliveryReportStatus);
 
-	public List<Sent> getSentByAlertDate(Date alertDate) throws DAOException;
+	public MessageSent findMessageSentToBeUpdate(DeliveryReportStatus deliveryReportStatus);
 
-	public List<Sent> getSentByMessage(String message) throws DAOException;
+	public NotificationType saveNotificationType(NotificationType notificationType);
 
-	public List<Sent> getSentByStatus(String status) throws DAOException;
+	public List<NotificationType> getAllNotificationType() throws APIException;
 
-	public List<Sent> getSentByCreated(Date created) throws DAOException;
+	public NotificationType findNotificationTypeById(Integer notificationTypeId) throws APIException;
 
-	public List<Sent> getSentBetweenCreatedAndStatus(Date start, Date end, List statuses) throws DAOException;
+	public void deleteNotificationType(NotificationType notificationType);
 
-	public List<Sent> getSentByPatient(Patient patient) throws DAOException;
+	public MessageToBeSent saveMensageToBeSent(MessageToBeSent messageToBeSent);
 
-	public List<NotificationPatient> getNotificationPatientList() throws DAOException;
+	public List<MessageToBeSent> getAllMessageToBeSent() throws APIException;
 
-	public List<NotificationPatient> getNotificationPatientByDiasRemanescente(Integer days) throws DAOException;
+	public void deleteMessageToBeSent(MessageToBeSent messageToBeSent);
 
-	public List<NotificationFollowUpPatient> searchFollowUpPatient();
 }

@@ -4,57 +4,41 @@
 
 	<groupId>org.openmrs.module</groupId>
 	<artifactId>smsreminder</artifactId>
-	<version>2.0</version>
+	<version>1.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
-	<name>SMS Reminder to FGH Patients Module</name>
-	<description>Reminder to FGH Patients to next visit.</description>
-	<url>https://wiki.openmrs.org/display/docs/SMS+Reminder+to+FGH+Patients+Module+Module</url>
-	
+	<name>SMS Module</name>
+	<description>Allows integration with sms data</description>
+	<url>https://wiki.openmrs.org/display/docs/sms+Module+Module+Module</url>
+
 	<developers>
 		<developer>
-			<name>Nelson.Mahumane</name>
+			<name>FGH</name>
 		</developer>
 	</developers>
-	
+
 	<organization>
 		<name>OpenMRS</name>
 		<url>http://openmrs.org</url>
 	</organization>
-
-	<scm>
-		<connection>scm:svn:https://svn.openmrs.org/openmrs-modules/smsreminder/trunk/</connection>
-		<developerConnection>scm:svn:https://svn.openmrs.org/openmrs-modules/smsreminder/trunk/</developerConnection>
-		<url>https://svn.openmrs.org/openmrs-modules/smsreminder/trunk/</url>
-	</scm>
-
 	<modules>
 		<module>api</module>
 		<module>omod</module>
 	</modules>
-	
+
 	<properties>
-		<openMRSVersion>2.3.2</openMRSVersion>
+		<openMRSVersion>2.3.3</openMRSVersion>
+		<openMRSWebServicesVersion>2.29.0</openMRSWebServicesVersion>
+		<reportingVersion>1.20.0</reportingVersion>
+		<calculationVersion>1.2</calculationVersion>
+		<reportingRestVersion>1.11.0</reportingRestVersion>
+		<webservicesRestVersion>2.29.0</webservicesRestVersion>
+		<serializationXstreamVersion>0.2.14</serializationXstreamVersion>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
 	<dependencyManagement>
 		<dependencies>
-		
-			<!--
-			Libraries to add as dependencies with compile or runtime scope:
-			Find matching dependencies in the maven central repository.
-			<dependency>
-				<groupId>org.other.library</groupId>
-				<artifactId>library-name</artifactId>
-				<version>library.version</version>
-				<scope>compile</scope>
-			</dependency>
-			-->
-			
-			
 
-			<!-- Begin OpenMRS core -->
-			
 			<dependency>
 				<groupId>org.openmrs.api</groupId>
 				<artifactId>openmrs-api</artifactId>
@@ -70,7 +54,7 @@
 				<type>jar</type>
 				<scope>provided</scope>
 			</dependency>
-						
+
 			<dependency>
 				<groupId>org.openmrs.api</groupId>
 				<artifactId>openmrs-api</artifactId>
@@ -78,7 +62,7 @@
 				<type>test-jar</type>
 				<scope>test</scope>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>org.openmrs.web</groupId>
 				<artifactId>openmrs-web</artifactId>
@@ -86,7 +70,7 @@
 				<type>test-jar</type>
 				<scope>test</scope>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>org.openmrs.test</groupId>
 				<artifactId>openmrs-test</artifactId>
@@ -94,21 +78,8 @@
 				<type>pom</type>
 				<scope>test</scope>
 			</dependency>
-						
-			<!-- End OpenMRS core -->
 
-			<dependency>
-				<groupId>org.quartz-scheduler</groupId>
-				<artifactId>quartz</artifactId>
-				<version>2.1.5</version>
-			</dependency>
-			
-			<!-- https://mvnrepository.com/artifact/org.smslib/smslib -->
-			<dependency>
-				<groupId>org.smslib</groupId>
-				<artifactId>smslib</artifactId>
-				<version>3.5.3</version>
-			</dependency>
+			<!-- End OpenMRS core -->
 
 		</dependencies>
 	</dependencyManagement>
@@ -120,8 +91,8 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-compiler-plugin</artifactId>
 					<configuration>
-						<target>1.6</target>
-						<source>1.6</source>
+						<target>1.7</target>
+						<source>1.7</source>
 					</configuration>
 				</plugin>
 				<plugin>
@@ -137,15 +108,6 @@
 			</plugins>
 		</pluginManagement>
 	</build>
-
-	<repositories>
-		<repository>
-			<id>openmrs-repo</id>
-			<name>OpenMRS Nexus Repository</name>
-			<url>http://mavenrepo.openmrs.org/nexus/content/repositories/public</url>
-		</repository>
-
-	</repositories>
 
 	<pluginRepositories>
 		<pluginRepository>

@@ -6,32 +6,45 @@
 	<id>${project.parent.artifactId}</id>
 	<name>${project.parent.name}</name>
 	<version>${project.parent.version}</version>
-	<package>${project.parent.groupId}.${project.parent.artifactId}</package>
-	<author>Nelson.Mahumane</author>
+	<package>${project.parent.groupId}.${project.parent.artifactId}
+	</package>
+	<author>FGH</author>
 	<description>
 		${project.parent.description}
 	</description>
-	<updateURL>https://modules.openmrs.org/modules/download/${project.parent.artifactId}/update.rdf</updateURL>
+	<updateURL>https://modules.openmrs.org/modules/download/${project.parent.artifactId}/update.rdf
+	</updateURL>
 	<require_version>${openMRSVersion}</require_version>
 	<!-- / Module Properties -->
 
+	<require_modules>
+		<require_module version="${webservicesRestVersion}">org.openmrs.module.webservices.rest
+		</require_module>
+	</require_modules>
+
 	<!-- Module Activator -->
-	<activator>${project.parent.groupId}.${project.parent.artifactId}.SMSRemindertoFGHPatientsActivator</activator>
+	<activator>org.openmrs.module.smsreminder.SMSRemindertoFGHPatientsActivator
+	</activator>
+
 	<aware_of_modules>
-	    <aware_of_module>org.openmrs.module.legacyui</aware_of_module> 
+		<aware_of_module>org.openmrs.module.legacyui</aware_of_module>
 	</aware_of_modules>
-	
+
 	<!-- Adds link to admin page -->
 	<extension>
 		<point>org.openmrs.admin.list</point>
-		<class>${project.parent.groupId}.${project.parent.artifactId}.extension.html.AdminList</class>
+		<class>org.openmrs.admin.list.AdminList
+		</class>
 	</extension>
-	
+
 	<!-- Maps hibernate file's, if present -->
 	<mappingFiles>
-		sent.hbm.xml
-		notificationpatient.hbm.xml
+		deliveryReportStatus.hbm.xml
+		mensageSent.hbm.xml
+		notificationType.hbm.xml
+		mensageToBeSent.hbm.xml
 	</mappingFiles>
+
 
 	<!-- Internationalization -->
 	<!-- All message codes should start with ${project.parent.artifactId}. -->
@@ -49,8 +62,9 @@
 	</messages>
 	<messages>
 		<lang>pt</lang>
-		<file>messages_pt.properties</file>b
+		<file>messages_pt.properties</file>
 	</messages>
 	<!-- /Internationalization -->
+
 </module>
 

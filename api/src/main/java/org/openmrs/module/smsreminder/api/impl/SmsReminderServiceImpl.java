@@ -13,21 +13,20 @@
  */
 package org.openmrs.module.smsreminder.api.impl;
 
-import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.openmrs.Patient;
 import org.openmrs.api.APIException;
-import org.openmrs.api.db.PatientDAO;
 import org.openmrs.api.impl.BaseOpenmrsService;
 import org.openmrs.module.smsreminder.api.SmsReminderService;
 import org.openmrs.module.smsreminder.api.db.SmsReminderDAO;
-import org.openmrs.module.smsreminder.modelo.NotificationFollowUpPatient;
-import org.openmrs.module.smsreminder.modelo.NotificationPatient;
-import org.openmrs.module.smsreminder.modelo.Sent;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.openmrs.module.smsreminder.model.DeliveryReportStatus;
+import org.openmrs.module.smsreminder.model.MessageSent;
+import org.openmrs.module.smsreminder.model.MessageToBeSent;
+import org.openmrs.module.smsreminder.model.NotificationPatient;
+import org.openmrs.module.smsreminder.model.NotificationType;
+import org.openmrs.module.smsreminder.utils.MessageStatus;
 
 /**
  * It is a default implementation of {@link SmsReminderService}.
@@ -37,8 +36,6 @@ public class SmsReminderServiceImpl extends BaseOpenmrsService implements SmsRem
 	protected final Log log = LogFactory.getLog(this.getClass());
 
 	private SmsReminderDAO dao;
-	@Autowired
-	private PatientDAO patientDAO;
 
 	/**
 	 * @return the dao
@@ -48,78 +45,99 @@ public class SmsReminderServiceImpl extends BaseOpenmrsService implements SmsRem
 	}
 
 	/**
-	 * @param dao
-	 *            the dao to set
+	 * @param dao the dao to set
 	 */
 	public void setDao(final SmsReminderDAO dao) {
 		this.dao = dao;
 	}
 
-	// service for Sent
 	@Override
-	public Sent saveSent(final Sent sent) {
-		return this.getDao().saveSent(sent);
+	public MessageSent saveMensageSent(final MessageSent messageSent) {
+		return this.getDao().saveMensageSent(messageSent);
 	}
 
 	@Override
-	public List<Sent> getAllSent() throws APIException {
-		return this.getDao().getAllSent();
+	public DeliveryReportStatus saveDeliveryReportStatus(DeliveryReportStatus deliveryReportStatus) {
+
+		MessageSent mensageSent = this.getDao().findMessageSentToBeUpdate(deliveryReportStatus);
+
+		if (mensageSent != null) {
+
+			deliveryReportStatus.setPatientId(mensageSent.getPatient().getPatientId());
+
+			if (deliveryReportStatus.getDeliveryReportStatus() != null) {
+
+				if (deliveryReportStatus.getDeliveryReportStatus() == 0) {
+
+					deliveryReportStatus.setStatusDescription(MessageStatus.DELIVERED.getName());
+					mensageSent.setLastStatus(MessageStatus.DELIVERED.getName());
+					mensageSent.setLastDateStatus(deliveryReportStatus.getDeliveryReportUpdateDatetime());
+				}
+				if (deliveryReportStatus.getDeliveryReportStatus() == 1) {
+					deliveryReportStatus.setStatusDescription(MessageStatus.ON_HOLD.getName());
+					mensageSent.setLastStatus(MessageStatus.ON_HOLD.getName());
+					mensageSent.setLastDateStatus(deliveryReportStatus.getDeliveryReportUpdateDatetime());
+
+				}
+				if (deliveryReportStatus.getDeliveryReportStatus() == 2) {
+					deliveryReportStatus.setStatusDescription(MessageStatus.NOT_DELIVERY.getName());
+					mensageSent.setLastStatus(MessageStatus.NOT_DELIVERY.getName());
+					mensageSent.setLastDateStatus(deliveryReportStatus.getDeliveryReportUpdateDatetime());
+				}
+			}
+		}
+		this.getDao().saveMensageSent(mensageSent);
+		return this.getDao().saveDeliveryReportStatus(deliveryReportStatus);
 	}
 
 	@Override
-	public Sent getSentById(final Integer id) throws APIException {
-		return this.getDao().getSentById(id);
+	public List<MessageSent> getAllMessageSent() throws APIException {
+		return this.getDao().getAllMessageSent();
 	}
 
 	@Override
-	public List<Sent> getSentByCellNumber(final String cellNumber) throws APIException {
-		return this.getDao().getSentByCellNumber(cellNumber);
+	public List<NotificationPatient> getAllNotificationPatient() {
+		return this.getDao().getAllNotificationPatient();
 	}
 
 	@Override
-	public List<Sent> getSentByAlertDate(final Date alertDate) throws APIException {
-		return this.getDao().getSentByAlertDate(alertDate);
+	public List<NotificationPatient> findPatientsForLostFollowup() {
+		return this.getDao().findPatientsForLostFollowup();
 	}
 
 	@Override
-	public List<Sent> getSentByMessage(final String message) throws APIException {
-		return this.getDao().getSentByMessage(message);
+	public NotificationType saveNotificationType(NotificationType notificationType) {
+		return this.getDao().saveNotificationType(notificationType);
 	}
 
 	@Override
-	public List<Sent> getSentByStatus(final String status) throws APIException {
-		return this.getDao().getSentByStatus(status);
+	public List<NotificationType> getAllNotificationType() throws APIException {
+		return this.getDao().getAllNotificationType();
 	}
 
 	@Override
-	public List<Sent> getSentByCreated(final Date created) throws APIException {
-		return this.getDao().getSentByCreated(created);
+	public NotificationType findNotificationTypeById(Integer notificationTypeId) throws APIException {
+		return this.getDao().findNotificationTypeById(notificationTypeId);
 	}
 
 	@Override
-	public List<Sent> getSentBetweenCreatedAndStatus(final Date start, final Date end, final List statuses)
-			throws APIException {
-		return this.getDao().getSentBetweenCreatedAndStatus(start, end, statuses);
+	public void deleteNotificationType(NotificationType notificationType) {
+		this.getDao().deleteNotificationType(notificationType);
 	}
 
 	@Override
-	public List<Sent> getSentByPatient(final Patient patient) throws APIException {
-		return this.getDao().getSentByPatient(patient);
+	public MessageToBeSent saveMensageToBeSent(MessageToBeSent messageToBeSent) {
+		return this.getDao().saveMensageToBeSent(messageToBeSent);
 	}
 
 	@Override
-	public List<NotificationPatient> getNotificationPatientList() throws APIException {
-		return this.getDao().getNotificationPatientList();
+	public List<MessageToBeSent> getAllMessageToBeSent() throws APIException {
+		return this.getDao().getAllMessageToBeSent();
 	}
 
 	@Override
-	public List<NotificationPatient> getNotificationPatientByDiasRemanescente(final Integer days) throws APIException {
-		return this.getDao().getNotificationPatientByDiasRemanescente(days);
-	}
-
-	@Override
-	public List<NotificationFollowUpPatient> searchFollowUpPatient() {
-		return this.getDao().searchFollowUpPatient();
+	public void deleteMessageToBeSent(MessageToBeSent messageToBeSent) {
+		this.getDao().deleteMessageToBeSent(messageToBeSent);
 	}
 
 }
