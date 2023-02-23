@@ -33,7 +33,6 @@
             td = tr.insertCell();
             td.innerHTML= '<input type="button" id="btnEdit" value="editar" onclick="editRow(this)" /> <input type="button" id="btnDelete" value="delete" onclick="deleteRow(this)" />';
 		    
-            console.log(table);
             GetCellValues();
             
             clean();
@@ -44,7 +43,7 @@
         	for(i=0;i<arrRows.length;i++){
         	  var arrCells = arrRows[i].getElementsByTagName("td");
         	  for(j=0;j<arrCells.length;j++){
-        	    alert(arrCells[j].innerHTML);
+        	    arrCells[j].innerHTML);
         	  }
         	}
         }
@@ -131,63 +130,63 @@
 
         </script>
 
-<form method="POST">
-	<div class="addnotification">
-		<div align="center">
-			<label for="typeNotification"> <openmrs:message
-					code="smsreminder.typeNotification" /><span class="required">*</span>:
-			</label> <select id="types" onchange="checkTypes(this)">
-				<option value="Levantamentos">
-					<openmrs:message code="smsreminder.pickup" />
-				</option>
-				<option value="Consultas">
-					<openmrs:message code="smsreminder.consultation" />
-				</option>
-				<option value="Faltosos">
-					<openmrs:message code="smsreminder.ltfu" />
-				</option>
-				<option value="Abandonos">
-					<openmrs:message code="smsreminder.abandoned" />
-				</option>
-			</select> <label for="numberOfDays"> <openmrs:message
-					code="smsreminder.numberOfDays" /><span class="required">*</span>:
-			</label> <input path="numberOfDays" size="5" id="numberOfDays" /> <input
-				type="button" onClick="addRow()"
-				value="<spring:message code="smsreminder.add"/>" />
-
-		</div>
-		</br>
-
-		<div id="divTable" align="center" >
-			<body>
-				<table id="resultsTable" style="width: 50%; font-size: 12px;"
-					border="1" cellpadding="5">
-					<thead>
-						<tr>
-							<th style="display: none;"><spring:message code="ID" /></th>
-							<th><spring:message code="smsreminder.typeNotification" /></th>
-							<th><spring:message code="smsreminder.numberOfDays" /></th>
-							<th><spring:message code="smsreminder.action" /></th>
-						</tr>
-					</thead>
-					<tbody>
-						<c:forEach items="${notificationTypes}" var="notificationTypes">
+	<form method="POST">
+		<div class="addnotification">
+			<div align="center">
+				<label for="typeNotification"> <openmrs:message
+						code="smsreminder.typeNotification" /><span class="required">*</span>:
+				</label> <select id="types" onchange="checkTypes(this)">
+					<option value="Levantamentos">
+						<openmrs:message code="smsreminder.pickup" />
+					</option>
+					<option value="Consultas">
+						<openmrs:message code="smsreminder.consultation" />
+					</option>
+					<option value="Faltosos">
+						<openmrs:message code="smsreminder.ltfu" />
+					</option>
+					<option value="Abandonos">
+						<openmrs:message code="smsreminder.abandoned" />
+					</option>
+				</select> <label for="numberOfDays"> <openmrs:message
+						code="smsreminder.numberOfDays" /><span class="required">*</span>:
+				</label> <input path="numberOfDays" size="5" id="numberOfDays" /> <input
+					type="button" onClick="addRow()"
+					value="<spring:message code="smsreminder.add"/>" />
+	
+			</div>
+			</br>
+	
+			<div id="divTable" align="center" >
+				<body>
+					<table id="resultsTable" style="width: 50%; font-size: 12px;"
+						border="1" cellpadding="5">
+						<thead>
 							<tr>
-								<td style="display: none;">${notificationTypes.notificationTypeId}</td>
-								<td>${notificationTypes.name}</td>
-								<td>${notificationTypes.numberOfDays}</td>
-								<td><input type="button" id="btnEdit" value="editar"
-									onclick="editRow(this)" /> <input type="button" id="btnDelete"
-									value="delete" onclick="deleteRow(this)" /></td>
+								<th style="display: none;"><spring:message code="ID" /></th>
+								<th><spring:message code="smsreminder.typeNotification" /></th>
+								<th><spring:message code="smsreminder.numberOfDays" /></th>
+								<th><spring:message code="smsreminder.action" /></th>
 							</tr>
-						</c:forEach>
-					</tbody>
-				</table>
-				</br>
-				<input type="button" id="btnGravar" onClick="save()"
-					value="<spring:message code="smsreminder.save"/>" />
+						</thead>
+						<tbody>
+							<c:forEach items="${notificationTypes}" var="notificationTypes">
+								<tr>
+									<td style="display: none;">${notificationTypes.notificationTypeId}</td>
+									<td>${notificationTypes.name}</td>
+									<td>${notificationTypes.numberOfDays}</td>
+									<td><input type="button" id="btnEdit" value="editar"
+										onclick="editRow(this)" /> <input type="button" id="btnDelete"
+										value="delete" onclick="deleteRow(this)" /></td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+					</br>
+					<input type="button" id="btnGravar" onClick="save()"
+						value="<spring:message code="smsreminder.save"/>" />
 			</body>
-</form>
+	</form>
 </div>
 </br>
 </br>

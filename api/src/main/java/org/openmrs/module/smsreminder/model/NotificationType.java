@@ -14,6 +14,11 @@ import org.openmrs.BaseOpenmrsData;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class NotificationType extends BaseOpenmrsData implements Serializable {
 
+	private static final long serialVersionUID = 1L;
+	private Integer notificationTypeId;
+	private String name;
+	private int numberOfDays;
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -30,7 +35,7 @@ public class NotificationType extends BaseOpenmrsData implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		
+
 		NotificationType other = (NotificationType) obj;
 		return Objects.equals(name, other.name) && numberOfDays == other.numberOfDays;
 	}
@@ -43,11 +48,6 @@ public class NotificationType extends BaseOpenmrsData implements Serializable {
 
 	public NotificationType() {
 	}
-
-	private static final long serialVersionUID = 1L;
-	private Integer notificationTypeId;
-	private String name;
-	private int numberOfDays;
 
 	@Override
 	public Integer getId() {
